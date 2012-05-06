@@ -1,0 +1,39 @@
+.topbar {
+  background: #d4d5d6;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#D4D5D6));
+  border-bottom: 1px solid #b1b2b3;
+  box-shadow: 0 0 12px rgba(0,0,0,0.3);
+  display: block;
+  height: 30px;
+  line-height: 30px;
+  margin: 0;
+  overflow-x: visible;
+  overflow-y: visible;
+  padding: 10px;
+  position: fixed;
+  z-index: 1030;
+
+  left: 0;
+  top: 0;
+  right: 0;
+
+  .btn-toolbar {
+    margin: 0 0 0 9px;
+    float: left;
+  }
+
+	#wide-btn{
+		padding-left: 18px;
+		padding-right: 18px;
+	}
+
+  .logo {
+    background: url('logo.png') left -26px no-repeat;
+    float: left;
+    width: 20%;
+  }
+  
+  #search-box {
+    margin-right: 9px;
+  }
+}

@@ -1,0 +1,13 @@
+= bootstrap_form_for @user, :html => {:class => 'form-horizontal'} do |f|
+  .modal
+    .modal-header
+      %h3 Signup
+    .modal-body
+      = f.text_field :name, :label => 'Full Name', :help_inline => 'e.g. Jane Parker'
+      = f.text_field :username, :required => true, :label => 'Username', :help_inline => 'e.g. jparker'
+      = f.password_field :password, :required => true, :label => 'Password'
+      = f.password_field :password_confirmation, :required => true, :label => 'Password Confirmation'
+      = f.email_field :email_address, :required => true, :label => 'Email Address', :help_inline => 'We will send your confirmation link here!'
+    .modal-footer
+      = f.cancel
+      = f.submit 'Sign Up'

@@ -1,0 +1,7 @@
+- if logged_in?
+  = subscribe_to current_user.queue_name
+
+  :javascript
+    $(function() {
+      new PrivatePubHandler("#{current_user.queue_name}");
+    });

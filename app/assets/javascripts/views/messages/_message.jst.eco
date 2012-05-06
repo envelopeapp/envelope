@@ -1,0 +1,32 @@
+<a href="<%= Routes.account_mailbox_message_path(@message.account.slug, @message.mailbox.slug, @message) %>" class="bubble message<%= ' unread' unless @message.read %><%= ' message-loading' unless @message.downloaded %>" data-message-id="<%= @message.id %>" data-mailbox-id="<%= @message.mailbox.slug %>" data-account-id="<%= @message.account.slug %>">
+  <div class="bubble-metadata">
+    <span class="message-date"><%= DynamicDate.format(@message.date) %></span>
+    <% if @message.flagged: %>
+      <i class="icon icon-flag"></i>
+    <% end %>
+  </div>
+
+  <img src="/assets/contact-silhouette.gif" class="contact-image" />
+  <div class="bubble-header">
+    <div class="bubble-header-main">
+      <% for fromer in @message.fromers: %>
+        <span class="fromer"><%= fromer.name || fromer.email_address %></span>
+      <% end %>
+    </div>
+    <div class="bubble-header-alt">
+      <%= @message.subject %>
+    </div>
+
+    <div class="message-labels">
+      <% for label in @message.labels: %>
+        <span class="label <%= label.color %>" data-label-id="<%= label.id %>"><%= label.name %></span>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="clear"></div>
+
+  <div class="bubble-body message-preview">
+    <%= @message.preview %>
+  </div>
+</a>

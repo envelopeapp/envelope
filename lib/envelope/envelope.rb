@@ -1,0 +1,2 @@
+module Envelope
+end

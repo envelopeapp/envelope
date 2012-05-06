@@ -1,0 +1,147 @@
+.left-pane {
+  float: left;
+  min-height: 100%;
+  padding: 20px 0;
+  position: relative;
+  width: 36%;
+}
+
+.middle-pane {
+  float: left;
+  height: 100%;
+  padding: 20px 0;
+  position: relative;
+  width: 4%;
+}
+
+.right-pane {
+  float: left;
+  height: 100%;
+  padding: 20px 0;
+  width: 60%;
+}
+
+.message-arrow {
+  background: image-url('arrow.png') no-repeat;
+  display: none;
+  height: 19px;
+  margin: 0 auto;
+  width: 10px;
+}
+
+.message {
+  &.message-loading {
+    background-image: image-url('loading.gif');
+    background-repeat: no-repeat;
+    background-position: center;
+
+    * {
+      opacity: 0.35;
+    }
+  }
+
+  .contact-image {
+    height: 30px;
+    width: 30px
+  }
+}
+
+/*
+ * Left Pane
+ */
+.left-pane.messages {
+  .message {
+    border-left: 5px solid #ddd;
+    cursor: pointer;
+    height: 60px;
+    overflow: hidden;
+
+    &.unread {
+      border-color: #3a87ad;
+    }
+
+    .message-labels {
+      margin: 1px 0 -3px 0;
+      overflow: hidden;
+      white-space: nowrap;
+
+      .label {
+        display: inline-block;
+      }
+    }
+
+    .message-preview {
+      line-height: 17px;
+    }
+  }
+}
+
+/*
+ * No messages
+ */
+.no-messages {
+  $size: 20px;
+  color: #cccccc;
+  display: block;
+  font-size: $size;
+  height: $size;
+  margin-top: -$size;
+  position: relative;
+  text-align: center;
+  text-shadow: 1px 1px 1px #ffffff;
+  top: 50%;
+}
+
+/*
+ * Right Pane
+ */
+.right-pane {
+  .message {
+    .message-read-toggle {
+      display: inline;
+      float: right;
+      margin-top: -15px;
+    }
+
+    .message-header-left {
+      display: inline-block;
+      font-weight: bold;
+      text-align: right;
+      width: 50px;
+    }
+
+    .message-header-right {
+      display: inline-block;
+      padding-left: 5px;
+      overflow: hidden;
+    }
+
+    .participant:not(:last-child):after {
+      content: ', ';
+      display: inline-block;
+      width: 5px;
+    }
+
+    .contact-image {
+      height: 50px;
+      width: 50px;
+    }
+  }
+}
+
+/*
+ * Composing
+ */
+#new_message {
+
+  .ui-autocomplete {
+    max-height: 100px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 20px;
+  }
+
+  * html .ui-autocomplete {
+    height: 100px;
+  }
+}

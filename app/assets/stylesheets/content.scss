@@ -1,0 +1,16 @@
+.content {
+  .loading {
+    $size: 20px;
+    color: #cccccc;
+    display: block;
+    font-size: $size;
+    height: $size;
+    margin-top: -$size;
+    position: relative;
+    text-align: center;
+    text-shadow: 1px 1px 1px #ffffff;
+    top: 50%;
+
+    -webkit-animation: blink 750ms linear infinite;
+  }
+}

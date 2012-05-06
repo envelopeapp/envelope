@@ -1,0 +1,10 @@
+development:
+  server: "http://localhost:9292/faye"
+  secret_token: "d317b4cf90130545dddbadf482695289c398d2fa4d6c3b7d3df81ba34b9193061f919cedecbc1ea6ab95bee1ca96d5a9b53d62adc05dc39b1b5e06fdd6b0ebee"
+test:
+  server: "http://localhost:9292/faye"
+  secret_token: "d317b4cf90130545dddbadf482695289c398d2fa4d6c3b7d3df81ba34b9193061f919cedecbc1ea6ab95bee1ca96d5a9b53d62adc05dc39b1b5e06fdd6b0ebee"
+production:
+  server: "http://optic.wv.cc.cmu.edu:9292/faye"
+  secret_token: "d317b4cf90130545dddbadf482695289c398d2fa4d6c3b7d3df81ba34b9193061f919cedecbc1ea6ab95bee1ca96d5a9b53d62adc05dc39b1b5e06fdd6b0ebee"
+  signature_expiration: 3600 # one hour

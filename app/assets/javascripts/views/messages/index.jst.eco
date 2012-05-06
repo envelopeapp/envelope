@@ -1,0 +1,19 @@
+<% unless @messages?.length: %>
+  <div class="no-messages">
+    There are no messages in this mailbox
+  </div>
+<% else: %>
+  <div class="left-pane messages">
+    <% for message in @messages: %>
+      <%- JST['views/messages/_message']({ message:message }) %>
+    <% end %>
+  </div>
+
+  <div class="middle-pane">
+    <div class="bubble-arrow"></div>
+  </div>
+
+  <div class="right-pane">
+    <div id="message-pane"></div>
+  </div>
+<% end %>

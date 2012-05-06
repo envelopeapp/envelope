@@ -1,0 +1,4 @@
+web:        bundle exec thin -e production start
+faye:       rackup RAILS_ENV=production ./private_pub.ru -s thin -E production
+job:        bundle exec rake jobs:work RAILS_ENV=production
+solr:       bundle exec rake sunspot:solr:run RAILS_ENV=production

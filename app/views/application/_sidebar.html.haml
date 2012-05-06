@@ -1,0 +1,35 @@
+.sidebar
+  .sidebar-title
+    Mailboxes
+    = link_to sync_accounts_path, :class => 'sync', :rel => 'tooltip', :title => 'Sync Mailboxes', :'data-placement' => 'right' do
+      %i.icon-white.icon-refresh
+
+  .mailboxes
+    %ul
+      %li
+        = link_to_with_class unified_mailbox_messages_path(:inbox), :class => 'sidebar-mailbox selectable', :'data-mailbox-id' => 'inbox' do
+          %i.icon-white.icon-inbox
+          Inbox
+      %li
+        = link_to_with_class unified_mailbox_messages_path(:sent), :class => 'sidebar-mailbox selectable', :'data-mailbox-id' => 'sent' do
+          %i.icon-white.icon-share
+          Sent
+      %li
+        = link_to_with_class unified_mailbox_messages_path(:trash), :class => 'sidebar-mailbox selectable', :'data-mailbox-id' => 'trash' do
+          %i.icon-white.icon-trash
+          Trash
+
+  - current_user.accounts.each do |account|
+    .sidebar-subtitle.arrow= account.name
+    .mailboxes{:'data-account-id' => account.slug}
+      = nested_mailboxes(account.mailboxes.arrange)
+
+  .sidebar-title
+    Labels
+  .sidebar-labels
+    - current_user.labels.each do |label|
+      - unless label.new_record?
+        = link_to '#', :class => 'sidebar-label', :'data-label-id' => label.id do
+          %span.label-color.label{:class => label.color}
+          .label-name= label.name
+    = link_to 'Manage Labels', labels_path, :class => 'btn btn-mini manage-labels-button'

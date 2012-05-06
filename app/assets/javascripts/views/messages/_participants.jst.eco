@@ -1,0 +1,10 @@
+<% if @participants?.length: %>
+  <div class="message-participants">
+    <div class="message-header-left"><%= @label %>:</div>
+    <div class="message-header-right">
+      <% for participant in @participants: %>
+        <span class="participant"><%= participant.name || participant.email_address %></span>
+      <% end %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,10 @@
+= bootstrap_form_for @label do |f|
+  .modal
+    .modal-header
+      %h3= title
+    .modal-body
+      = f.text_field :name
+      = f.radio_buttons :color, Label::COLORS.collect{ |l| ["<span class='label #{l.last}'>&nbsp</span>".html_safe, l.last] }
+    .modal-footer
+      = f.cancel
+      = f.submit

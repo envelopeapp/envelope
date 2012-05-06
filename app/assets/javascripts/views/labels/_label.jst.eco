@@ -1,0 +1,1 @@
+<span class="label <%= @label.color %>" data-label-id="<%= @label.id %>"><%= @label.name %></span>

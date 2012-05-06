@@ -1,0 +1,25 @@
+%div{:style => 'text-align:center; width:100%;'}
+  .btn-toolbar
+    .btn-group
+      %button.btn <i class="icon icon-refresh"></i> Sync
+    .btn-group
+      = link_to'#modal', :class => 'btn', :data => { :toggle => 'modal' } do
+        %i.icon.icon-envelope
+        Compose
+    .btn-group
+      %button.btn <i class="icon icon-share-alt"></i> Reply
+      %button.btn <i class="icon icon-leaf"></i> Reply All
+      %button.btn <i class="icon icon-arrow-right"></i> Forward
+    .btn-group
+      %button.btn <i class="icon icon-ban-circle"></i> Delete
+
+
+.modal.hide.fade#modal
+  .modal-header
+    %a.close{:data => { :dismiss => 'modal' }} &times;
+    %h3 New Message for #{@account.name}
+  .modal-body
+    %p New Message
+  .modal-footer
+    %a.btn{:href => '#'} Close
+    %a.btn.btn-primary{:href => '#'} Save Changes

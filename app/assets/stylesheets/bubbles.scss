@@ -1,0 +1,170 @@
+.left-pane {
+  float: left;
+  min-height: 100%;
+  padding: 20px 0;
+  position: relative;
+  width: 36%;
+}
+
+.middle-pane {
+  float: left;
+  height: 100%;
+  padding: 20px 0;
+  position: relative;
+  width: 4%;
+}
+
+.right-pane {
+  float: left;
+  height: 100%;
+  padding: 20px 0;
+  width: 60%;
+}
+
+.bubble-arrow {
+  background: image-url('arrow.png') no-repeat;
+  display: none;
+  height: 19px;
+  margin: 0 auto;
+  position: relative;
+  width: 10px;
+}
+
+.bubble {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: block;
+  padding: 10px;
+  position: relative;
+  text-decoration: none;
+
+  &.selected {
+    background: #f7f7f7;
+  }
+
+  &:hover {
+    border-top: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    text-decoration: none;
+  }
+
+  .bubble-metadata {
+    color: #999;
+    font-size: 80%;
+    line-height: 80%;
+    margin: 0;
+    opacity: 1.0;
+    padding: 0;
+    position: absolute;
+    right: 12px;
+    top: 12px;
+
+    -webkit-transition: opacity 300ms;
+    -moz-transition: opacity 300ms;
+    -o-transition: opacity 300ms;
+    transition: opacity 300ms;
+  }
+
+  .contact-image {
+    border-radius: 5px;
+    float: left;
+  }
+
+  .bubble-header {
+    color: #666;
+    float: left;
+    margin: -2px 0 0 8px;
+    width: 80%;
+    font-size: 12px;
+    line-height: 16px;
+
+    .bubble-header-main {
+      color: #333;
+      font-weight: bold;
+    }
+
+    .bubble-header-alt {
+      color: #333;
+      white-space: nowrap;
+    }
+  }
+
+  .bubble-body {
+    color: #666;
+    font-size: 11px;
+    margin: 5px 0 0 0;
+  }
+}
+
+/*
+ * Left Pane
+ */
+.left-pane {
+  .bubble {
+    margin: 0 0 10px 20px;
+  }
+}
+
+/*
+ * Right Pane
+ */
+.right-pane {
+  .bubble {
+    margin: 0 20px 0 0;
+
+    &:hover {
+      border: 1px solid #ccc;
+
+      .bubble-actions {
+        opacity: 1.0;
+
+        -webkit-transition: opacity 300ms;
+        -moz-transition: opacity 300ms;
+        -o-transition: opacity 300ms;
+        transition: opacity 300ms;
+      }
+
+      .bubble-metadata {
+        opacity: 0.0;
+      }
+    }
+
+    .bubble-actions {
+      opacity: 0.0;
+      margin: 10px;
+      padding: 0;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    .bubble-header {
+      .contact-image {
+        margin-right: 10px;
+      }
+
+      width: 100%;
+      margin: 0;
+
+      .main {
+        color: #333;
+        font-size: 16px;
+      }
+      .alt {
+        font-size: 14px;
+      }
+    }
+
+    .bubble-divider {
+      padding: 0;
+      margin: 5px 0 0 0;
+    }
+
+    .bubble-body {
+      margin-top: 10px;
+      font-size: 11px;
+    }
+  }
+}

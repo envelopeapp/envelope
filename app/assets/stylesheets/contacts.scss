@@ -1,0 +1,114 @@
+.contacts {	
+	.contact {
+    margin: 0 0 5px 20px;
+    padding: 8px;
+    
+    &:hover {
+      border: 1px solid #ccc;
+    }	
+  }
+  
+  .bubble-header {
+    display: inline-block;
+    float: left;
+    margin: 0;
+    width: 80%;
+
+    .bubble-header-main {
+      display: inline-block;
+      overflow: hidden;
+      margin-right: 5%;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      # width: 52%;
+    }
+
+    .bubble-header-alt {
+      display: inline-block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 32%;
+    }
+  }
+}
+
+.right-pane {
+  .contact {
+    .contact-image-container {
+      float: left;
+      padding-right: 20px;
+      width: 22%;
+      
+      .contact-image {
+        height: 100px;
+        width: 100px;
+      }
+    }
+    
+    .bubble-header {
+      float: left;
+      
+      width: 70%;
+      margin-top: 10px;
+
+      .main {
+        color: #333;
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+      
+      .alt {
+        font-size: 16px;
+      }
+    }
+        
+		.bubble-body {		  
+		  .contact-group {
+		    margin-top: 18px;
+		  		    
+		    .contact-line {
+		      font-size: 13px;
+		      height: 18px;
+		      width: 100%;
+		    
+		      .contact-label {
+      		  display: inline-block;
+      		  font-weight: bold;
+      		  float: left;
+      		  text-align: right;
+      		  padding-right: 20px;
+      		  width: 22%;
+   		    }
+
+      		.contact-details {
+      		  display: inline-block;
+      		  float: left;
+      		  width: 73%;
+      		}
+		    }
+		  }
+		}
+  }
+}
+
+/*
+ * Composing/Editing
+ */
+ 
+.form-page-header {
+  margin: 20px 0 0 20px;
+}
+
+.new_contact, .edit_contact {
+	margin: 20px;
+	.field{
+/*		label {
+			width: 20%;
+		}*/
+
+		select{
+			width: 80px;
+		}
+	}
+}

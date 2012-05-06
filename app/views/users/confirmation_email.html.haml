@@ -1,0 +1,6 @@
+.modal
+  .modal-header
+    %h3 Congratulations!
+  .modal-body
+    %p= flash.notice.try(:html_safe)
+    %p You can close this browser window.

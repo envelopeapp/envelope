@@ -1,0 +1,77 @@
+/*
+ *= require bootstrap
+ *= require bootstrap_jquery-ui
+ *= require bootstrap_overrides
+
+ *= require_tree ./lib
+
+ *= require animations
+ *= require bubbles
+ *= require contacts
+ *= require content
+ *= require full
+ *= require labels
+ *= require messages
+ *= require sidebar
+ *= require topbar
+
+ *= require_self
+ */
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+ background: #eee image-url('background.png') top left repeat fixed;
+}
+
+.wrapper {
+  display: block;
+  height: auto;
+  margin-top: 50px;
+  position: absolute;
+
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.tooltip {
+  z-index: 2000;
+}
+
+.content {
+  height: 100%;
+  margin-left: 20%;
+  overflow: auto;
+  width: 80%;
+}
+
+#flash {
+  display: none;
+  left: 25%;
+  right: 5%;
+  position: absolute;
+  text-align: center;
+  z-index: 1000;
+}
+
+.clear {
+  clear: both;
+}
+
+::-webkit-scrollbar {
+  width: 11px;
+}
+
+::-webkit-scrollbar-track {
+  margin: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+}

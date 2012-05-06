@@ -1,0 +1,11 @@
+%div
+  %strong Name:
+  = @mailbox.name
+
+%div
+  %strong Location:
+  = @mailbox.location
+
+= link_to 'Edit', edit_account_mailbox_path(@account, @mailbox)
+|
+= link_to 'Back', account_mailboxes_path(@account)

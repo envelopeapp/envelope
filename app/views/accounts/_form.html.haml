@@ -1,0 +1,66 @@
+:css
+  .advanced {
+    display: none;
+  }
+
+= bootstrap_form_for @account, :html => {:class => 'form-horizontal'} do |f|
+  .modal
+    .modal-header
+      %h3= title
+    .modal-body
+      - if current_user.accounts.empty?
+        .alert.alert-info
+          In envelope, an account is an email account (such as Gmail, Yahoo, or AOL)
+
+      = f.text_field :name, :label => 'Account Name', :help_inline => 'e.g. Gmail'
+      = f.select :provider, options_for_select(CommonAccountSetting.all.collect{|cas| [cas.name, cas.id, cas.html_options]}), :prompt => 'Select a Provider...'
+
+      %div{:id => 'settingscheckbox', :style=>"display:none;"}
+        %input{:type => 'button', :value=>'Show Advanced Server Settings'}
+
+      = f.text_field :email_address, :label => 'Username'
+      .simple
+        = f.password_field :password, :label => 'Password'
+
+      .advanced
+        = f.text_field :reply_to_address
+        = f.text_field :imap_directory
+
+      .advanced
+        %ul.nav.nav-tabs
+          %li{:class => 'active'}= link_to 'IMAP', '#incoming_server', :data => { :toggle => 'tab' }
+          %li= link_to 'SMTP', '#outgoing_server', :data => { :toggle => 'tab' }
+
+        .tab-content
+          .tab-pane.active#incoming_server
+            %h2 Incoming Server
+            = f.fields_for :incoming_server do |ff|
+              = ff.text_field :address
+
+              = ff.text_field :port, :class => 'input-mini'
+
+              = ff.check_box :ssl, :label => 'SSL?'
+
+              = ff.fields_for :server_authentication do |fff|
+                %h3 Authentication
+                = fff.text_field :username
+
+                = fff.password_field :password
+          .tab-pane#outgoing_server
+            %h2 Outgoing Server
+            = f.fields_for :outgoing_server do |ff|
+              = ff.text_field :address
+
+              = ff.text_field :port, :class => 'input-mini'
+
+              = ff.check_box :ssl, :label => 'SSL?'
+
+              = ff.fields_for :server_authentication do |fff|
+                %h3 Authentication
+                = fff.text_field :username
+
+                = fff.password_field :password
+
+    .modal-footer
+      = link_to 'Show Advanced Settings', '#advanced', :class => 'btn', :id => 'account_show_advanced_settings'
+      = f.submit

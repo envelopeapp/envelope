@@ -1,0 +1,80 @@
+:css
+  #message_headers {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 0;
+    margin: 0;
+    background: #fff;
+    font-size: 12px;
+    font-family: "Lucida Grande";
+    border-bottom: 1px solid #dedede;
+    overflow: hidden;
+  }
+
+  #message_headers dl {
+    margin: 0;
+    padding: 0;
+  }
+
+  #message_headers dt {
+    width: 60px;
+    padding: 1px;
+    float: left;
+    text-align: right;
+    font-weight: bold;
+    color: #7f7f7f;
+  }
+
+  #message_headers dd {
+    margin-left: 70px;
+    padding: 1px;
+  }
+
+  #message_headers p.alternate {
+    position: absolute;
+    top: 0;
+    right: 15px;
+  }
+
+  #message_headers p.alternate a {
+    color: #09c;
+  }
+
+  pre#message_body {
+    padding: 10px;
+    word-wrap: break-word;
+  }
+
+  body {
+    margin: 0;
+  }
+
+#message_headers
+  %dl
+    %dt From:
+    %dd= @message.fromers.join(', ')
+
+    %dt Subject:
+    %dd= @message.subject
+
+    %dt Date:
+    %dd= @message.date.strftime("%b %e, %Y %I:%M:%S %p %Z")
+
+    %dt To:
+    %dd= @message.toers.join(', ')
+
+    - unless @message.ccers.blank?
+      %dt Cc:
+      %dd= @message.ccers.join(', ')
+
+    - unless @message.bccers.blank?
+      %dt Bcc:
+      %dd= @message.bccers.join(', ')
+
+%pre#message_body
+  - unless @message.html_part.blank?
+    = @message.html_part.html_safe
+  - else
+    = simple_format(@message.text_part)

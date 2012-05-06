@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Message:</b>
+  <%= @attachment.message_id %>
+</p>
+
+<p>
+  <b>File:</b>
+  <%= @attachment.file %>
+</p>
+
+
+<%= link_to 'Edit', edit_attachment_path(@attachment) %> |
+<%= link_to 'Back', attachments_path %>

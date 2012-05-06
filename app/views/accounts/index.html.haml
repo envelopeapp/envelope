@@ -1,0 +1,43 @@
+.modal
+  .modal-header
+    %h3 My Accounts
+  .modal-body
+    .tabbable.tabs
+      %ul.nav.nav-tabs
+        - @accounts.each_with_index do |account, i|
+          %li{ :class => "#{'active' if i == 0}"}
+            = link_to account.name, "##{i}", :data => { :toggle => 'tab' }
+      .tab-content
+        - @accounts.each_with_index do |account, i|
+          .tab-pane{:id => i, :class => "#{'active' if i == 0}"}
+            .pull-left
+              %dl
+                %dt Account Name
+                %dd= account.name
+              %dl
+                %dt Email Address
+                %dd= account.email_address
+              %dl
+                %dt Reply-To Address
+                %dd= account.reply_to_address.presence || '(none)'
+            .pull-right.well{:style => 'width: 200px'}
+              %dl
+                %dt Outgoing Server
+                %dd= account.outgoing_server.address
+              %dl
+                %dt Incoming Server
+                %dd= account.incoming_server.address
+              %dl
+                %dt Directory
+                %dd= account.imap_directory.presence || '(none)'
+            .clear
+
+            = link_to edit_account_path(account), :class => 'btn' do
+              %i.icon.icon-edit
+              Edit
+            = link_to account, confirm: 'Are you sure?', method: :delete, :class => 'btn btn-danger' do
+              %i.icon-white.icon-remove
+              Delete
+  .modal-footer
+    = link_to 'Cancel', unified_mailbox_messages_path(:inbox), :class => 'btn'
+    = link_to 'New Account', new_account_path, :class => 'btn btn-primary'

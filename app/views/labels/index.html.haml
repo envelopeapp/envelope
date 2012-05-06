@@ -1,0 +1,30 @@
+.modal
+  .modal-header
+    %h3 Labels
+  .modal-body
+    %table.table.table-bordered
+      %thead
+        %tr
+          %th{:width => 10}
+          %th Name
+          %th{:width => 30}
+          %th{:width => 30}
+        %tbody
+          - @labels.each do |label|
+            %tr
+              %td
+                %span{:class => "label #{label.color}"} &nbsp;
+              %td
+                = label.name
+              %td
+                = link_to edit_label_path(label), :class => 'btn' do
+                  %i.icon.icon-edit
+              %td
+                = link_to label, :method => :delete, :class => 'btn btn-danger', :confirm => 'Are you sure you want to delete this label? This will not delete any messages, but it will remove this label from all messages.' do
+                  %i.icon-white.icon-trash
+
+  .modal-footer
+    = link_to new_label_path, :class => 'btn pull-left' do
+      %i.icon.icon-tag
+      New Label
+    = link_to 'Done', unified_mailbox_messages_path(:inbox), :class => 'btn btn-primary'

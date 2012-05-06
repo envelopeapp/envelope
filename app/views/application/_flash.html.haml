@@ -1,0 +1,6 @@
+- [:alert, :error, :success, :info].each do |type|
+  - if flash[type]
+    :javascript
+      $(function() {
+        Flash.#{type.to_s}('#{flash[type]}');
+      });

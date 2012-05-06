@@ -1,0 +1,56 @@
+= nested_form_for @contact, :class => 'modal' do |f|
+  = @contact.errors.full_messages.join('<br />').html_safe
+  / / = f.label :prefix
+  / / = f.text_field :prefix
+  / 
+  .field
+    .field-name
+      = f.label :first_name
+    = f.text_field :first_name
+    / = f.label :middle_name
+    / = f.text_field :middle_name
+  .field
+    .field-name
+      = f.label :last_name
+    = f.text_field :last_name
+    / = f.label :suffix
+    / = f.text_field :suffix
+  .field
+    .field-name
+      = f.label :nickname
+    = f.text_field :nickname
+    
+  .field
+    .field-name
+      = f.label :title
+    = f.text_field :title
+    
+    / = f.label :department
+    / = f.text_field :department
+  
+    / = f.label :birthday
+    / = f.text_field :birthday
+  .field
+    .form-header
+      = f.label :emails
+    .form-body
+      = f.fields_for :emails do |ef|
+        .line
+          = ef.select :label, ['Work', 'Home']
+          = ef.text_field :email_address
+    .add
+      = f.link_to_add '+Email', :emails
+    %br
+  .field  
+    .form-header
+      = f.label :phones
+    .form-body
+      = f.fields_for :phones do |pf|
+        .line
+          = pf.select :label, ["Mobile", "Work", "Home"]
+          = pf.text_field :phone_number
+    .add
+      = f.link_to_add '+Phone', :phones
+    %br
+
+  = f.submit "Save"

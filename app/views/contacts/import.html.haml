@@ -1,0 +1,9 @@
+= bootstrap_form_for @contact, :url => import_contacts_path, :html => { :class => 'form-horizontal' } do |f|
+  .modal
+    .modal-header
+      %h3 Import Contacts
+    .modal-body
+      = f.file_field :vcards
+    .modal-footer
+      = f.cancel
+      = f.submit 'Import Contacts'

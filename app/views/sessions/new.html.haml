@@ -1,0 +1,24 @@
+= form_tag login_path, :class => 'form-horizontal' do
+  .modal
+    .modal-header
+      %h3 Login
+    .modal-body
+      - if flash.alert
+        .alert.alert-error
+          = flash.alert
+      - if flash.notice
+        .alert
+          = flash.notice
+      .control-group
+        = label_tag :login, 'Email/Username', :class => 'control-label'
+        .controls
+          = text_field_tag :login, params[:login]
+      .control-group
+        = label_tag :password, 'Password', :class => 'control-label'
+        .controls
+          = password_field_tag :password
+    .modal-footer
+      .pull-left
+        = link_to 'Sign Up', signup_path, :class => 'btn btn'
+      = link_to 'Forgot Password', forgot_password_path, :class => 'btn'
+      = submit_tag 'Login', :class => 'btn btn-primary'

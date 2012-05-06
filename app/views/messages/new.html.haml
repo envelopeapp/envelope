@@ -1,0 +1,48 @@
+:css
+  .control-label {
+    width: 50px !important;
+  }
+
+  .controls {
+    margin-left: 60px !important;
+  }
+
+= bootstrap_form_for @message, :html => { :class => 'form-horizontal' } do |f|
+  .modal
+    .modal-header
+      %a{:href => '#', :data => { :dismiss => 'modal' }}
+      %h3 Compose
+    .modal-body
+      - unless @message.errors.empty?
+        .alert.alert-error
+          %p The following errors prohibited your message from being delivered:
+          %ul
+            - @message.errors.full_messages.each do |error|
+              %li= error
+
+      - if current_user.accounts.size > 1
+        = f.select :account_id, options_for_select(current_user.accounts.collect{|a| ["#{a.name} <#{a.email_address}>", a.id]}, @message.account_id), {}, :width => '100%'
+      - else
+        = f.hidden_field :account_id, :value => current_user.accounts.first.id
+      = f.text_field :to, :class => 'span5 contact-search'
+      = f.text_field :cc, :class => 'span5 contact-search'
+      = f.text_field :bcc, :class => 'span5 contact-search'
+      = f.text_field :subject, :class => 'span5'
+      = f.text_area :body, :class => 'span5', :rows => 10
+    .modal-footer
+      = link_to 'Cancel', unified_mailbox_messages_path(:inbox), :class => 'btn'
+      = f.submit 'Send Message'
+
+- if %w(reply reply-all).include?(params[:mode])
+  :javascript
+    $(function() {
+      $messageBody = $('#message_body');
+      $messageBody.val("\n\n\n" + $messageBody.val());
+      $messageBody.focus();
+    });
+
+- if %w(forward).include?(params[:mode])
+  :javascript
+    $(function() {
+      $('#message_to').focus();
+    });

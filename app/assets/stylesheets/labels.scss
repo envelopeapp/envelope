@@ -1,0 +1,22 @@
+ul.dropdown-menu.label-dropdown {
+  li {
+    a {
+      padding-left: 20px;
+
+      &.checked:before {
+        content: '\2713 ';
+        display: block;
+        float: left;
+        height: 15px;
+        margin-top: 3px;
+        position: absolute;
+        width: 10px;
+      }
+
+      span {
+        display: inline-block;
+        margin: 5px 0 5px 20px;
+      }
+    }
+  }
+}
