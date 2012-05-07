@@ -4,16 +4,7 @@ development:
   database: envelope_development
   username: envelope
   password: envelope
-  host: 127.0.0.1
   wait_timeout: 2147483
-
-test:
-  adapter: mysql2
-  encoding: utf8
-  database: envelope_test
-  username: envelope
-  password: envelope
-  host: 127.0.0.1
 
 production:
   adapter: mysql2
@@ -21,4 +12,9 @@ production:
   database: envelope_production
   username: envelope
   password: envelope
-  host: 127.0.0.1
+
+test:
+  adapter: mysql2
+  encoding: utf8
+  database: envelope_test
+  username: root
