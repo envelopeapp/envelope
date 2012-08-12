@@ -17,7 +17,7 @@ gem 'kaminari'
 gem 'mail'
 gem 'nested_form', :git => 'git://github.com/ryanb/nested_form.git'
 gem 'private_pub'
-gem 'rails', '3.2.3'
+gem 'rails', '3.2.8'
 gem 'sunspot_rails'
 gem 'thin'
 gem 'vcard'
@@ -32,13 +32,11 @@ end
 group :development do
   gem 'bullet'
   gem 'faker'
-  gem 'growl'
-  gem 'hirb'
   gem 'mysql2'
   gem 'rails-erd'
   gem 'progress_bar'
   gem 'sunspot_solr'
-  gem 'wirble'
+  gem 'terminal-notifier'
   gem 'yard'
 end
 
