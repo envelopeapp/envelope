@@ -1,10 +1,11 @@
-source 'https://rubygems.org'
+source :rubygems
 
 gem 'activerecord-import', '>= 0.2.0'
 gem 'ancestry'
+gem 'backbone-on-rails'
 gem 'bcrypt-ruby'
 gem 'bootstrap_forms'
-gem 'cancan'
+gem 'cancan', :path => '/Users/sethvargo/Development/cancan'
 gem 'chronic'
 gem 'delayed_job_active_record'
 gem 'eco'
@@ -17,15 +18,18 @@ gem 'kaminari'
 gem 'mail'
 gem 'nested_form', :git => 'git://github.com/ryanb/nested_form.git'
 gem 'private_pub'
+gem 'rabl-rails'
 gem 'rails', '3.2.8'
+gem 'rails-api'
 gem 'sunspot_rails'
 gem 'thin'
 gem 'vcard'
 gem 'warden'
+gem 'yajl-ruby', :require => 'yajl'
 
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'
-  gem 'sass-rails',   '~> 3.2.3'
+  gem 'sass-rails', '~> 3.2.3'
   gem 'uglifier', '>= 1.0.3'
 end
 

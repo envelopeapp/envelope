@@ -8,7 +8,7 @@ module Envelope::Auth
   end
 
   def current_user
-    @current_user ||= warden.user
+    @current_user ||= User.first #warden.user
   end
 
   def logged_in?

@@ -2,7 +2,8 @@ class User < ActiveRecord::Base
   has_secure_password
 
   # callbacks
-  after_create { generate_token!(:auth_token) }
+  after_create { generate_token!(:access_key) }
+  after_create { generate_token!(:secret_token) }
   after_create { send_confirmation_email }
 
   # associations

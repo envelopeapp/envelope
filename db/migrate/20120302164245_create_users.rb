@@ -7,8 +7,9 @@ class CreateUsers < ActiveRecord::Migration
       t.string :email_address
       t.string :password_digest
 
-      # Rememberable
-      t.string :auth_token
+      # Auth
+      t.string :access_key
+      t.string :secret_token
 
       # Recoverable
       t.string :reset_password_token

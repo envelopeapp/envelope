@@ -1,0 +1,7 @@
+<h1>Accounts</h1>
+
+<ul>
+<% for account in @accounts.models: %>
+  <li><%= account.get('name') %></li>
+<% end %>
+</ul>

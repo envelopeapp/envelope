@@ -7,8 +7,18 @@
 #= require private_pub
 
 #= require_tree ./lib
-#= require_tree ./views
 #= require_tree ./helpers
+
+#= require underscore
+#= require backbone
+#
+#= require envelope
+#
+#= require_tree ../templates
+#= require_tree ./models
+#= require_tree ./collections
+#= require_tree ./views
+#= require_tree ./routers
 
 #= require accounts
 #= require contacts
