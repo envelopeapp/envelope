@@ -15,7 +15,9 @@ child :incoming_server do
   extends 'api/v1/servers/show'
 end
 
-child :outgoing_server
+child :outgoing_server do
+  extends 'api/v1/servers/show'
+end
 
 # create_table "accounts", :force => true do |t|
 #   t.integer  "user_id"

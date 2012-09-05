@@ -1,17 +1,20 @@
 require 'constraints/api_constraints'
 
 Envelope::Application.routes.draw do
-
-  namespace :api, defaults: { format: 'json' } do
+  namespace :api do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
       resources :accounts do
         resources :mailboxes
       end
+
+      resources :common_account_settings, :only => :index
+
+      resources :users
     end
   end
 
   root to: 'main#index'
-
+  match '*path' => 'main#index'
 
 
 

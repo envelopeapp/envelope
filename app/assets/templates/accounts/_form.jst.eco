@@ -1,0 +1,82 @@
+<style type="text/css">
+  .advanced {
+    display: none;
+  }
+</style>
+
+<div class="modal">
+  <div class="modal-header">
+    <h3>Create/Edit Account</h3>
+  </div>
+
+  <div class="modal-body">
+    <div class="alert alert-info">
+      In envelope, an account is an email account (such as Gmail, Yahoo, or AOL)
+    </div>
+
+    <form class="form-horizontal" id="new-account-form">
+      <%- Envelope.Helpers.Forms.bootstrap_field(type: 'text', label: 'Name', name: 'name', placeholder: 'Gmail') %>
+
+      <div class="control-group">
+        <label class="control-label">Provider</label>
+        <div class="controls">
+          <select name="provider" placeholder="Select a Provider...">
+            <option selected="selected">Select a Provider...</option>
+            <% for common_account_setting in @common_account_settings.models: %>
+              <option data-provider="<%= JSON.stringify(common_account_setting) %>"><%= common_account_setting.get('name') %></option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+
+      <%- Envelope.Helpers.Forms.bootstrap_field(type: 'text', label: 'Username', name: 'email_address', placeholder: 'freakyfriday@gmail.com') %>
+
+      <div class="simple">
+        <%- Envelope.Helpers.Forms.bootstrap_field(type: 'password', label: 'Password', name: 'password') %>
+      </div>
+
+      <div class="advanced">
+        <%- Envelope.Helpers.Forms.bootstrap_field(type: 'text', label: 'Reply-To Address', name: 'reply_to_address') %>
+        <%- Envelope.Helpers.Forms.bootstrap_field(type: 'text', label: 'IMAP Directory', name: 'imap_directory') %>
+      </div>
+
+      <div class="advanced">
+        <ul class="nav nav-tabs">
+          <li class="active">
+            <a href="#incoming_server" data-toggle="tab">IMAP</a>
+          </li>
+          <li>
+            <a href="#outgoing_server" data-toggle="tab">SMTP</a>
+          </li>
+        </ul>
+
+        <div class="tab-content">
+          <div class="tab-pane active" id="incoming_server">
+            <h3>Incoming Server</h3>
+            <%- Envelope.Helpers.Forms.bootstrap_field(type: 'text', label: 'Address', name: 'incoming_server_attributes.address', placeholder: 'imap.gmail.com') %>
+            <%- Envelope.Helpers.Forms.bootstrap_field(type: 'text', label: 'Port', name: 'incoming_server_attributes.port', placeholder: '993') %>
+            <%- Envelope.Helpers.Forms.bootstrap_field(type: 'checkbox', label: 'Use SSL?', name: 'incoming_server_attributes.ssl', checked: 'checked') %>
+            <%- Envelope.Helpers.Forms.bootstrap_field(type: 'text', label: 'Username', name: 'incoming_server_attributes.server_authentication_attributes.username') %>
+            <%- Envelope.Helpers.Forms.bootstrap_field(type: 'password', label: 'Password', name: 'incoming_server_attributes.server_authentication_attributes.password') %>
+          </div>
+
+          <div class="tab-pane" id="outgoing_server">
+            <h3>Outgoing Server</h3>
+            <%- Envelope.Helpers.Forms.bootstrap_field(type: 'text', label: 'Address', name: 'outgoing_server_attributes.address', placeholder: 'smtp.gmail.com') %>
+            <%- Envelope.Helpers.Forms.bootstrap_field(type: 'text', label: 'Port', name: 'outgoing_server_attributes.port', placeholder: '465') %>
+            <%- Envelope.Helpers.Forms.bootstrap_field(type: 'checkbox', label: 'Use SSL?', name: 'outgoing_server_attributes.ssl', checked: 'checked') %>
+            <%- Envelope.Helpers.Forms.bootstrap_field(type: 'text', label: 'Username', name: 'outgoing_server_attributes.server_authentication_attributes.username') %>
+            <%- Envelope.Helpers.Forms.bootstrap_field(type: 'password', label: 'Password', name: 'outgoing_server_attributes.server_authentication_attributes.password') %>
+          </div>
+        </div>
+      </div>
+
+      <input type="submit">
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <a href="#advanced" class="btn" id="account-show-advanced-settings">Show Advanced Settings</a>
+    <input type="submit" class="btn btn-primary" id="account-submit">
+  </div>
+</div>

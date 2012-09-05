@@ -1,7 +1,11 @@
-<h1>Accounts</h1>
+<div class="modal">
+  <div class="modal-header">
+    <h3>My Accounts</h3>
+  </div>
 
-<ul>
-<% for account in @accounts.models: %>
-  <li><%= account.get('name') %></li>
-<% end %>
-</ul>
+  <div class="modal-body">
+    <% for account in @accounts.models: %>
+      <a href="/accounts/<%= account.get('id') %>" data-account-id="<%= account.get('id') %>"><%= account.get('name') %></a>
+    <% end %>
+  </div>
+</div>

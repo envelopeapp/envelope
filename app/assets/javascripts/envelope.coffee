@@ -1,11 +1,12 @@
 window.Envelope =
   Models: {}
   Collections: {}
+  Helpers: {}
   Views: {}
   Routers: {}
   init: ->
     new Envelope.Routers.Accounts()
-    Backbone.history.start()
+    Backbone.history.start(pushState: true)
 
 $(document).ready ->
   Envelope.init()
@@ -30,3 +31,6 @@ $.ajaxSetup
 
     xhr.setRequestHeader 'access_key', accessKey
     xhr.setRequestHeader 'secret_token', secretToken
+
+    # Always request JSON
+    xhr.setRequestHeader 'Accept', 'application/json'

@@ -52,7 +52,6 @@ class Render
   # Render labels
   #
   labels: (labels) =>
-    console.log 'labels'
 
 # export to the global namespace
 window.Render = Render

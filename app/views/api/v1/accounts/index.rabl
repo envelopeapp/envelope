@@ -1,6 +1,6 @@
 collection :@accounts
 
-attributes :name, :slug, :email_address, :reply_to_address, :imap_directory
+attributes :id, :name, :slug, :email_address, :reply_to_address, :imap_directory
 
 
 # t.integer  "user_id"

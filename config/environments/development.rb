@@ -40,7 +40,7 @@ Envelope::Application.configure do
   # Send development emails to browser
   config.action_mailer.delivery_method = :sendmail
 
-  # Bullett
+  # Bullet
   config.after_initialize do
     Bullet.enable = true
     Bullet.console = true
@@ -48,3 +48,6 @@ Envelope::Application.configure do
     Bullet.disable_browser_cache = true
   end
 end
+
+# for foreman
+STDOUT.sync = true
