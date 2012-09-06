@@ -3,11 +3,26 @@ class Envelope.Helpers.Forms
     options.type ||= 'text'
     options.id ||= options.name.toLowerCase().replace /\./g, '_'
 
-    optionsString = _.map(Object.keys(options), (k) -> "#{k}=\"#{options[k]}\"").join(' ')
+    optionsString = _.map(options, (v,k) -> "#{k}=\"#{v}\"").join(' ')
 
     "<div class=\"control-group\">
       <label class=\"control-label\">#{options.label}</label>
       <div class=\"controls\">
         <input #{optionsString}>
+      </div>
+    </div>"
+
+  @bootstrap_select: (options) ->
+    options.id ||= options.name.toLowerCase().replace /\./g, '_'
+
+    selectOptionsString = _.compact(_.map(options, (v,k) -> "#{k}=\"#{v}\"" unless k in ['options', 'value'])).join(' ')
+    optionsString = _.map(options.options, (option) -> "<option #{_.map(option, (v,k) -> "#{k}=\"#{v}\"").join(' ')}>#{option.label || option.value}</option>").join("\n")
+
+    "<div class=\"control-group\">
+      <label class=\"control-label\">#{options.label}</label>
+      <div class=\"controls\">
+        <select #{selectOptionsString}>
+          #{optionsString}
+        </select>
       </div>
     </div>"

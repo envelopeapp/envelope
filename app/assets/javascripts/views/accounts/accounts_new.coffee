@@ -34,7 +34,6 @@ class Envelope.Views.AccountsNew extends Backbone.View
     collection.create form_data,
       wait: true
       success: (model, response) ->
-        console.log 'model saved!'
         Backbone.history.navigate("accounts/#{model.id}", trigger: true)
       error: @_handleError
 

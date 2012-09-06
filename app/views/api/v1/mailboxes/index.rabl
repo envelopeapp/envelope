@@ -1,6 +1,6 @@
 collection :@mailboxes
 
-attributes :name, :slug, :location, :selectable, :last_synced
+attributes :id, :name, :slug, :location, :selectable, :last_synced
 
 # t.integer :account_id
 # t.string :ancestry
