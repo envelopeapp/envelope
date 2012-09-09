@@ -13,18 +13,13 @@ class MessagesController < ApplicationController
   end
 
   def search
-    @search = Message.search do
-      fulltext params[:q]
-      with(:user_id, current_user.id)
-      paginate(per_page:15, page:params[:page] || 1)
-    end
-
+    @search = current_user.search(params[:q], page: params[:page])
     @messages = @search.results
     respond_with(@messages, location:nil)
   end
 
   def unified
-    @messages = current_user.send("#{params[:unified_mailbox]}_messages".to_sym).includes(:fromers).page(params[:page] || 1).per(15)
+    @messages = [] #current_user.send("#{params[:unified_mailbox]}_messages".to_sym).includes(:fromers).page(params[:page] || 1).per(15)
     respond_with(@messages) do |format|
       format.html { render action:'index' }
       format.json
@@ -75,7 +70,7 @@ class MessagesController < ApplicationController
         @message.subject = "Re: #{@parent_message.subject}"
       end
 
-      @message.account_id = @parent_message.account.id
+      @message.account_id = @parent_message.account._id
       @message.body = (@parent_message.html_part.presence || @parent_message.text_part.presence || '=====')
     end
 
@@ -117,7 +112,7 @@ class MessagesController < ApplicationController
   end
 
   def create
-    Delayed::Job.enqueue(Jobs::MessageSender.new(current_user.id, params[:message]))
+    Delayed::Job.enqueue(Jobs::MessageSender.new(current_user._id, params[:message]))
     redirect_to unified_mailbox_messages_path(:inbox)
   end
 

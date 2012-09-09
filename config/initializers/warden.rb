@@ -4,11 +4,11 @@ Rails.application.config.middleware.use Warden::Manager do |manager|
 end
 
 Warden::Manager.serialize_into_session do |user|
-  user.id
+  user._id
 end
 
 Warden::Manager.serialize_from_session do |id|
-  User.find(id)
+  User.find_by(:id => id)
 end
 
 Warden::Strategies.add(:password) do
@@ -17,7 +17,7 @@ Warden::Strategies.add(:password) do
   end
 
   def authenticate!
-    user = User.where(['username = :value OR email_address = :value', { value:params['login'] }]).first || Account.find_by_email_address(params['login']).try(:user)
+    user = User.or({ :username => params['login'] }, { :email_address => params['login'] }).first || Account.where(email_address: params['login']).first.try(:user)
     if user.try(:authenticate, params['password'])
       if user.confirmed?
         success! user

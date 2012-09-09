@@ -1,9 +1,15 @@
-class Email < ActiveRecord::Base
+class Email
+  include Mongoid::Document
+
+  # fields
+  field :label, type: String
+  field :email_address, type: String
+
   # associations
-  belongs_to :contact, :inverse_of => :emails
+  embedded_in :contact
 
   # validations
-  validates_presence_of :contact, :label, :email_address
+  validates_presence_of :label, :email_address
 
   # scopes
 

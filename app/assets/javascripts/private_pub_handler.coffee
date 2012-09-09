@@ -16,7 +16,7 @@ class PrivatePubHandler
   #
   loading_mailboxes: (data) ->
     account = data.account
-    $progressBar = $('div.progress#' + account.slug + ' .bar')
+    $progressBar = $('div.progress#' + account._id + ' .bar')
     $progressBar.css({width:'5%'})
 
     $('.sidebar .sync').addClass('rotate')
@@ -33,11 +33,11 @@ class PrivatePubHandler
     account = data.account
 
     # update the progress bar
-    $progressBar = $(".progress[data-account-id=#{account.slug}] .bar")
+    $progressBar = $(".progress[data-account-id=#{account._id}] .bar")
     $progressBar.css({ width: "#{data.percent_complete}%" })
 
     # update the status text
-    $statusText = $(".status[data-account-id=#{account.slug}]")
+    $statusText = $(".status[data-account-id=#{account._id}]")
     $statusText.html("Loaded #{mailbox.name}...")
 
   #
@@ -51,11 +51,11 @@ class PrivatePubHandler
     account = data.account
 
     # update the progress bar
-    $progressBar = $(".progress[data-account-id=#{account.slug}] .bar")
+    $progressBar = $(".progress[data-account-id=#{account._id}] .bar")
     $progressBar.css({ width:'100%' })
 
     # update the status text
-    $statusText = $(".status[data-account-id=#{account.slug}]")
+    $statusText = $(".status[data-account-id=#{account._id}]")
     $statusText.html("Done!")
 
     $('.sidebar .sync').removeClass('rotate')
@@ -70,7 +70,7 @@ class PrivatePubHandler
   #   - a mailbox messages have begun to load
   #
   loading_messages: (data) ->
-    $(".sidebar .sidebar-mailbox[data-mailbox-id=#{data.mailbox.slug}]").addClass('loading')
+    $(".sidebar .sidebar-mailbox[data-mailbox-id=#{data.mailbox._id}]").addClass('loading')
 
   #
   # Tells the front-end that we have finished loading new messages for the given mailbox. If
@@ -85,15 +85,15 @@ class PrivatePubHandler
     $left_pane = $('.left-pane')
 
     # if we are looking at the active mailbox
-    if $(".sidebar-mailbox[data-mailbox-id=#{mailbox.slug}]").hasClass('active')
+    if $(".sidebar-mailbox[data-mailbox-id=#{mailbox._id}]").hasClass('active')
       # make a remote call to get all the new messages
       $left_pane.html('')
       $left_pane.addClass('loading')
-      $.getJSON Routes.account_mailbox_messages_path(account.slug, mailbox.slug), (messages) ->
+      $.getJSON Routes.account_mailbox_messages_path(account._id, mailbox._id), (messages) ->
         Render.messages(messages)
 
     # remove the loading class(es)
-    $(".sidebar .sidebar-mailbox[data-mailbox-id=#{mailbox.slug}]").removeClass('loading')
+    $(".sidebar .sidebar-mailbox[data-mailbox-id=#{mailbox._id}]").removeClass('loading')
 
 
   #
@@ -115,7 +115,7 @@ class PrivatePubHandler
   #
   loaded_message_body: (data) ->
     message = data.message
-    $message = $(".left-pane .message[data-message-id=#{message.id}]")
+    $message = $(".left-pane .message[data-message-id=#{message._id}]")
     if $message
       $message.replaceWith(JST['views/messages/_message']({ message:message }))
 
@@ -139,7 +139,7 @@ class PrivatePubHandler
   update_unread_messages_counter: (data) ->
     mailbox = data.mailbox
 
-    $mailbox_line = $(".sidebar a[data-mailbox-id=#{mailbox.slug}]")
+    $mailbox_line = $(".sidebar a[data-mailbox-id=#{mailbox._id}]")
     $mailbox_line.find('.unread-messages-counter').remove()
 
     unless mailbox.unread_messages == 0
@@ -156,10 +156,10 @@ class PrivatePubHandler
     label = data.label
     message = data.message
 
-    $message_left_labels = $(".left-pane .message[data-message-id=#{message.id}] .message-labels")
+    $message_left_labels = $(".left-pane .message[data-message-id=#{message._id}] .message-labels")
     $message_left_labels.append(JST['views/labels/_label']({ label:label }))
 
-    $message_right_labels = $(".right-pane .message[data-message-id=#{message.id}] .message-labels")
+    $message_right_labels = $(".right-pane .message[data-message-id=#{message._id}] .message-labels")
     $message_right_labels.append(JST['views/labels/_label']({ label:label }))
 
 
@@ -173,7 +173,7 @@ class PrivatePubHandler
     label = data.label
     message = data.message
 
-    $(".message[data-message-id=#{message.id}] .label[data-label-id=#{label.id}]").remove()
+    $(".message[data-message-id=#{message._id}] .label[data-label-id=#{label._id}]").remove()
 
 
   #

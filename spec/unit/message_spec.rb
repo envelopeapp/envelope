@@ -2,29 +2,16 @@ require 'spec_helper'
 
 describe Message do
   before do
-    @message = create(:message)
-  end
-
-  after do
-    @message.destroy
+    Envelope::IMAP.any_instance.stub(:uid_store).and_return(true)
+    Envelope::IMAP.any_instance.stub(:uid_copy).and_return(true)
+    @message = build(:message)
   end
 
   # assocations
   it { should have_and_belong_to_many(:labels) }
   it { should belong_to(:mailbox) }
-  it { should have_one(:account).through(:mailbox) }
-  it { should have_one(:user).through(:account) }
-  it { should have_many(:attachments) }
-  it { should have_many(:participants) }
-    it { should have_many(:toers) }
-    it { should have_many(:fromers) }
-    it { should have_many(:senders) }
-    it { should have_many(:ccers) }
-    it { should have_many(:bccers) }
-    it { should have_many(:reply_toers) }
-
-  # validations
-  it { should validate_presence_of(:mailbox) }
+  it { should embed_many(:attachments) }
+  it { should embed_many(:participants) }
 
   # methods
   describe 'unread?' do

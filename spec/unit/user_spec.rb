@@ -2,29 +2,14 @@ require 'spec_helper'
 
 describe User do
   before do
-    @user = create(:user, first_name:'Seth', last_name:'Vargo')
-  end
-
-  after do
-    @user.destroy
+    @user = build(:user, first_name:'Seth', last_name:'Vargo')
   end
 
   # assocations
   it { should have_many(:accounts) }
-  it { should have_many(:mailboxes).through(:accounts) }
-  it { should have_many(:messages).through(:mailboxes) }
-
-  # unified mailboxes
-  it { should have_many(:inbox_mailboxes).through(:accounts) }
-    it { should have_many(:inbox_messages).through(:inbox_mailboxes) }
-  it { should have_many(:sent_mailboxes).through(:accounts) }
-    it { should have_many(:sent_messages).through(:sent_mailboxes) }
-  it { should have_many(:trash_mailboxes).through(:accounts) }
-    it { should have_many(:trash_messages).through(:trash_mailboxes) }
 
   it { should have_many(:labels) }
   it { should have_many(:contacts) }
-  it { should have_many(:contact_emails).through(:contacts) }
 
   # validations
   it { should validate_uniqueness_of(:username) }
@@ -58,7 +43,7 @@ describe User do
 
   describe 'queue_name' do
     it 'should be the SHA1 of id, name, created_at, and updated_at' do
-      tmp = [@user.id, @user.name, @user.created_at, @user.updated_at].join('/')
+      tmp = [@user._id, @user.name, @user.created_at, @user.updated_at].join('/')
       digest = Digest::SHA1.hexdigest(tmp)
       @user.queue_name.should == ['', digest].join('/')
     end
@@ -120,37 +105,9 @@ describe User do
     end
   end
 
-  describe 'reset_password!' do
-    it 'should enqueue a job for password reset' do
-      expect {
-        @user.reset_password!
-      }.to change(Delayed::Job, :count).by(1)
-    end
-
-    it 'should run the delayed_job process' do
-      expect {
-        Delayed::Worker.new.work_off
-      }.to change(Delayed::Job, :count).by(-2)
-    end
-  end
-
   describe 'generate_token!' do
     it 'should generate a unique token' do
       expect { @user.generate_token!(:confirmation_token) }.to change(@user, :confirmation_token)
-    end
-  end
-
-  describe 'send_confirmation_email' do
-    it 'should send a confirmation email' do
-      expect {
-        @user.send(:send_confirmation_email)
-      }.to change(Delayed::Job, :count).by(1)
-    end
-
-    it 'should run the delayed_job process' do
-      expect {
-        Delayed::Worker.new.work_off
-      }.to change(Delayed::Job, :count).by(-2)
     end
   end
 end

@@ -1,9 +1,15 @@
-class Attachment < ActiveRecord::Base
+class Attachment
+  include Mongoid::Document
+
+  # fields
+  field :filename, type: String
+  field :size, type: String
+
   # associations
-  belongs_to :message
+  embedded_in :message
 
   # validations
-  validates_presence_of :message, :file
+  validates_presence_of :filename, :size
 
   # scopes
 

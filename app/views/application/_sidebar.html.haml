@@ -21,7 +21,7 @@
 
   - current_user.accounts.each do |account|
     .sidebar-subtitle.arrow= account.name
-    .mailboxes{:'data-account-id' => account.slug}
+    .mailboxes{:'data-account-id' => account._id}
       = nested_mailboxes(account.mailboxes.arrange)
 
   .sidebar-title
@@ -29,7 +29,7 @@
   .sidebar-labels
     - current_user.labels.each do |label|
       - unless label.new_record?
-        = link_to '#', :class => 'sidebar-label', :'data-label-id' => label.id do
+        = link_to '#', :class => 'sidebar-label', :'data-label-id' => label._id do
           %span.label-color.label{:class => label.color}
           .label-name= label.name
     = link_to 'Manage Labels', labels_path, :class => 'btn btn-mini manage-labels-button'

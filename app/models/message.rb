@@ -1,25 +1,37 @@
-class Message < ActiveRecord::Base
-  has_ancestry :cache_depth => true
+class Message
+  include Mongoid::Document
+  include Mongoid::Timestamps
 
-  # searchable
-  searchable do
-    integer :mailbox_id
-    integer :account_id do
-      self.account.id
-    end
-    integer :user_id do
-      self.user.id
-    end
-    text :subject, :boost => 10
-    text :preview, :boost => 7
-    text :toers, :boost => 5
-    text :fromers, :boost => 5
-    text :senders, :boost => 5
-    text :ccers, :boost => 2
-    text :bccers, :boost => 1
-    text :text_part
-    text :html_part
-  end
+  # search
+  include Tire::Model::Search
+  include Tire::Model::Callbacks
+
+  mapping do
+    indexes :_id, index: :not_analyzed
+    indexes :user_id
+    indexes :mailbox
+    indexes :subject, type: 'string', analyzer: 'snowball', boost: 10
+    indexes :text_part, type: 'string', analyzer: 'snowball'
+    indexes :participants
+    indexes :labels
+  end unless Rails.env.test?
+
+  # fields
+  field :uid, type: Integer
+  field :message_id, type: String
+  field :subject, type: String, default: '(no subject}'
+  field :date, type: DateTime
+  field :read, type: Boolean
+  field :downloaded, type: Boolean
+  field :flagged, type: Boolean
+  field :text_part, type: String
+  field :html_part, type: String
+  field :preview, type: String
+  field :raw, type: String
+
+  # ancestry
+  include Mongoid::Ancestry
+  has_ancestry :cache_depth => true
 
   # attr_accessor
   attr_accessor :account_id
@@ -32,22 +44,14 @@ class Message < ActiveRecord::Base
   # associations
   has_and_belongs_to_many :labels
   belongs_to :mailbox
-  has_one :account, :through => :mailbox
-  has_one :user, :through => :account
-  has_many :attachments, :dependent => :destroy
-  has_many :participants, :dependent => :destroy
-    has_many :toers, :class_name => 'Participant', :conditions => { :participant_type => 'To' }
-    has_many :fromers, :class_name => 'Participant', :conditions => { :participant_type => 'From' }
-    has_many :senders, :class_name => 'Participant', :conditions => { :participant_type => 'Sender' }
-    has_many :ccers, :class_name => 'Participant', :conditions => { :participant_type => 'Cc' }
-    has_many :bccers, :class_name => 'Participant', :conditions => { :participant_type => 'Bcc' }
-    has_many :reply_toers, :class_name => 'Participant', :conditions => { :participant_type => 'Reply-To' }
+  embeds_many :participants
+  embeds_many :attachments
 
   # validations
-  validates_presence_of :mailbox
+  validates_presence_of :date, :read, :downloaded
 
   # scopes
-  default_scope order('messages.date DESC').includes(:account, :mailbox, :labels, :fromers)
+  default_scope order_by(:date => :desc).includes(:mailbox, :labels)
   scope :read, where(read:true)
   scope :unread, where(read:false)
   scope :downloaded, where(downloaded:true)
@@ -62,6 +66,14 @@ class Message < ActiveRecord::Base
   end
 
   # instance methods
+  def user_id
+    self.mailbox.account.user_id
+  end
+
+  def account
+    self.mailbox.account
+  end
+
   def unread?
     !self.read?
   end
@@ -98,6 +110,10 @@ class Message < ActiveRecord::Base
       :include => [:account, :mailbox, :labels, :fromers]
     }.update(options)
     super(options)
+  end
+
+  def to_indexed_json
+    to_json :methods => %w(user_id)
   end
 
   # private methods

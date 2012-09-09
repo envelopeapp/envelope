@@ -20,7 +20,7 @@ module Jobs
       @imap = Envelope::IMAP.new(@account)
 
       # get uids
-      uids = @mailbox.messages.undownloaded.pluck(:uid)
+      uids = @mailbox.messages.undownloaded.collect(&:uid)
 
       # get all messages
       imap_messages = @imap.uid_fetch(@mailbox, uids, ['UID', 'FLAGS', 'ENVELOPE', 'RFC822'])
@@ -32,7 +32,7 @@ module Jobs
           parse_message_body(message)
           PrivatePub.publish_to @user.queue_name, :action => 'loaded_message_body', :message => message
         rescue Exception => e
-          error = "Error loading message(id:#{message.id}): #{e}"
+          error = "Error loading message(id:#{message._id}): #{e}"
           puts error + e.backtrace.join("\t\n")
           PrivatePub.publish_to @user.queue_name, :action => 'error', :message => error
         end

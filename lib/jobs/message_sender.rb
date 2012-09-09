@@ -19,8 +19,8 @@ module Jobs
 
       mail.delivery_method :smtp, :address => @account.outgoing_server.address,
                                   :port => @account.outgoing_server.port,
-                                  :user_name => @account.outgoing_server.server_authentication.username,
-                                  :password => @account.outgoing_server.server_authentication.password,
+                                  :user_name => @account.outgoing_server.authentication.username,
+                                  :password => @account.outgoing_server.authentication.password,
                                   :authentication => 'plain',
                                   :ssl => true,
                                   :tls => true

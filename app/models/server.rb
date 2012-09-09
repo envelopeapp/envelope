@@ -1,16 +1,22 @@
-class Server < ActiveRecord::Base
+class Server
+  include Mongoid::Document
+
+  # fields
+  field :address, type: String
+  field :port, type: Integer
+  field :ssl, type: Boolean
+
   # associations
   has_one :account
-  has_one :server_authentication, :dependent => :destroy, :inverse_of => :server
-
-  # nested attributes
-  accepts_nested_attributes_for :server_authentication
+  embeds_one :authentication, class_name: 'ServerAuthentication'
 
   # validations
-  validates_presence_of :address, :port
+  validates_presence_of :address, :port, :authentication
+
+  # nested attributes
+  accepts_nested_attributes_for :authentication
 
   # scopes
-
 
   # class methods
   class << self

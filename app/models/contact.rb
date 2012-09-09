@@ -1,30 +1,37 @@
-class Contact < ActiveRecord::Base
+class Contact
+  include Mongoid::Document
+  include Mongoid::Timestamps
+
+  field :prefix, type: String
+  field :first_name, type: String
+  field :middle_name, type: String
+  field :last_name, type: String
+  field :suffix, type: String
+  field :nickname, type: String
+  field :title, type: String
+  field :department, type: String
+  field :birthday, type: Date
+  field :notes, type: String
+
   # associations
   belongs_to :user
-  has_many :emails, :inverse_of => :contact
-  has_many :phones, :inverse_of => :contact
-  has_many :addresses, :inverse_of => :contact
-  has_many :participants
+  embeds_many :emails
+  embeds_many :phones
+  embeds_many :addresses
 
   # validations
-  #validates_presence_of :emails, :on => :create, :message => "Cannot create a contact with no email"
 
   # scopes
-  default_scope order('first_name', 'last_name')
+  default_scope order_by(:last_name => :asc, :first_name => :asc)
 
   # attr accessor
   attr_accessor :vcards
 
-  # nested attributes
-  accepts_nested_attributes_for :emails, :reject_if => lambda{|a| a[:email_address].blank?}
-  accepts_nested_attributes_for :phones, :reject_if => lambda{|a| a[:phone_number].blank?}
-  accepts_nested_attributes_for :addresses
-
   # class methods
   class << self
     def search(q)
-      q ||= ''
-      self.joins(:emails).select('contacts.first_name, contacts.last_name, emails.email_address').where('contacts.first_name LIKE (:q) OR contacts.last_name LIKE (:q) OR emails.email_address LIKE (:q)', { q:"%#{q}%" })
+      return [] unless q.present?
+      Contact.any_of({ 'first_name' => q }, { 'last_name' => q }, { 'emails.email_address' => q })
     end
 
     def import_from_vcard(user, upload)
@@ -37,7 +44,7 @@ class Contact < ActiveRecord::Base
       File.open(path, 'w+') { |f| f.write(upload.read) }
 
       # put it into delayed job
-      Delayed::Job.enqueue(Jobs::ContactImporter.new(user.id, path))
+      Delayed::Job.enqueue(Jobs::ContactImporter.new(user._id, path))
     end
   end
 
@@ -51,11 +58,7 @@ class Contact < ActiveRecord::Base
   end
 
   def name_email
-    if self.respond_to?(:email_address)
-      [self.name, '-', self.email_address].join(' ')
-    else
-      [self.name, '-', self.emails.first.try(:email_address)].join(' ')
-    end
+    [self.name, '-', self.emails.first.try(:email_address)].join(' ')
   end
 
   # private methods

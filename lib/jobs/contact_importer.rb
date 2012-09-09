@@ -60,7 +60,7 @@ module Jobs
         end
 
         contact = Contact.new({
-          user_id: @user.id,
+          user_id: @user._id,
           prefix: prefix,
           first_name: first_name,
           middle_name: middle_name,

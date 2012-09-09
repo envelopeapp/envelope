@@ -1,9 +1,15 @@
-class ServerAuthentication < ActiveRecord::Base
+class ServerAuthentication
+  include Mongoid::Document
+
+  # fields
+  field :username, type: String
+  field :encrypted_password, type: String
+
   # associations
-  belongs_to :server, :inverse_of => :server_authentication
+  embedded_in :server
 
   # validations
-  validates_presence_of :server, :username
+  validates_presence_of :username
   validates_presence_of :password, :on => :create
 
   # scopes

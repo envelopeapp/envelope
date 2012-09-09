@@ -1,12 +1,12 @@
-<div class="contact bubble" data-contact-id="<%= @contact.id %>">
+<div class="contact bubble" data-contact-id="<%= @contact._id %>">
   <div class="contact-image-container">
     <img src="/assets/contact-silhouette.gif" class="contact-image" />
   </div>
   <div class="bubble-actions btn-group">
-    <a href="/contacts/<%= @contact.id %>/edit" class="btn">
+    <a href="/contacts/<%= @contact._id %>/edit" class="btn">
       <i class="icon icon-edit"></i>
     </a>
-    <a href="/contacts/<%= @contact.id %>" class="btn" id="delete-button" data-method="delete">
+    <a href="/contacts/<%= @contact._id %>" class="btn" id="delete-button" data-method="delete">
       <i class="icon icon-trash"></i>
     </a>
   </div>

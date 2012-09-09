@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe Attachment do
   # associations
-  it { should belong_to(:message) }
+  it { should be_embedded_in(:message) }
 
   # validations
-  it { should validate_presence_of(:message) }
-  it { should validate_presence_of(:file) }
+  it { should validate_presence_of(:filename) }
+  it { should validate_presence_of(:size) }
 end

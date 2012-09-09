@@ -13,7 +13,7 @@
           In envelope, an account is an email account (such as Gmail, Yahoo, or AOL)
 
       = f.text_field :name, :label => 'Account Name', :help_inline => 'e.g. Gmail'
-      = f.select :provider, options_for_select(CommonAccountSetting.all.collect{|cas| [cas.name, cas.id, cas.html_options]}), :prompt => 'Select a Provider...'
+      = f.select :provider, options_for_select(CommonAccountSetting.all.collect{|cas| [cas.name, cas._id, cas.html_options]}), :prompt => 'Select a Provider...'
 
       %div{:id => 'settingscheckbox', :style=>"display:none;"}
         %input{:type => 'button', :value=>'Show Advanced Server Settings'}
@@ -41,7 +41,7 @@
 
               = ff.check_box :ssl, :label => 'SSL?'
 
-              = ff.fields_for :server_authentication do |fff|
+              = ff.fields_for :authentication do |fff|
                 %h3 Authentication
                 = fff.text_field :username
 
@@ -55,7 +55,7 @@
 
               = ff.check_box :ssl, :label => 'SSL?'
 
-              = ff.fields_for :server_authentication do |fff|
+              = ff.fields_for :authentication do |fff|
                 %h3 Authentication
                 = fff.text_field :username
 

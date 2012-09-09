@@ -1,6 +1,12 @@
-class Label < ActiveRecord::Base
+class Label
+  include Mongoid::Document
+
+  # fields
+  field :name, type: String
+  field :color, type: String
+
   # Label Colors
-  COLORS = [['gray', ''], ['green', 'label-success'], ['yellow', 'label-warning'], ['red', 'label-important'], ['blue', 'label-info'], ['black', 'label-inverse']] unless const_defined?("COLORS")
+  COLORS = [['gray', ''], ['green', 'label-success'], ['yellow', 'label-warning'], ['red', 'label-important'], ['blue', 'label-info'], ['black', 'label-inverse']].freeze unless defined?(COLORS)
 
   # associations
   belongs_to :user

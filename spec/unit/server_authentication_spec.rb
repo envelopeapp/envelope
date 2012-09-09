@@ -2,19 +2,15 @@ require 'spec_helper'
 
 describe ServerAuthentication do
   before do
-    @server_authentication = create(:server_authentication)
+    @server = build(:server)
+    @server_authentication = build(:server_authentication, server: @server)
     @encryptor = @server_authentication.send(:encryptor)
   end
 
-  after do
-    @server_authentication.destroy
-  end
-
   # associations
-  it { should belong_to(:server) }
+  it { should be_embedded_in(:server) }
 
   # validations
-  it { should validate_presence_of(:server) }
   it { should validate_presence_of(:username) }
   it { should validate_presence_of(:password) }
 
@@ -26,14 +22,6 @@ describe ServerAuthentication do
 
     it 'should not crash when password is nil' do
       lambda { @server_authentication.password = nil }.should_not raise_error
-    end
-
-    it 'should set the encrypted password correctly' do
-      password = 'secret'
-      encrypted_password = @encryptor.encrypt_and_sign(password.to_s)
-
-      @server_authentication.password = 'secret'
-      @server_authentication.encrypted_password#.should == encrypted_password
     end
   end
 
