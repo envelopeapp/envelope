@@ -4,7 +4,9 @@ Envelope::Application.routes.draw do
   namespace :api do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
       resources :accounts do
-        resources :mailboxes
+        resources :mailboxes do
+          resources :messages
+        end
       end
 
       resources :common_account_settings, :only => :index

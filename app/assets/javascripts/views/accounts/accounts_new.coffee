@@ -4,11 +4,16 @@ class Envelope.Views.AccountsNew extends Backbone.View
   events:
     'change select[name=provider]': 'changeProvider'
     'click #account-show-advanced-settings': 'showAdvanced'
+    'click #accounts-button': 'navigateIndex'
     'submit #new-account-form': 'submit'
     'click #account-submit': 'submit'
 
   initialize: ->
     @options.common_account_settings.on('reset', @render, @)
+
+  navigateIndex: (event) ->
+    event.preventDefault()
+    Backbone.history.navigate('accounts', trigger: true)
 
   changeProvider: (event) ->
     provider = $(event.target).children('option:selected')
@@ -34,7 +39,7 @@ class Envelope.Views.AccountsNew extends Backbone.View
     collection.create form_data,
       wait: true
       success: (model, response) ->
-        Backbone.history.navigate("accounts/#{model.id}", trigger: true)
+        Backbone.history.navigate('accounts', trigger: true)
       error: @_handleError
 
   render: ->

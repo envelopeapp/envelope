@@ -167,6 +167,8 @@ GEM
     progress_bar (0.4.0)
       highline (~> 1.6.1)
       options (~> 2.3.0)
+    puma (1.6.3)
+      rack (~> 1.2)
     rabl-rails (0.1.2)
       activesupport (~> 3.0)
       railties (~> 3.0)
@@ -316,6 +318,7 @@ DEPENDENCIES
   nested_form!
   private_pub
   progress_bar
+  puma
   rabl-rails
   rails (= 3.2.8)
   rails-api

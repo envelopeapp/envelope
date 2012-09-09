@@ -6,8 +6,13 @@ class Envelope.Models.Account extends Backbone.Model
     account.fetch()
     account
 
+  initialize: ->
+    @mailboxes = new Envelope.Collections.Mailboxes()
+    @mailboxes.url = "/api/accounts/#{@get('id')}/mailboxes"
+    @mailboxes.bind 'reset', -> console.log @mailboxes
+
   selectableMailboxes: ->
-    _.select @get('mailboxes'), (mailbox) -> mailbox.selectable
+    _.sortBy _.select(@get('mailboxes'), (mailbox) -> mailbox.selectable), (mailbox) -> mailbox.name
 
   toJSON: ->
     json = { account: _.clone(@attributes) }

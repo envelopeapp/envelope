@@ -44,7 +44,6 @@ Envelope::Application.configure do
   config.after_initialize do
     Bullet.enable = true
     Bullet.console = true
-    Bullet.rails_logger = true
     Bullet.disable_browser_cache = true
   end
 end

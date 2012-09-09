@@ -1,7 +1,0 @@
-Showing <%= @account.get('name') %>
-
-<ul>
-<% for property, value of @account.attributes: %>
-  <li><%= property %>: <%= value %></li>
-<% end %>
-</ul>

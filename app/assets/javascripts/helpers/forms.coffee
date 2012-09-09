@@ -16,12 +16,14 @@ class Envelope.Helpers.Forms
     options.id ||= options.name.toLowerCase().replace /\./g, '_'
 
     selectOptionsString = _.compact(_.map(options, (v,k) -> "#{k}=\"#{v}\"" unless k in ['options', 'value'])).join(' ')
-    optionsString = _.map(options.options, (option) -> "<option #{_.map(option, (v,k) -> "#{k}=\"#{v}\"").join(' ')}>#{option.label || option.value}</option>").join("\n")
+    placeholderString = "<option>#{options.placeholder}</option>" if options.placeholder?
+    optionsString = _.map(options.options, (option) -> "<option #{_.map(option, (v,k) -> "#{k}=\"#{v}\"").join(' ')}>#{option.label || option.value}</option>").join('')
 
     "<div class=\"control-group\">
       <label class=\"control-label\">#{options.label}</label>
       <div class=\"controls\">
         <select #{selectOptionsString}>
+          #{placeholderString}
           #{optionsString}
         </select>
       </div>

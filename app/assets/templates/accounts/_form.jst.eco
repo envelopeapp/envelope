@@ -11,7 +11,7 @@
 
   <div class="modal-body">
     <div class="alert alert-info">
-      In envelope, an account is an email account (such as Gmail, Yahoo, or AOL)
+      <i class="icon-info-sign icon-white"></i> In envelope, an "account" is an email (such as Gmail, Yahoo, or AOL)
     </div>
 
     <form class="form-horizontal" id="new-account-form">
@@ -70,13 +70,12 @@
           </div>
         </div>
       </div>
-
-      <input type="submit">
     </form>
   </div>
 
   <div class="modal-footer">
-    <a href="#advanced" class="btn" id="account-show-advanced-settings">Show Advanced Settings</a>
+    <a href="/accounts" id="accounts-button" class="btn pull-left">All Accounts</a>
+    <a href="#advanced" class="btn" id="account-show-advanced-settings">Advanced Settings</a>
     <input type="submit" class="btn btn-primary" id="account-submit">
   </div>
 </div>
