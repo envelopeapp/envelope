@@ -75,7 +75,9 @@ module Jobs
         })
 
         unless contact.save
-          PrivatePub.publish_to @user.queue_name, :action => 'error', :message => "Could not save contact #{contact.name} because #{contact.errors.full_messages.join(', ')}"
+          begin
+            PrivatePub.publish_to @user.queue_name, :action => 'error', :message => "Could not save contact #{contact.name} because #{contact.errors.full_messages.join(', ')}"
+          rescue; end
         end
       end
     end

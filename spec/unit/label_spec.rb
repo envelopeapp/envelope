@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Label do
-  before do
+  before(:all) do
     @label = build(:label)
   end
 

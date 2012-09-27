@@ -64,7 +64,7 @@ class User
   def search(q, options = {})
     user_id = self._id.to_s
 
-    Message.search(page: options[:page] || 1, per_page: 15) do
+    Message.tire.search(page: options[:page] || 1, per_page: 15, load: true) do
       query do
         string(q) if q.present?
       end

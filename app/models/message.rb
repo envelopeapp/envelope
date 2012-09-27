@@ -5,6 +5,10 @@ class Message
   # search
   include Tire::Model::Search
   include Tire::Model::Callbacks
+  index_name BONSAI_INDEX_NAME
+
+  include Kaminari::MongoidExtension::Criteria
+  include Kaminari::MongoidExtension::Document
 
   mapping do
     indexes :_id, index: :not_analyzed
@@ -14,7 +18,7 @@ class Message
     indexes :text_part, type: 'string', analyzer: 'snowball'
     indexes :participants
     indexes :labels
-  end unless Rails.env.test?
+  end
 
   # fields
   field :uid, type: Integer

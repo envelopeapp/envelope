@@ -1,0 +1,49 @@
+#!/bin/bash
+set +x
+
+# Ensure Homebrew is installed & updated
+echo -n 'Installing/Updating Homebrew... '
+  which -s brew
+  if [[ $? != 0 ]] ; then
+      /usr/bin/ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)"
+  else
+      brew update 2>&1 > /dev/null
+  fi
+echo 'Done!'
+
+# ElasticSearch
+which -s elasticsearch || (
+  echo -n 'Installing ElasticSearch... '
+  brew install elasticsearch 2>&1 > /dev/null
+  mkdir -p ~/Library/LaunchAgents 2>&1 > /dev/null
+  launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.elasticsearch.plist 2>&1 > /dev/null
+  ln -nfs /usr/local/Cellar/elasticsearch/0.19.9/homebrew.mxcl.elasticsearch.plist ~/Library/LaunchAgents/ 2>&1 > /dev/null
+  launchctl load -wF ~/Library/LaunchAgents/homebrew.mxcl.elasticsearch.plist 2>&1 > /dev/null
+  echo 'Done!'
+)
+
+# MongoDB
+which -s mongo || (
+  echo -n 'Installing MongoDB... '
+  brew install mongodb 2>&1 > /dev/null
+  mkdir -p ~/Library/LaunchAgents 2>&1 > /dev/null
+  launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist 2>&1 > /dev/null
+  launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist 2>&1 > /dev/null
+  echo 'Done!'
+)
+
+# Config
+echo -n 'Copying config file... '
+  cp config/envelope.example.yml config/envelope.yml 2>&1 > /dev/null
+echo 'Done!'
+
+# Foreman
+echo -n 'Setting up foreman... '
+  echo 'concurrency: web=1,worker=3' > .foreman
+  echo 'RACK_ENV=development' > .env
+echo 'Done!'
+
+# Bundler
+echo -n 'Bundling... '
+  bundle install --quiet
+echo 'Done!'

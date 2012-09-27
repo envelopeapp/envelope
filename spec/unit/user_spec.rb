@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe User do
-  before do
+  before(:all) do
     @user = build(:user, first_name:'Seth', last_name:'Vargo')
   end
 

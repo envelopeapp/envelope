@@ -52,7 +52,9 @@ class Mailbox
 
   def update_unread_messages_counter_cache!
     Rails.cache.delete(unread_messages_cache_key)
-    PrivatePub.publish_to self.account.user.queue_name, :action => 'update_unread_messages_counter', :mailbox => self
+    begin
+      PrivatePub.publish_to self.account.user.queue_name, :action => 'update_unread_messages_counter', :mailbox => self
+    rescue; end
   end
 
   # Always include certain methods when serializing a mailbox

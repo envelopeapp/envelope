@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe Mailbox do
   before do
+    Envelope::IMAP.any_instance.stub(:uid_store).and_return(true)
+    Envelope::IMAP.any_instance.stub(:uid_copy).and_return(true)
     @mailbox = build(:mailbox)
   end
 

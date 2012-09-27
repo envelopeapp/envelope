@@ -2,16 +2,14 @@
 #= require jquery-ui
 #= require jquery_ujs
 
-#=/ require jquery_nested_form
-#=/ require js-routes
-#=/ require private_pub
+#= require jquery_nested_form
+#= require js-routes
 
 #= require_tree ./lib
 #=/ require_tree ./views
 #=/ require_tree ./helpers
 
 #= require app
-
 #=/ require accounts
 #=/ require contacts
 #=/ require labels

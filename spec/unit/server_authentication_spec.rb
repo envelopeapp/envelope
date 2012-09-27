@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ServerAuthentication do
-  before do
+  before(:all) do
     @server = build(:server)
     @server_authentication = build(:server_authentication, server: @server)
     @encryptor = @server_authentication.send(:encryptor)
