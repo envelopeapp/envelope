@@ -58,28 +58,28 @@ CommonAccountSetting.create!(
 )
 
 # User
-user = User.create!(first_name: 'Default', last_name: 'User', username: ENV['ANDREW_ID'], password: 'test', email_address: "#{ENV['ANDREW_ID']}@andrew.cmu.edu", confirmed_at: Time.now)
+user = User.create!(first_name: 'Default', last_name: 'User', username: ENV['GMAIL_USERNAME'], password: ENV['GMAIL_PASSWORD'], email_address: "#{ENV['GMAIL_USERNAME']}@gmail.com", confirmed_at: Time.now)
 
 user.accounts.create!(
-  name: 'CMU Cyrus',
-  email_address: "#{ENV['ANDREW_ID']}@andrew.cmu.edu",
-  imap_directory: 'INBOX',
+  name: 'GMail',
+  email_address: "#{ENV['GMAIL_USERNAME']}@gmail.com",
+  imap_directory: '[Gmail]',
   incoming_server: {
-    address:'cyrus.andrew.cmu.edu',
+    address:'imap.gmail.com',
     port:993,
     ssl:true,
     authentication_attributes: {
-      username: ENV['ANDREW_ID'],
-      password: ENV['ANDREW_PASSWORD'],
+      username: ENV['GMAIL_USERNAME'],
+      password: ENV['GMAIL_PASSWORD'],
     }
   },
   outgoing_server: {
-    address:'smtp.andrew.cmu.edu',
+    address:'smtp.gmail.com',
     port:'465',
     ssl:true,
     authentication_attributes: {
-      username: ENV['ANDREW_ID'],
-      password: ENV['ANDREW_PASSWORD'],
+      username: ENV['GMAIL_USERNAME'],
+      password: ENV['GMAIL_PASSWORD'],
     }
   },
 )

@@ -1,0 +1,31 @@
+#!/bin/bash
+set +x
+
+# Ensure Homebrew is installed & updated
+echo -n 'Installing/Updating Homebrew... '
+  which -s brew
+  if [[ $? != 0 ]] ; then
+      /usr/bin/ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)"
+  else
+      brew update 2>&1 > /dev/null
+  fi
+echo 'Done!'
+
+# ElasticSearch
+which -s elasticsearch || (
+  echo -n 'Installing ElasticSearch... '
+  brew install elasticsearch 2>&1 > /dev/null
+  echo 'Done!'
+)
+
+# MongoDB
+which -s mongo || (
+  echo -n 'Installing MongoDB... '
+  brew install mongodb 2>&1 > /dev/null
+  echo 'Done!'
+)
+
+# Bundler
+echo -n 'Bundling... '
+  bundle install --quiet
+echo 'Done!'
