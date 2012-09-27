@@ -17,13 +17,11 @@ gem 'mail'
 gem 'mongoid'
 gem 'nested_form', :git => 'git://github.com/ryanb/nested_form.git'
 gem 'puma'
-gem 'private_pub'
+gem 'pusher'
 gem 'rails', '3.2.8'
-gem 'thin'
 gem 'tire'
 gem 'vcard'
 gem 'warden'
-gem 'will_paginate'
 gem 'yajl-ruby', :require => 'yajl/json_gem'
 
 # cancan needs to be last so it picks up the mongo driver
@@ -51,9 +49,9 @@ group :test do
   gem 'faker'
   gem 'mongoid-rspec'
   gem 'rspec-rails'
-  gem 'simplecov'
+  gem 'simplecov', :require => false
   gem 'spork'
-  gem 'webmock'
+  gem 'webmock', :require => false
 end
 
 group :production do

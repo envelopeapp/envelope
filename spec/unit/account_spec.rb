@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Account do
-  before do
+  before(:all) do
     @account = build(:account)
   end
 

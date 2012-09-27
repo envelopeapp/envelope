@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe CommonAccountSetting do
-  before do
+  before(:all) do
     @common_account_setting = build(:common_account_setting)
   end
 

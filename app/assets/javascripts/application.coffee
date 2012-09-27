@@ -4,7 +4,6 @@
 
 #= require jquery_nested_form
 #= require js-routes
-#= require private_pub
 
 #= require_tree ./lib
 #= require_tree ./views
@@ -14,7 +13,6 @@
 #= require contacts
 #= require labels
 #= require messages
-#= require private_pub_handler
 #= require sidebar
 #= require topbar
 

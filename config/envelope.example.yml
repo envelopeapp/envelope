@@ -1,0 +1,15 @@
+development:
+  pusher:
+    app_id: YOUR_APP_ID
+    key: YOUR_KEY
+    secret: YOUR_SECRET
+
+production:
+  pusher:
+    # If you're using Heroku, uncomment this line
+    # heroku: true
+
+    # If you're not on Heroku, you'll need to add credentials
+    app_id: YOUR_APP_ID
+    key: YOUR_KEY
+    secret: YOUR_SECRET

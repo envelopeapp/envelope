@@ -23,7 +23,7 @@ Envelope is a web-based email management solution built with Ruby on Rails. We a
 ## Structure
 Envelope has 4 major components:
   - Web Server ([puma](https://github.com/puma/puma))
-  - Websocket Server ([private_pub](https://github.com/ryanb/private_pub))
+  - Notifications ([pusher](http://pusher.com/))
   - Search Engine ([elasticsearch](http://www.elasticsearch.org/))
   - Background Processing ([delayed_job](https://github.com/collectiveidea/delayed_job))
 

@@ -32,3 +32,10 @@
 
 # SimpleCov
 coverage
+
+# Foreman config
+.env
+.foreman
+
+# Envelope config
+config/envelope.yml

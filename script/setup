@@ -32,6 +32,17 @@ which -s mongo || (
   echo 'Done!'
 )
 
+# Config
+echo -n 'Copying config file... '
+  cp config/envelope.example.yml config/envelope.yml 2>&1 > /dev/null
+echo 'Done!'
+
+# Foreman
+echo -n 'Setting up foreman... '
+  echo 'concurrency: web=1,worker=3' > .foreman
+  echo 'RACK_ENV=development' > .env
+echo 'Done!'
+
 # Bundler
 echo -n 'Bundling... '
   bundle install --quiet

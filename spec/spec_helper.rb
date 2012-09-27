@@ -1,6 +1,10 @@
 require 'spork'
 
 Spork.prefork do
+  # Disable Tire
+  require 'support/tire/disable'
+
+  # Load the Environment
   ENV['RAILS_ENV'] ||= 'test'
   require File.expand_path('../../config/environment', __FILE__)
 
@@ -15,8 +19,8 @@ Spork.prefork do
 end
 
 Spork.each_run do
-  require 'simplecov'
-  SimpleCov.start 'rails'
+  # require 'simplecov'
+  # SimpleCov.start 'rails'
 
   load "#{Rails.root}/config/routes.rb"
   Dir["#{Rails.root}/app/**/*.rb"].each {|f| load f}
@@ -34,17 +38,13 @@ Spork.each_run do
     # Mongoid
     config.include Mongoid::Matchers
 
-    config.before do
+    config.before(:each) do
       # Delayed Job
       Delayed::Job.stub!(:enqueue).and_return(nil)
 
       # Elastic Search Mock
       stub_request(:any, %r|#{Tire::Configuration.url}.*|)
         .to_return(status: 200, body: '{"took": 1,"timed_out": false,"_shards": {"total": 5,"successful": 5,"failed": 0},"hits": {"total": 0,"max_score": null,"hits": []}}', headers: {})
-
-      # Faye Mock
-      stub_request(:any, %r|#{PrivatePub.config[:server]}.*|)
-        .to_return(status: 200, body: '', headers: {})
     end
 
     config.after(:each) do
