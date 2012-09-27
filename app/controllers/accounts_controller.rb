@@ -8,8 +8,8 @@ class AccountsController < ApplicationController
   end
 
   def new
-    @account.build_incoming_server.build_server_authentication
-    @account.build_outgoing_server.build_server_authentication
+    @account.build_incoming_server.build_authentication
+    @account.build_outgoing_server.build_authentication
   end
 
   def show

@@ -135,12 +135,12 @@ module Envelope
 
     # Gets the IMAP username
     def username
-      @account.incoming_server.server_authentication.username
+      @account.incoming_server.authentication.username
     end
 
     # Gets the IMAP password
     def password
-      @account.incoming_server.server_authentication.password
+      @account.incoming_server.authentication.password
     end
 
     # Determines if the connection should use ssl

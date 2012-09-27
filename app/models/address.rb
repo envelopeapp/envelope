@@ -1,9 +1,17 @@
-class Address < ActiveRecord::Base
-  # associations
-  belongs_to :contact, :inverse_of => :addresses
+class Address
+  include Mongoid::Document
 
-  # validations
-  validates_presence_of :contact
+  # fields
+  field :label, type: String
+  field :line_1, type: String
+  field :line_2, type: String
+  field :city, type: String
+  field :state, type: String
+  field :country, type: String
+  field :zip_code, type: String
+
+  # associations
+  embedded_in :contact
 
   # scopes
 

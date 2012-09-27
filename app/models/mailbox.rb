@@ -1,4 +1,16 @@
-class Mailbox < ActiveRecord::Base
+class Mailbox
+  include Mongoid::Document
+
+  # fields
+  field :name, type: String
+  field :location, type: String
+  field :uid_validity, type: Integer
+  field :remote, type: Boolean
+  field :selectable, type: Boolean
+  field :last_synced, type: DateTime
+
+  # ancestry
+  include Mongoid::Ancestry
   has_ancestry :cache_depth => true
 
   # callbacks
@@ -6,8 +18,7 @@ class Mailbox < ActiveRecord::Base
   after_destroy :publish_mailbox_destroyed
 
   # associations
-  belongs_to :account
-  has_one :user, :through => :account
+  belongs_to :account, :inverse_of => :mailboxes
   has_many :messages, :dependent => :destroy
 
   # validations
@@ -16,10 +27,6 @@ class Mailbox < ActiveRecord::Base
   # scopes
   default_scope includes(:account)
 
-  # friendly id
-  extend FriendlyId
-  friendly_id :sha_location, :use => [:scoped, :slugged], :scope => :account
-
   # class methods
   class << self
 
@@ -27,16 +34,16 @@ class Mailbox < ActiveRecord::Base
 
   # instance methods
   def load_messages
-    Delayed::Job.enqueue(Jobs::MessageLoader.new(self.id), queue:self.queue_name)
+    Delayed::Job.enqueue(Jobs::MessageLoader.new(self._id), queue:self.queue_name)
   end
 
   # returns the mailbox's queue name (prefixed with /) for delayed job
   def queue_name
-    ['', self.account.user.id, self.account.slug, self.slug].join('/')
+    ['', self.account.user._id, self.account._id, self._id].join('/')
   end
 
   def queues_remaining
-    Delayed::Job.where(queue:self.queue_name, failed_at:nil)
+    Delayed::Job.where(:queue => self.queue_name, :failed_at => nil)
   end
 
   def unread_messages
@@ -45,7 +52,7 @@ class Mailbox < ActiveRecord::Base
 
   def update_unread_messages_counter_cache!
     Rails.cache.delete(unread_messages_cache_key)
-    PrivatePub.publish_to self.user.queue_name, :action => 'update_unread_messages_counter', :mailbox => self
+    PrivatePub.publish_to self.account.user.queue_name, :action => 'update_unread_messages_counter', :mailbox => self
   end
 
   # Always include certain methods when serializing a mailbox
@@ -67,7 +74,7 @@ class Mailbox < ActiveRecord::Base
   end
 
   def unread_messages_cache_key
-    cache_key = [self.slug, 'unread_messages'].join('/')
+    cache_key = [self._id, 'unread_messages'].join('/')
   end
 
   def publish_mailbox_created
@@ -80,7 +87,7 @@ class Mailbox < ActiveRecord::Base
 
   # returns the UID of the last message received by this client
   def last_seen_uid
-    self.messages.order('messages.uid DESC').limit(1).last.try(:uid) || 1
+    self.messages.order_by(:uid => :desc).limit(1).last.try(:uid) || 1
   end
 
   def check_uid_validity!
@@ -96,7 +103,7 @@ class Mailbox < ActiveRecord::Base
       self.messages.destroy_all
 
       # remove any pending actions of that mailbox
-      Delayed::Job.where(queue:self.queue_name).delete_all
+      Delayed::Job.where(:queue => self.queue_name).delete_all
 
       # set the UIDVALIDITY
       self.uid_validity = imap_uid_validity

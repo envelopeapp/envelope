@@ -30,20 +30,32 @@ module Jobs
 
       # delete any messages that have been deleted...
       imap_deleted_messages = Hash[*imap_changed_messages.collect{|m| [m.attr['UID'], m] if m.deleted? }.compact.flatten]
-      @mailbox.messages.where('messages.uid IN (?)', imap_deleted_messages.keys).destroy_all
+      @mailbox.messages.where(:uid.in => imap_deleted_messages.keys).destroy_all
 
       # mass-import messages
-      existing_uids = Hash[*@mailbox.messages.pluck(:uid).collect{|i| [i, 1]}.flatten] # because Ruby imap uid_fetch sucks
-      cols = [:mailbox_id, :message_id, :uid, :subject, :read, :date]
-      messages = imap_new_messages.collect{ |m| [@mailbox.id, m.message_id, m.uid, m.subject, m.read?, m.date] unless existing_uids.has_key?(m.uid) }.compact
-      Message.import(cols, messages, validate:false)
+      existing_uids = Hash[*@mailbox.messages.collect{ |m| [m.uid, 1] }.flatten] # because Ruby imap uid_fetch sucks
+      messages = imap_new_messages.collect do |message|
+        {
+          :mailbox_id => @mailbox._id,
+          :message_id => message.message_id,
+          :uid => message.uid,
+          :subject => message.subject,
+          :read => message.read?,
+          :downloaded => false,
+          :date => message.date,
+        } unless existing_uids[message.uid]
+      end.compact
+
+      # import in batches of 1,000
+      messages.each_slice(1000) do |batch|
+        Message.collection.insert(batch)
+      end
 
       # update the mailbox
-      @mailbox.last_synced = Time.now
-      @mailbox.save!
+      @mailbox.update_attribute(:last_synced, Time.now)
 
       # now import the rest of the message bodiess
-      Delayed::Job.enqueue(Jobs::MessageBodyLoader.new(@mailbox.id), queue:@mailbox.queue_name)
+      Delayed::Job.enqueue(Jobs::MessageBodyLoader.new(@mailbox._id), queue: @mailbox.queue_name)
     end
 
     def success

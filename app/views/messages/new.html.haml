@@ -21,9 +21,9 @@
               %li= error
 
       - if current_user.accounts.size > 1
-        = f.select :account_id, options_for_select(current_user.accounts.collect{|a| ["#{a.name} <#{a.email_address}>", a.id]}, @message.account_id), {}, :width => '100%'
+        = f.select :account_id, options_for_select(current_user.accounts.collect{|a| ["#{a.name} <#{a.email_address}>", a._id]}, @message.account_id), {}, :width => '100%'
       - else
-        = f.hidden_field :account_id, :value => current_user.accounts.first.id
+        = f.hidden_field :account_id, :value => current_user.accounts.first._id
       = f.text_field :to, :class => 'span5 contact-search'
       = f.text_field :cc, :class => 'span5 contact-search'
       = f.text_field :bcc, :class => 'span5 contact-search'

@@ -2,17 +2,13 @@ require 'spec_helper'
 
 describe Account do
   before do
-    @account = create(:account)
-  end
-
-  after do
-    @account.destroy
+    @account = build(:account)
   end
 
   # associations
   it { should belong_to(:user) }
-  it { should belong_to(:incoming_server) }
-  it { should belong_to(:outgoing_server) }
+  it { should embed_one(:incoming_server) }
+  it { should embed_one(:outgoing_server) }
   it { should have_many(:mailboxes) }
     it { should belong_to(:inbox_mailbox) }
     it { should belong_to(:sent_mailbox) }
@@ -30,19 +26,7 @@ describe Account do
   # methods
   describe 'queue_name' do
     it 'should return the user_id and slug joined together' do
-      @account.queue_name.should == ['', @account.user_id, @account.slug].join('/')
-    end
-  end
-
-  describe 'queues_remaining' do
-    it 'should return 0 at start' do
-      @account.queues_remaining.should be_empty
-    end
-
-    it 'should increment by 1 when a job is added' do
-      expect {
-        Delayed::Job.enqueue(Jobs::Testing.new(nil), queue:@account.queue_name)
-      }.to change(@account.queues_remaining, :size).by(1)
+      @account.queue_name.should == ['', @account.user_id, @account._id].join('/')
     end
   end
 

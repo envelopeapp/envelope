@@ -30,7 +30,7 @@ module SidebarHelper
 
   # returns the name of the mailbox + it's link
   def mailbox_link(mailbox)
-    link_to name_and_unread(mailbox), account_mailbox_messages_path(mailbox.account_id, mailbox), :class => classes_for(mailbox), :'data-mailbox-id' => mailbox.slug
+    link_to name_and_unread(mailbox), account_mailbox_messages_path(mailbox.account_id, mailbox), :class => classes_for(mailbox), :'data-mailbox-id' => mailbox._id
   end
 
   def folder_icon(mailbox)
@@ -58,7 +58,7 @@ module SidebarHelper
     classes = ['sidebar-mailbox']
 
     # add the active class
-    classes << 'active' if mailbox.slug == params[:mailbox_id]
+    classes << 'active' if mailbox._id == params[:mailbox_id]
     classes << 'selectable' if mailbox.selectable?
 
     classes.join(' ')

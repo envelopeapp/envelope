@@ -4,8 +4,8 @@
   .modal-body
     .alert.alert-info
       We are currently loading your account. This process can take up to 5 minutes.
-    .progress.progress{:'data-account-id' => @account.slug, :style => 'margin:0'}
+    .progress.progress{:'data-account-id' => @account._id, :style => 'margin:0'}
       .bar
-    .status{:'data-account-id' => @account.slug}
+    .status{:'data-account-id' => @account._id}
   .modal-footer
     = link_to 'Skip this Step &raquo;'.html_safe, unified_mailbox_messages_path(:inbox), :class => 'btn btn-mini', :id => 'skip-this-step-button'

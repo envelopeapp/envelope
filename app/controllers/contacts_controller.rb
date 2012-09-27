@@ -17,7 +17,7 @@ class ContactsController < ApplicationController
     @contacts = current_user.contacts.search(params[:term])
 
     respond_to do |format|
-      format.json { render json:@contacts.collect{|c| {:id => c.id, :label => c.name_email, :value => c.email_address}} }
+      format.json { render json:@contacts.collect{|c| {:id => c._id, :label => c.name_email, :value => c.email_address}} }
     end
   end
 

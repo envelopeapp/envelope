@@ -32,7 +32,3 @@
 
 # SimpleCov
 coverage
-
-# Authentication Stuff
-seeds.yml
-encryption.yml

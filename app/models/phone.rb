@@ -1,9 +1,15 @@
-class Phone < ActiveRecord::Base
+class Phone
+  include Mongoid::Document
+
+  # fields
+  field :label, type: String
+  field :phone_number, type: String
+
   # associations
-  belongs_to :contact, :inverse_of => :phones
+  embedded_in :contact
 
   # validations
-  validates_presence_of :contact, :label, :phone_number
+  validates_presence_of :label, :phone_number
 
   # scopes
 

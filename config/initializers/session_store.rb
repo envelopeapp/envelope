@@ -1,1 +1,1 @@
-Envelope::Application.config.session_store :active_record_store
+Envelope::Application.config.session_store :cookie_store

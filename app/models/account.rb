@@ -1,38 +1,50 @@
 require 'net/imap'
 
-class Account < ActiveRecord::Base
+class Account
+  include Mongoid::Document
+  include Mongoid::Timestamps
+
+  field :name, type: String
+  field :email_address, type: String
+  field :reply_to_address, type: String, default: -> { email_address }
+  field :imap_directory, type: String
+  field :last_synced, type: DateTime
+
+  # t.integer  "incoming_server_id"
+  # t.integer  "outgoing_server_id"
+
+  # t.string   "imap_directory"
+  # t.integer  "inbox_mailbox_id"
+  # t.integer  "sent_mailbox_id"
+  # t.integer  "junk_mailbox_id"
+  # t.integer  "drafts_mailbox_id"
+  # t.integer  "trash_mailbox_id"
+  # t.integer  "starred_mailbox_id"
+  # t.integer  "important_mailbox_id"
+
   # attr accessible
   attr_accessor :provider, :password
 
   # associations
-  belongs_to :incoming_server, :class_name => 'Server', :dependent => :destroy
-  belongs_to :outgoing_server, :class_name => 'Server', :dependent => :destroy
+  embeds_one :incoming_server, :class_name => 'Server'
+  embeds_one :outgoing_server, :class_name => 'Server'
   belongs_to :user
   has_many :mailboxes, :dependent => :destroy
-    belongs_to :inbox_mailbox, :class_name => 'Mailbox', :dependent => :destroy
-    belongs_to :sent_mailbox, :class_name => 'Mailbox', :dependent => :destroy
-    belongs_to :junk_mailbox, :class_name => 'Mailbox', :dependent => :destroy
-    belongs_to :drafts_mailbox, :class_name => 'Mailbox', :dependent => :destroy
-    belongs_to :trash_mailbox, :class_name => 'Mailbox', :dependent => :destroy
-    belongs_to :starred_mailbox, :class_name => 'Mailbox', :dependent => :destroy
-    belongs_to :important_mailbox, :class_name => 'Mailbox', :dependent => :destroy
-  has_many :messages, :through => :mailboxes
-
-  # nested attributes
-  accepts_nested_attributes_for :incoming_server
-  accepts_nested_attributes_for :outgoing_server
+    belongs_to :inbox_mailbox, :class_name => 'Mailbox', :foreign_key => :inbox_mailbox_id
+    belongs_to :sent_mailbox, :class_name => 'Mailbox', :foreign_key => :sent_mailbox_id
+    belongs_to :junk_mailbox, :class_name => 'Mailbox', :foreign_key => :junk_mailbox_id
+    belongs_to :drafts_mailbox, :class_name => 'Mailbox', :foreign_key => :drafts_mailbox_id
+    belongs_to :trash_mailbox, :class_name => 'Mailbox', :foreign_key => :trash_mailbox_id
+    belongs_to :starred_mailbox, :class_name => 'Mailbox', :foreign_key => :starred_mailbox_id
+    belongs_to :important_mailbox, :class_name => 'Mailbox', :foreign_key => :important_mailbox_id
 
   # validations
-  validates_presence_of :incoming_server, :outgoing_server, :user, :name, :email_address
+  validates_presence_of :user, :incoming_server, :outgoing_server, :name, :email_address
 
   # callbacks
   after_create :sync!
 
   # scopes
-
-  # friendly id
-  extend FriendlyId
-  friendly_id :name, :use => [:scoped, :slugged], :scope => :user_id
 
   # class methods
   class << self
@@ -41,12 +53,12 @@ class Account < ActiveRecord::Base
 
   # instance methods
   def sync!
-    Delayed::Job.enqueue(Jobs::MailboxLoader.new(self.id), queue:self.queue_name)
+    Delayed::Job.enqueue(Jobs::MailboxLoader.new(self._id), queue:self.queue_name)
   end
 
   # returns the account's queue name (prefixed with /) for delayed job
   def queue_name
-    ['', self.user_id, self.slug].join('/')
+    ['', self.user_id, self._id].join('/')
   end
 
   def queues_remaining

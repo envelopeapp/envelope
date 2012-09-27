@@ -2,11 +2,7 @@ require 'spec_helper'
 
 describe Label do
   before do
-    @label = create(:label)
-  end
-
-  after do
-    @label.destroy
+    @label = build(:label)
   end
 
   # associations

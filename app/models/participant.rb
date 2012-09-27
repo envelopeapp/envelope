@@ -1,17 +1,22 @@
-class Participant < ActiveRecord::Base
-  TYPES = %w(To From Sender Cc Bcc Reply-To) unless const_defined?("TYPES")
+class Participant
+  TYPES = %w(To From Sender Cc Bcc Reply-To).freeze unless defined?(TYPES)
+
+  include Mongoid::Document
+
+  # fields
+  field :participant_type, type: String
+  field :name, type: String
+  field :email_address, type: String
 
   # callbacks
   #before_save :find_contact
 
   # associations
-  belongs_to :message
-  belongs_to :contact
-  has_one :mailbox, :through => :message
-  has_one :account, :through => :message
+  embedded_in :message
+  belongs_to :contact, inverse_of: nil
 
   # validations
-  validates_presence_of :message, :participant_type
+  validates_presence_of :participant_type
   validates_inclusion_of :participant_type, :in => Participant::TYPES
 
   # scopes
@@ -39,7 +44,7 @@ class Participant < ActiveRecord::Base
   # private methods
   private
   def find_contact
-    if contact = self.account.user.contact_emails.find_by_email_address(self.email_address).try(:contact)
+    if contact = self.message.mailbox.account.user.contact_emails.find{ |email| email.email_address == self.email_address }.try(:contact)
       self.name, self.email_address = nil, nil
       self.contact = contact
     end

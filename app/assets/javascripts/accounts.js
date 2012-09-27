@@ -24,14 +24,14 @@ $(function() {
 
   $('#account_email_address').on('keyup paste blur', function() {
     var value = $(this).val();
-    $('#account_incoming_server_attributes_server_authentication_attributes_username').val(value);
-    $('#account_outgoing_server_attributes_server_authentication_attributes_username').val(value);
+    $('#account_incoming_server_attributes_authentication_attributes_username').val(value);
+    $('#account_outgoing_server_attributes_authentication_attributes_username').val(value);
   });
 
   $('#account_password').on('keyup paste blur', function() {
     var value = $(this).val();
-    $('#account_incoming_server_attributes_server_authentication_attributes_password').val(value);
-    $('#account_outgoing_server_attributes_server_authentication_attributes_password').val(value);
+    $('#account_incoming_server_attributes_authentication_attributes_password').val(value);
+    $('#account_outgoing_server_attributes_authentication_attributes_password').val(value);
   });
 
   $('#account_show_advanced_settings').toggle(function() {

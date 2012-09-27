@@ -27,7 +27,7 @@ module Jobs
 
       # delete old mailboxes
       imap_mailbox_locations = imap_mailboxes.collect{ |m| m.name }
-      deleted_mailboxes = @account.mailboxes.where('mailboxes.location NOT IN (?)', imap_mailbox_locations).destroy_all
+      deleted_mailboxes = @account.mailboxes.where(:location.nin => imap_mailbox_locations).destroy_all
 
       # iterate over each mailbox and create/update it's attributes
       mailboxes_hash = Hash[*@account.mailboxes.collect{|m| [m.location, m]}.flatten]
@@ -46,13 +46,13 @@ module Jobs
         mailboxes_hash[mailbox.location] = mailbox
 
         # determine if this is a "special" mailbox
-        @account.inbox_mailbox_id = mailbox.id if @account.send(:inbox_mailbox?, imap_mailbox)
-        @account.sent_mailbox_id = mailbox.id if @account.send(:sent_mailbox?, imap_mailbox)
-        @account.junk_mailbox_id = mailbox.id if @account.send(:junk_mailbox?, imap_mailbox)
-        @account.drafts_mailbox_id = mailbox.id if @account.send(:drafts_mailbox?, imap_mailbox)
-        @account.trash_mailbox_id = mailbox.id if @account.send(:trash_mailbox?, imap_mailbox)
-        @account.starred_mailbox_id = mailbox.id if @account.send(:starred_mailbox?, imap_mailbox)
-        @account.important_mailbox_id = mailbox.id if @account.send(:important_mailbox?, imap_mailbox)
+        # @account.inbox_mailbox_id = mailbox._id if @account.send(:inbox_mailbox?, imap_mailbox)
+        # @account.sent_mailbox_id = mailbox._id if @account.send(:sent_mailbox?, imap_mailbox)
+        # @account.junk_mailbox_id = mailbox._id if @account.send(:junk_mailbox?, imap_mailbox)
+        # @account.drafts_mailbox_id = mailbox._id if @account.send(:drafts_mailbox?, imap_mailbox)
+        # @account.trash_mailbox_id = mailbox._id if @account.send(:trash_mailbox?, imap_mailbox)
+        # @account.starred_mailbox_id = mailbox._id if @account.send(:starred_mailbox?, imap_mailbox)
+        # @account.important_mailbox_id = mailbox._id if @account.send(:important_mailbox?, imap_mailbox)
 
         # does it have a parent?
         location = imap_mailbox.name.split(imap_mailbox.delim)[0...-1].join(imap_mailbox.delim)
@@ -65,7 +65,7 @@ module Jobs
         # tell the front-end that we loaded a mailbox
         PrivatePub.publish_to @user.queue_name, :action => 'loaded_mailbox', :mailbox => mailbox, :account => @account, :percent_complete => index/(imap_mailboxes.length*1.0)
 
-        Delayed::Job.enqueue(Jobs::MessageLoader.new(mailbox.id), queue:mailbox.queue_name)
+        Delayed::Job.enqueue(Jobs::MessageLoader.new(mailbox._id), queue:mailbox.queue_name)
       end
 
       @account.save! if @account.changed?
