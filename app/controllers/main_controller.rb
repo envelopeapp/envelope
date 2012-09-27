@@ -1,0 +1,1 @@
+class MainController < ApplicationController; end

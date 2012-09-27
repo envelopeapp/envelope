@@ -1,4 +1,4 @@
-.topbar {
+#topbar {
   background: #d4d5d6;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#D4D5D6));
   border-bottom: 1px solid #b1b2b3;
@@ -28,11 +28,12 @@
 	}
 
   .logo {
-    background: url('logo.png') left -26px no-repeat;
+    background: image-url('logo.png') left -26px no-repeat;
     float: left;
+    height: 100%;
     width: 20%;
   }
-  
+
   #search-box {
     margin-right: 9px;
   }

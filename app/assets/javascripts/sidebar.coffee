@@ -10,7 +10,7 @@ $ ->
   #
   # Clicking on the sync mailboxes button should trigger a remote server sync
   #
-  $('.sidebar .sync').live 'click', (e) ->
+  $('#sidebar .sync').live 'click', (e) ->
     e.preventDefault()
     $(@).addClass('rotate')
     $.get($(@).attr('href'))
@@ -20,7 +20,7 @@ $ ->
   # Dragging a message onto a sidebar should only work for a selectable mailbox
   # and a mailbox that is associated with the current account (for now)
   #
-  $('.sidebar .mailboxes a.sidebar-mailbox.selectable').droppable
+  $('#sidebar .mailboxes a.sidebar-mailbox.selectable').droppable
     addClasses: false
     accept: (draggable) ->
       # only accept messages from the existing account for now
@@ -37,7 +37,7 @@ $ ->
   #
   # Clicking on a mailbox triggers a remote server call
   #
-  $('.sidebar .mailboxes a.sidebar-mailbox').live 'click', (e) ->
+  $('#sidebar .mailboxes a.sidebar-mailbox').live 'click', (e) ->
     e.preventDefault()
 
     # get this
@@ -54,7 +54,7 @@ $ ->
     # only get mailboxes that are selectable
     if $this.attr('href').indexOf('void') == -1
       # show the right mailbox is selected
-      $('.sidebar .mailboxes a.sidebar-mailbox').removeClass('active')
+      $('#sidebar .mailboxes a.sidebar-mailbox').removeClass('active')
       $this.addClass('loading active')
 
       $.ajax

@@ -19,7 +19,7 @@ class PrivatePubHandler
     $progressBar = $('div.progress#' + account._id + ' .bar')
     $progressBar.css({width:'5%'})
 
-    $('.sidebar .sync').addClass('rotate')
+    $('#sidebar .sync').addClass('rotate')
 
   #
   # Tells the front-end that we loaded a single mailbox
@@ -58,7 +58,7 @@ class PrivatePubHandler
     $statusText = $(".status[data-account-id=#{account._id}]")
     $statusText.html("Done!")
 
-    $('.sidebar .sync').removeClass('rotate')
+    $('#sidebar .sync').removeClass('rotate')
 
     if $progressBar.length
       window.location = Routes.unified_mailbox_messages_path('inbox')
@@ -70,7 +70,7 @@ class PrivatePubHandler
   #   - a mailbox messages have begun to load
   #
   loading_messages: (data) ->
-    $(".sidebar .sidebar-mailbox[data-mailbox-id=#{data.mailbox._id}]").addClass('loading')
+    $("#sidebar .sidebar-mailbox[data-mailbox-id=#{data.mailbox._id}]").addClass('loading')
 
   #
   # Tells the front-end that we have finished loading new messages for the given mailbox. If
@@ -85,7 +85,7 @@ class PrivatePubHandler
     $left_pane = $('.left-pane')
 
     # if we are looking at the active mailbox
-    if $(".sidebar-mailbox[data-mailbox-id=#{mailbox._id}]").hasClass('active')
+    if $("#sidebar-mailbox[data-mailbox-id=#{mailbox._id}]").hasClass('active')
       # make a remote call to get all the new messages
       $left_pane.html('')
       $left_pane.addClass('loading')
@@ -93,7 +93,7 @@ class PrivatePubHandler
         Render.messages(messages)
 
     # remove the loading class(es)
-    $(".sidebar .sidebar-mailbox[data-mailbox-id=#{mailbox._id}]").removeClass('loading')
+    $("#sidebar .sidebar-mailbox[data-mailbox-id=#{mailbox._id}]").removeClass('loading')
 
 
   #
@@ -139,7 +139,7 @@ class PrivatePubHandler
   update_unread_messages_counter: (data) ->
     mailbox = data.mailbox
 
-    $mailbox_line = $(".sidebar a[data-mailbox-id=#{mailbox._id}]")
+    $mailbox_line = $("#sidebar a[data-mailbox-id=#{mailbox._id}]")
     $mailbox_line.find('.unread-messages-counter').remove()
 
     unless mailbox.unread_messages == 0

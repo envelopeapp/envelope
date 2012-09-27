@@ -1,0 +1,30 @@
+<form id="login-form" class="form-horizontal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Login</h3>
+    </div>
+
+    <div class="modal-body">
+      <div class="control-group">
+        <label class="control-label" for="login">Email/Username</label>
+        <div class="controls">
+          <input type="text" name="login" id="login">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="login">Password</label>
+        <div class="controls">
+          <input type="password" name="password" id="password">
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <div class="pull-left">
+        <a href="#signup" class="btn">Sign Up</a>
+      </div>
+      <a href="#forgot-password" class="btn">Forgot Password</a>
+      <input type="submit" class="btn btn-primary" value="Login">
+    </div>
+  </div>
+</form>

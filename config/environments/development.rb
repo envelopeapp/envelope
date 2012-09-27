@@ -27,7 +27,8 @@ Envelope::Application.configure do
   config.assets.compress = false
 
   # Expands the lines which load the assets
-  config.assets.debug = true
+  config.assets.debug = false
+  config.assets.logger = nil
 
   # Send development emails to browser
   config.action_mailer.delivery_method = :sendmail

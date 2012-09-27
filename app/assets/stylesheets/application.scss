@@ -18,6 +18,10 @@
  *= require_self
  */
 
+.stack > *:not(.active) {
+  display: none
+}
+
 html, body {
   height: 100%;
   overflow: hidden;

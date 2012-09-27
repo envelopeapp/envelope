@@ -1,5 +1,5 @@
 - if logged_in?
-  .topbar
+  #top_bar
     .logo &nbsp;
     / .btn-group.pull-left
     /   = link_to '#', :class => 'btn dropdown-toggle', :data => { :toggle => 'dropdown' } do
@@ -16,24 +16,20 @@
     /       = link_to contacts_path do
     /         %i.icon.icon-list-alt
     /         Contacts
-
     .btn-group.pull-left
-      = link_to contacts_path, :id => 'wide-btn', :class => 'remote-modal btn', :rel => 'tooltip', :title => 'Contacts', :'data-placement' => 'bottom', :'data-toggle' => 'modal' do
-        %i{:class => 'icon icon-list-alt'}
+      = link_to unified_mailbox_messages_path(:inbox), :id => 'wide-btn', :class => 'remote-modal btn', :rel => 'tooltip', :title => 'Messages', :'data-placement' => 'bottom', :data => { :toggle => 'modal' } do
+        %i{:class => 'icon icon-envelope'}
     .btn-toolbar
       - if current_user.accounts.empty?
         .btn-group
           = link_to new_account_path, :class => 'btn' do
             %i{:class => 'icon icon-plus'}
             Add Account
-          / = link_to new_account_path, :class => 'remote-modal btn', :rel => 'tooltip', :title => 'Add Email Account', :'data-placement' => 'bottom', :'data-toggle' => 'modal' do
-          /   %i{:class => 'icon icon-plus'}            
       - else
-        .btn-group 
-          = link_to new_message_path, :class => 'remote-modal btn', :rel => 'tooltip', :title => 'Compose', :'data-placement' => 'bottom', :'data-toggle' => 'modal' do
-            %i{:class => 'icon icon-pencil'}
-          = link_to sync_accounts_path, :class => 'remote-modal btn', :rel => 'tooltip', :title => 'Sync Mailboxes', :'data-placement' => 'bottom', :'data-toggle' => 'modal' do
-            %i{:class => 'icon icon-refresh'}
+        .btn-group
+          = link_to new_contact_path, :class => 'remote-modal btn', :data => { :toggle => 'modal' }, :rel => 'tooltip', :title => 'Add Contact', :'data-placement' => 'bottom' do
+            %i{:class => 'icon icon-plus'}
+
     .btn-group.pull-right
       = link_to '#', :class => 'btn dropdown-toggle', :data => { :toggle => 'dropdown' } do
         %i.icon.icon-user
@@ -53,5 +49,3 @@
           = link_to logout_path, :method => :delete do
             %i.icon.icon-lock
             Logout
-    = form_tag nil, :class => 'pull-right' do
-      = search_field_tag :q, params[:q], :id => 'search-box', :'data-search-path' => search_messages_path

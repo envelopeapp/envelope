@@ -8,16 +8,10 @@
     = csrf_meta_tag
 
   %body
-    / begin topbar
-    = render 'topbar'
+    #topbar
 
     .wrapper
-      / sidebar
-      = render 'sidebar'
+      #sidebar
 
-      .alert#flash
       .content
         = yield
-
-    = render 'private_pub'
-    = render partial:'flash', locals:{ flash:flash }

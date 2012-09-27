@@ -8,11 +8,7 @@
     = csrf_meta_tag
 
   %body.full
-    / topbar
-    = render 'topbar'
-    / end topbar- if logged_in?
+    #topbar
 
     .content
       = yield
-
-    = render 'private_pub'
