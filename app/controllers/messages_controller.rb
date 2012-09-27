@@ -100,10 +100,14 @@ class MessagesController < ApplicationController
 
     if @message.labels.include?(@label)
       @message.labels.delete(@label)
-      PrivatePub.publish_to current_user.queue_name, :action => 'removed_label', :label => @label, :message => @message
+      begin
+        PrivatePub.publish_to current_user.queue_name, :action => 'removed_label', :label => @label, :message => @message
+      rescue; end
     else
       @message.labels.push(@label)
-      PrivatePub.publish_to current_user.queue_name, :action => 'added_label', :label => @label, :message => @message
+      begin
+        PrivatePub.publish_to current_user.queue_name, :action => 'added_label', :label => @label, :message => @message
+      rescue; end
     end
 
     respond_to do |format|

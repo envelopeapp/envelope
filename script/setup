@@ -15,6 +15,10 @@ echo 'Done!'
 which -s elasticsearch || (
   echo -n 'Installing ElasticSearch... '
   brew install elasticsearch 2>&1 > /dev/null
+  mkdir -p ~/Library/LaunchAgents 2>&1 > /dev/null
+  launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.elasticsearch.plist 2>&1 > /dev/null
+  ln -nfs /usr/local/Cellar/elasticsearch/0.19.9/homebrew.mxcl.elasticsearch.plist ~/Library/LaunchAgents/ 2>&1 > /dev/null
+  launchctl load -wF ~/Library/LaunchAgents/homebrew.mxcl.elasticsearch.plist 2>&1 > /dev/null
   echo 'Done!'
 )
 
@@ -22,6 +26,9 @@ which -s elasticsearch || (
 which -s mongo || (
   echo -n 'Installing MongoDB... '
   brew install mongodb 2>&1 > /dev/null
+  mkdir -p ~/Library/LaunchAgents 2>&1 > /dev/null
+  launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist 2>&1 > /dev/null
+  launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist 2>&1 > /dev/null
   echo 'Done!'
 )
 

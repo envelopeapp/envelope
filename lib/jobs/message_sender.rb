@@ -27,12 +27,16 @@ module Jobs
       begin
         mail.deliver!
       rescue => e
-        PrivatePub.publish_to @user.queue_name, :action => 'error', :message => e
+        begin
+          PrivatePub.publish_to @user.queue_name, :action => 'error', :message => e
+        rescue; end
       end
     end
 
     def success
-      PrivatePub.publish_to @user.queue_name, :action => 'notice', :message => 'Message was delivered!'
+      begin
+        PrivatePub.publish_to @user.queue_name, :action => 'notice', :message => 'Message was delivered!'
+      rescue; end
     end
   end
 end

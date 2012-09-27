@@ -10,7 +10,9 @@ module Jobs
       @user = @account.user
 
       # tell the front end what we are doing
-      PrivatePub.publish_to @user.queue_name, :action => 'loading_messages', :account => @account, :mailbox => @mailbox
+      begin
+        PrivatePub.publish_to @user.queue_name, :action => 'loading_messages', :account => @account, :mailbox => @mailbox
+      rescue; end
     end
 
     def perform
@@ -59,7 +61,9 @@ module Jobs
     end
 
     def success
-      PrivatePub.publish_to @user.queue_name, :action => 'loaded_messages', :mailbox => @mailbox
+      begin
+        PrivatePub.publish_to @user.queue_name, :action => 'loaded_messages', :mailbox => @mailbox
+      rescue; end
     end
   end
 end

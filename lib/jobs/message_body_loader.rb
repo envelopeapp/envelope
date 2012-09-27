@@ -12,7 +12,9 @@ module Jobs
       @user = @account.user
 
       # tell the front-end that we are working...
-      PrivatePub.publish_to @user.queue_name, :action => 'loading_message_bodies', :mailbox => @mailbox
+      begin
+        PrivatePub.publish_to @user.queue_name, :action => 'loading_message_bodies', :mailbox => @mailbox
+      rescue; end
     end
 
     def perform
@@ -30,17 +32,23 @@ module Jobs
       @mailbox.messages.undownloaded.each do |message|
         begin
           parse_message_body(message)
-          PrivatePub.publish_to @user.queue_name, :action => 'loaded_message_body', :message => message
+          begin
+            PrivatePub.publish_to @user.queue_name, :action => 'loaded_message_body', :message => message
+          rescue; end
         rescue Exception => e
           error = "Error loading message(id:#{message._id}): #{e}"
           puts error + e.backtrace.join("\t\n")
-          PrivatePub.publish_to @user.queue_name, :action => 'error', :message => error
+          begin
+            PrivatePub.publish_to @user.queue_name, :action => 'error', :message => error
+          rescue; end
         end
       end
     end
 
     def success
-      PrivatePub.publish_to @user.queue_name, :action => 'loaded_message_bodies', :mailbox => @mailbox
+      begin
+        PrivatePub.publish_to @user.queue_name, :action => 'loaded_message_bodies', :mailbox => @mailbox
+      rescue; end
     end
 
     private

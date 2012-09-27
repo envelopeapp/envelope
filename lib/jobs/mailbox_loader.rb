@@ -17,7 +17,9 @@ module Jobs
       @user = @account.user
 
       # tell the front-end how many messages we have to load
-      PrivatePub.publish_to @user.queue_name, :action => 'loading_mailboxes', :account => @account
+      begin
+        PrivatePub.publish_to @user.queue_name, :action => 'loading_mailboxes', :account => @account
+      rescue; end
     end
 
     def perform
@@ -63,7 +65,9 @@ module Jobs
         mailbox.save! if mailbox.changed?
 
         # tell the front-end that we loaded a mailbox
-        PrivatePub.publish_to @user.queue_name, :action => 'loaded_mailbox', :mailbox => mailbox, :account => @account, :percent_complete => index/(imap_mailboxes.length*1.0)
+        begin
+          PrivatePub.publish_to @user.queue_name, :action => 'loaded_mailbox', :mailbox => mailbox, :account => @account, :percent_complete => index/(imap_mailboxes.length*1.0)
+        rescue; end
 
         Delayed::Job.enqueue(Jobs::MessageLoader.new(mailbox._id), queue:mailbox.queue_name)
       end
@@ -72,7 +76,9 @@ module Jobs
     end
 
     def success
-      PrivatePub.publish_to @user.queue_name, :action => 'loaded_mailboxes', :account => @account
+      begin
+        PrivatePub.publish_to @user.queue_name, :action => 'loaded_mailboxes', :account => @account
+      rescue; end
     end
   end
 end
