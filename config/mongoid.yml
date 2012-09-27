@@ -58,6 +58,19 @@ development:
 
     # Ensure all times are UTC in the app side. (default: false)
     use_utc: true
+
+production:
+  sessions:
+    default:
+      uri: <%= ENV['MONGOHQ_URL'] %>
+      options:
+        identity_map_enabled: true
+        raise_not_found_error: false
+        scope_overwrite_exception: true
+        skip_version_check: true
+        safe: true
+        use_utc: true
+
 test:
   sessions:
     default:

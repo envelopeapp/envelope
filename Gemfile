@@ -12,6 +12,7 @@ gem 'foreman'
 gem 'haml'
 gem 'jquery-rails'
 gem 'js-routes'
+gem 'kaminari'
 gem 'mail'
 gem 'mongoid'
 gem 'nested_form', :git => 'git://github.com/ryanb/nested_form.git'
@@ -35,6 +36,7 @@ group :assets do
 end
 
 group :development do
+  gem 'heroku'
   gem 'quiet_assets'
   gem 'yard'
 end

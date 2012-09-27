@@ -6,6 +6,9 @@ class Message
   include Tire::Model::Search
   include Tire::Model::Callbacks
 
+  include Kaminari::MongoidExtension::Criteria
+  include Kaminari::MongoidExtension::Document
+
   mapping do
     indexes :_id, index: :not_analyzed
     indexes :user_id
