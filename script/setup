@@ -5,9 +5,9 @@ set +x
 echo -n 'Installing/Updating Homebrew... '
   which -s brew
   if [[ $? != 0 ]] ; then
-      /usr/bin/ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)"
+    /usr/bin/ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)"
   else
-      brew update 2>&1 > /dev/null
+    brew update 2>&1 > /dev/null
   fi
 echo 'Done!'
 
@@ -33,9 +33,12 @@ which -s mongo || (
 )
 
 # Config
-echo -n 'Copying config file... '
-  cp config/envelope.example.yml config/envelope.yml 2>&1 > /dev/null
-echo 'Done!'
+if [ ! -f config/envelope.yml ];
+then
+  echo -n 'Copying config file... '
+    cp config/envelope.example.yml config/envelope.yml 2>&1 > /dev/null
+  echo 'Done!'
+fi
 
 # Foreman
 echo -n 'Setting up foreman... '
