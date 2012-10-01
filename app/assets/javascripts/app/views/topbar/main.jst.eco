@@ -28,7 +28,7 @@
       <a href="#"><i class="icon icon-pencil"></i> Edit Profile</a>
     </li>
     <li>
-      <a href="#"><i class="icon icon-list"></i> Manage Accounts</a>
+      <a href="#" id="manage-accounts-button"><i class="icon icon-list"></i> Manage Accounts</a>
     </li>
     <li class="divider"></li>
     <li>
@@ -40,30 +40,3 @@
 <form class="pull-right">
   <input type="search" name="q" id="search-box">
 </form>
-
-
-
-
-<!--
-.btn-group.pull-right
-  = link_to '#', :class => 'btn dropdown-toggle', :data => { :toggle => 'dropdown' } do
-    %i.icon.icon-user
-    = current_user.name
-    %span.caret
-  %ul.dropdown-menu
-    %li
-      = link_to edit_user_path(current_user) do
-        %i.icon.icon-pencil
-        Edit Profile
-    %li
-      = link_to accounts_path do
-        %i.icon.icon-list
-        Manage Accounts
-    %li.divider
-    %li
-      = link_to logout_path, :method => :delete do
-        %i.icon.icon-lock
-        Logout
-= form_tag nil, :class => 'pull-right' do
-  = search_field_tag :q, params[:q], :id => 'search-box', :'data-search-path' => search_messages_path
--->

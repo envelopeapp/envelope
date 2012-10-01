@@ -16,7 +16,7 @@ Envelope::Application.routes.draw do
   end
 
   root to: 'main#index'
-  # match '*path' => 'main#index'
+  match '*path' => 'main#index'
 end
 
 

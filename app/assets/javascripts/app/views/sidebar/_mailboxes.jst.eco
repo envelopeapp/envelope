@@ -1,0 +1,10 @@
+<% if @mailboxes? && @mailboxes.length > 0: %>
+  <ul>
+    <% for mailbox in @mailboxes: %>
+      <li>
+        <a href="#" data-mailbox-id="<%= mailbox.id %>" class="sidebar-mailbox<%= ' selectable' if mailbox.selectable?%>"><%= mailbox.name %></a>
+        <%- JST['app/views/sidebar/_mailboxes'](mailboxes: mailbox.nested_mailboxes) %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
