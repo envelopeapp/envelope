@@ -9,3 +9,7 @@ before_install:
   - cp config/envelope.example.yml config/envelope.yml
 script:
   - bundle exec rspec --fail-fast
+branches:
+  only:
+    - master
+    - production
