@@ -8,3 +8,19 @@ end
 node :nested_mailboxes do |account|
   account.mailboxes.first.root.siblings.map { |mailbox| partial('api/v1/accounts/nested_mailboxes', :object => mailbox) }
 end
+
+child incoming_server: :incoming_server do
+  attributes :id, :address, :port, :ssl
+
+  child :authentication do
+    attributes :id, :username
+  end
+end
+
+child outgoing_server: :outgoing_server do
+  attributes :id, :address, :port, :ssl
+
+  child :authentication do
+    attributes :id, :username
+  end
+end

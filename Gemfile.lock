@@ -226,6 +226,7 @@ GEM
     uglifier (1.3.0)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
+    underscore-rails (1.3.1)
     vcard (0.1.1)
     warden (1.2.1)
       rack (>= 1.0)
@@ -277,6 +278,7 @@ DEPENDENCIES
   spork
   tire
   uglifier (>= 1.0.3)
+  underscore-rails
   vcard
   warden
   webmock

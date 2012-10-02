@@ -65,6 +65,6 @@ module Envelope
     config.assets.version = '1.0'
 
     # Prevent initializing your application and connecting to the database
-    # config.assets.initialize_on_precompile = false
+    config.assets.initialize_on_precompile = false
   end
 end
