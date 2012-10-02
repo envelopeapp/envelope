@@ -51,6 +51,9 @@ Envelope::Application.configure do
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 
+  # Set default url options for emails
+  config.action_mailer.default_url_options = { :host => 'getenvelope.heroku.com' }
+
   # Use sendgrid on heroku for sending emails
   config.action_mailer.smtp_settings = {
     :address        => 'smtp.sendgrid.net',
