@@ -1,34 +1,21 @@
-class Envelope.Accounts
-
-class Envelope.Accounts.Index extends Spine.Controller
+class Envelope.Accounts extends Spine.Controller
   events:
-    'click [data-type=edit]': 'edit'
+    'change input': 'close'
 
   constructor: ->
     super
-    @log 'Accounts Index View'
-    Envelope.Account.bind 'refresh change', @render
-    Envelope.Account.fetch()
 
-  release: ->
-    Envelope.unbind 'refresh change', @render
+    @routes
+      '/accounts': @index
+
+    Envelope.Account.bind 'refresh change', @render
+
+  index: ->
+    @render()
 
   render: =>
     accounts = Envelope.Account.all()
-    console.log @view('accounts/index')(accounts: accounts)
     @html @view('accounts/index')(accounts: accounts)
 
-  edit: (e) ->
-    item = $(e.target).item()
-    @navigate '/accounts', item.id, 'edit'
-
-class Envelope.Accounts extends Spine.Stack
-  className: 'stack accounts'
-
-  controllers:
-    index: Envelope.Accounts.Index
-
-  routes:
-    '/accounts': 'index'
-
-  default: 'index'
+  close: ->
+    console.log @

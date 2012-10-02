@@ -4,8 +4,11 @@ class Envelope.Topbar extends Spine.Controller
     @render()
 
   events:
-    'click #manage-accounts-button': (e) ->
-      e.preventDefault() && Spine.Route.navigate('/accounts')
+    'click #manage-accounts-button': 'show_accounts'
 
   render: =>
     @html @view('topbar/main')(@)
+
+  show_accounts: (e) ->
+    e.preventDefault()
+    @navigate('/accounts') # WTF?

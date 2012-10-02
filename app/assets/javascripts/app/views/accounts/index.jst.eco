@@ -1,1 +1,73 @@
-Accounts Index
+<div class="modal-header">
+  <a href="#" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+  <h3>Your Accounts</h3>
+</div>
+
+<div class="modal-body">
+  <div class="tabbable tabs-left">
+    <ul class="nav nav-tabs">
+      <% for account, i in @accounts: %>
+        <li<%- ' class="active"' if i == 0 %>>
+          <a href="#<%= account.slug %>" data-toggle="tab"><%= account.name %></a>
+        </li>
+      <% end %>
+    </ul>
+
+    <div class="tab-content">
+      <% for account, i in @accounts: %>
+        <div class="tab-pane<%- ' active' if i == 0 %>" id="<%= account.slug %>">
+          <div class="tabbable">
+            <ul class="nav nav-pills">
+              <li class="active"><a href="#account-<%= account.slug %>" data-toggle="pill">Account</a></li>
+              <li><a href="#imap-<%= account.slug %>" data-toggle="pill">IMAP</a></li>
+              <li><a href="#smtp-<%= account.slug %>" data-toggle="pill">SMTP</a></li>
+              <li><a href="#advanced-<%= account.slug %>" data-toggle="pill">Advanced</a></li>
+            </ul>
+
+            <form class="form-horizontal" data-account-id="<%= account.id %>">
+              <div class="pill-content">
+                <div class="pill-pane active" id="account-<%= account.slug %>">
+                  <%- Envelope.FormHelpers.bootstrap_field name: 'name', label: 'Account Name', value: account.name %>
+                  <%- Envelope.FormHelpers.bootstrap_field name: 'email_address', label:'Email Address', value: account.email_address %>
+                </div>
+
+                <div class="pill-pane" id="imap-<%= account.slug %>">
+                  <%#= Envelope.FormHelpers.bootstrap_field name: 'incoming_server_attributes.address', label: 'IMAP Server', value: account.incoming_server.address %>
+                  <%#= Envelope.FormHelpers.bootstrap_field name: 'incoming_server_attributes.port', label: 'Port', value: account.incoming_server.port %>
+                  <%#= Envelope.FormHelpers.bootstrap_field type:'checkbox', name: 'incoming_server_attributes.ssl', label: 'SSL?', checked: account.incoming_server.address.ssl == true %>
+                  <hr>
+                  <%#= Envelope.FormHelpers.bootstrap_field name: 'incoming_server_attributes.server_authentication_attributes.username', label: 'Username', value: account.incoming_server.server_authentication.username %>
+                  <%#= Envelope.FormHelpers.bootstrap_field type: 'password', name: 'incoming_server_attributes.server_authentication_attributes.password', label: 'Password', value: account.incoming_server.server_authentication.encrypted_password %>
+                </div>
+
+                <div class="pill-pane" id="smtp-<%= account.slug %>">
+                  <%#= Envelope.FormHelpers.bootstrap_field name: 'outgoing_server_attributes.address', label: 'SMTP Server', value: account.outgoing_server.address %>
+                  <%#= Envelope.FormHelpers.bootstrap_field name: 'outgoing_server_attributes.port', label: 'Port', value: account.outgoing_server.port %>
+                  <%#= Envelope.FormHelpers.bootstrap_field type:'checkbox', name: 'outgoing_server_attributes.ssl', label: 'SSL?', value: account.outgoing_server.ssl == true %>
+                  <hr>
+                  <%#= Envelope.FormHelpers.bootstrap_field name: 'outgoing_server_attributes.server_authentication_attributes.username', label: 'Username', value: account.outgoing_server.server_authentication.username %>
+                  <%#= Envelope.FormHelpers.bootstrap_field type: 'password', name: 'outgoing_server_attributes.server_authentication_attributes.password', label: 'Password', value: account.outgoing_server.server_authentication.encrypted_password %>
+                </div>
+
+                <div class="pill-pane" id="advanced-<%= account.slug %>">
+                  <%#= Envelope.FormHelpers.bootstrap_field name: 'imap_directory', label: 'IMAP Directory', value: account.imap_directory %>
+                  <%#= Envelope.FormHelpers.bootstrap_field name: 'reply_to_address', label: 'Reply-To Address', value: account.reply_to_address %>
+
+                  <% for mailbox_name in ['inbox', 'sent', 'junk', 'drafts', 'trash', 'starred', 'important']: %>
+                    <%#= Envelope.FormHelpers.bootstrap_select name: "#{mailbox_name}_mailbox_id", label: "#{mailbox_name} Mailbox", value: account["#{mailbox_name}_mailbox_id"], placeholder: 'Choose a Mailbox...', options: _.map(account.selectableMailboxes(), (mailbox) -> { label: mailbox.name, value: mailbox.id }) %>
+                  <% end %>
+
+                  <a href="#delete-<%= account.id %>" data-account-id="<%= account.id %>" class="btn btn-danger delete-account" style="width:100%;">Delete Account</a>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <a href="/accounts/new" class="btn pull-left" id="new-account-button">New Account</a>
+</div>

@@ -8,16 +8,18 @@
 
 #= require_tree ./lib
 #= require_self
+#= require_tree ./helpers
 #= require_tree ./models
 #= require_tree ./controllers
 #= require_tree ./views
 
 class Envelope extends Spine.Controller
-  constructor: ->
+ constructor: ->
     super
 
     new Envelope.Topbar(el: $('#topbar'))
     new Envelope.Sidebar(el: $('#sidebar'))
+    new Envelope.Accounts(el: $('#accounts'))
     # new Envelope.Sessions(el: $('#login'))
 
     Spine.Route.setup(history: true)
