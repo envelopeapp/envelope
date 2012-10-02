@@ -11,7 +11,6 @@ CommonAccountSetting.create!(
     port:'587',
     ssl:true,
   },
-  imap_directory:'[Gmail]'
 )
 
 CommonAccountSetting.create!(
@@ -54,7 +53,8 @@ CommonAccountSetting.create!(
     address:'smtp.gmail.com',
     port:'465',
     ssl:true
-  }
+  },
+  imap_directory: '[Gmail]'
 )
 
 # User
