@@ -1,31 +1,39 @@
 source :rubygems
 ruby '1.9.3'
 
-gem 'mongoid-ancestry'
 gem 'bcrypt-ruby'
 gem 'bootstrap_forms'
 gem 'bson_ext'
+gem 'charlock_holmes', :require => false
 gem 'chronic'
-gem 'delayed_job_mongoid'
 gem 'eco'
 gem 'foreman'
 gem 'haml'
 gem 'jquery-rails'
 gem 'js-routes'
 gem 'kaminari'
-gem 'mail'
+gem 'mail', :require => false
 gem 'mongoid'
+gem 'mongoid-ancestry'
+gem 'nokogiri', :require => false
 gem 'nested_form', :git => 'git://github.com/ryanb/nested_form.git'
 gem 'puma'
 gem 'pusher'
 gem 'rails', '3.2.8'
+gem 'sidekiq'
 gem 'tire'
-gem 'vcard'
+gem 'vcard', :require => false
 gem 'warden'
 gem 'yajl-ruby', :require => 'yajl/json_gem'
 
 # cancan needs to be last so it picks up the mongo driver
 gem 'cancan'
+
+# Sidekiq engine
+group :sidekiq do
+  gem 'sinatra', :require => false
+  gem 'slim'
+end
 
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'
@@ -34,8 +42,13 @@ group :assets do
 end
 
 group :development do
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'guard-spork'
   gem 'heroku'
+  gem 'rb-fsevent'
   gem 'quiet_assets'
+  gem 'terminal-notifier-guard'
   gem 'yard'
 end
 

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Contact do
-  before do
+  before(:all) do
     @contact = build(:contact, first_name: 'Bill', last_name: 'Jones')
     @email = build(:email, contact: @contact, email_address: 'bill@example.com')
   end

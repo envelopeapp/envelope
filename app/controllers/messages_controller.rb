@@ -116,7 +116,8 @@ class MessagesController < ApplicationController
   end
 
   def create
-    Delayed::Job.enqueue(Jobs::MessageSender.new(current_user._id, params[:message]))
+    # TODO move this to Sidekiq
+    # Delayed::Job.enqueue(Jobs::MessageSender.new(current_user._id, params[:message]))
     redirect_to unified_mailbox_messages_path(:inbox)
   end
 

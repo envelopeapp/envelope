@@ -22,6 +22,17 @@ which -s elasticsearch || (
   echo 'Done!'
 )
 
+# Redis
+which -s redis-cli || (
+  echo -n 'Installing Redis... '
+  brew install redis 2>&1 > /dev/null
+  mkdir -p ~/Library/LaunchAgents 2>&1 > /dev/null
+  launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.redis.plist 2>&1 > /dev/null
+  cp /usr/local/Cellar/redis/2.4.17/homebrew.mxcl.redis.plist ~/Library/LaunchAgents/ 2>&1 > /dev/null
+  launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.redis.plist 2>&1 > /dev/null
+  echo 'Done!'
+)
+
 # MongoDB
 which -s mongo || (
   echo -n 'Installing MongoDB... '
@@ -29,6 +40,13 @@ which -s mongo || (
   mkdir -p ~/Library/LaunchAgents 2>&1 > /dev/null
   launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist 2>&1 > /dev/null
   launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist 2>&1 > /dev/null
+  echo 'Done!'
+)
+
+# icu4c
+which -s || (
+  echo -n 'Installing icu4c... '
+  brew install icu4c 2>&1 > /dev/null
   echo 'Done!'
 )
 
@@ -48,5 +66,6 @@ echo 'Done!'
 
 # Bundler
 echo -n 'Bundling... '
+  bundle config build.charlock_holmes --with-icu-dir=/usr/local/opt/icu4c
   bundle install --quiet
 echo 'Done!'

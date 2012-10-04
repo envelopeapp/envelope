@@ -13,18 +13,13 @@ Spork.prefork do
   require 'rspec/rails'
   require 'rspec/mocks'
   require 'webmock/rspec'
+  require 'sidekiq/testing'
 
   # Support files
   Dir[Rails.root.join('spec/support/**/*.rb')].each{ |f| require f }
-end
 
-Spork.each_run do
-  # require 'simplecov'
-  # SimpleCov.start 'rails'
-
-  load "#{Rails.root}/config/routes.rb"
-  Dir["#{Rails.root}/app/**/*.rb"].each {|f| load f}
-  Dir["#{Rails.root}/lib/**/*.rb"].each {|f| load f}
+  # Make RSpec exceptions look nicer
+  alias :running :lambda
 
   # RSpec Config
   RSpec.configure do |config|
@@ -39,9 +34,6 @@ Spork.each_run do
     config.include Mongoid::Matchers
 
     config.before(:each) do
-      # Delayed Job
-      Delayed::Job.stub!(:enqueue).and_return(nil)
-
       # Elastic Search Mock
       stub_request(:any, %r|#{Tire::Configuration.url}.*|)
         .to_return(status: 200, body: '{"took": 1,"timed_out": false,"_shards": {"total": 5,"successful": 5,"failed": 0},"hits": {"total": 0,"max_score": null,"hits": []}}', headers: {})
@@ -52,4 +44,13 @@ Spork.each_run do
       Mongoid.purge!
     end
   end
+end
+
+Spork.each_run do
+  # require 'simplecov'
+  # SimpleCov.start 'rails'
+
+  load "#{Rails.root}/config/routes.rb"
+  Dir["#{Rails.root}/app/**/*.rb"].each {|f| load f}
+  Dir["#{Rails.root}/lib/**/*.rb"].each {|f| load f}
 end

@@ -9,8 +9,8 @@ class Label
   COLORS = [['gray', ''], ['green', 'label-success'], ['yellow', 'label-warning'], ['red', 'label-important'], ['blue', 'label-info'], ['black', 'label-inverse']].freeze unless defined?(COLORS)
 
   # associations
-  belongs_to :user
-  has_and_belongs_to_many :messages
+  belongs_to :user, index: true
+  has_and_belongs_to_many :messages, index: true
 
   # validations
   validates_presence_of :user, :name

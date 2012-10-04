@@ -60,7 +60,7 @@
     %dd= @message.subject
 
     %dt Date:
-    %dd= @message.date.strftime("%b %e, %Y %I:%M:%S %p %Z")
+    %dd= @message.timestamp.strftime("%b %e, %Y %I:%M:%S %p %Z")
 
     %dt To:
     %dd= @message.toers.join(', ')

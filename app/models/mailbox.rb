@@ -4,9 +4,9 @@ class Mailbox
   # fields
   field :name, type: String
   field :location, type: String
+  field :flags, type: Array
   field :uid_validity, type: Integer
   field :remote, type: Boolean
-  field :selectable, type: Boolean
   field :last_synced, type: DateTime
 
   # ancestry
@@ -18,7 +18,7 @@ class Mailbox
   after_destroy :publish_mailbox_destroyed
 
   # associations
-  belongs_to :account, :inverse_of => :mailboxes
+  belongs_to :account, :inverse_of => :mailboxes, index: true
   has_many :messages, :dependent => :destroy
 
   # validations
@@ -33,17 +33,24 @@ class Mailbox
   end
 
   # instance methods
-  def load_messages
-    Delayed::Job.enqueue(Jobs::MessageLoader.new(self._id), queue:self.queue_name)
+  # Determines if this mailbox is selectable. Not all IMAP mailboxes
+  # are selectable (they may just be  a parent grouping mailbox)
+  #
+  # @return [Boolean] true if the mailbox is selectable, false otherwise
+  def selectable?
+    ([:Noselect] & self.flags).empty?
+  end
+
+  # Return the UID of the last message received by this client
+  #
+  # @return [Integer] the last UID
+  def last_seen_uid
+    self.messages.order_by(:uid => :desc).limit(1).last.try(:uid) || 1
   end
 
   # returns the mailbox's queue name (prefixed with /) for delayed job
   def queue_name
     ['', self.account.user._id, self.account._id, self._id].join('/')
-  end
-
-  def queues_remaining
-    Delayed::Job.where(:queue => self.queue_name, :failed_at => nil)
   end
 
   def unread_messages
@@ -85,31 +92,5 @@ class Mailbox
 
   def publish_mailbox_destroyed
     #PrivatePub.publish_to self.user.queue_name, :action => 'mailbox_destroyed', :mailbox => self
-  end
-
-  # returns the UID of the last message received by this client
-  def last_seen_uid
-    self.messages.order_by(:uid => :desc).limit(1).last.try(:uid) || 1
-  end
-
-  def check_uid_validity!
-    # check the mailbox UIDVALIDITY
-    # if UIDVALIDITY value returned by the server differs, the client MUST
-    #   - empty the local cache of that mailbox;
-    #   - remove any pending "actions" that refer to UIDs in that mailbox and consider them failed
-    @imap = Envelope::IMAP.new(self.account)
-    imap_uid_validity = @imap.get_uid_validity(self)
-
-    if imap_uid_validity != self.uid_validity
-      # empty the local cache of that mailbox
-      self.messages.destroy_all
-
-      # remove any pending actions of that mailbox
-      Delayed::Job.where(:queue => self.queue_name).delete_all
-
-      # set the UIDVALIDITY
-      self.uid_validity = imap_uid_validity
-      self.update_attribute(:uid_validity, imap_uid_validity)
-    end
   end
 end

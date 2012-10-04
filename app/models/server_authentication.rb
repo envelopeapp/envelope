@@ -35,6 +35,6 @@ class ServerAuthentication
   # private methods
   private
   def encryptor
-    @@encryptor ||= ActiveSupport::MessageEncryptor.new(Rails.application.config.encryption_key)
+    @@encryptor ||= ActiveSupport::MessageEncryptor.new(Rails.application.config.envelope['encryption_key'])
   end
 end

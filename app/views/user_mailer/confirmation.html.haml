@@ -2,4 +2,4 @@
 
 %p Thank you for registering with Envelope!
 
-%p Here is a confirmation link: #{link_to confirm_user_url(@user, @user.confirmation_token), confirm_user_url(@user, @user.confirmation_token), :target => '_TOP'}
+%p Here is a confirmation link: #{link_to confirm_user_url(@user.id, @user.confirmation_token), confirm_user_url(@user.id, @user.confirmation_token), :target => '_TOP'}

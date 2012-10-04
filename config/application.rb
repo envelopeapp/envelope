@@ -39,7 +39,7 @@ module Envelope
     # config.i18n.default_locale = :de
 
     # Configure the default encoding used in templates for Ruby 1.9.
-    config.encoding = "utf-8"
+    config.encoding = 'utf-8'
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
@@ -66,5 +66,8 @@ module Envelope
 
     # Prevent initializing your application and connecting to the database
     # config.assets.initialize_on_precompile = false
+
+    # Add our configuration to the Application
+    config.envelope = YAML.load(ERB.new(File.read(Rails.root.join('config/envelope.yml'))).result)[Rails.env]
   end
 end

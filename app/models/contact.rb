@@ -14,12 +14,16 @@ class Contact
   field :notes, type: String
 
   # associations
-  belongs_to :user
+  belongs_to :user, index: true
   embeds_many :emails
   embeds_many :phones
   embeds_many :addresses
 
+  # nested attributes
+  accepts_nested_attributes_for :emails, :phones, :addresses
+
   # validations
+  validates_presence_of :first_name
 
   # scopes
   default_scope order_by(:last_name => :asc, :first_name => :asc)
@@ -44,7 +48,7 @@ class Contact
       File.open(path, 'w+') { |f| f.write(upload.read) }
 
       # put it into delayed job
-      Delayed::Job.enqueue(Jobs::ContactImporter.new(user._id, path))
+      VcardWorker.perform_async(user.id, path)
     end
   end
 

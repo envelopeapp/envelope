@@ -23,15 +23,22 @@ class Message
   # fields
   field :uid, type: Integer
   field :message_id, type: String
-  field :subject, type: String, default: '(no subject}'
-  field :date, type: DateTime
+  field :subject, type: String
+  field :timestamp, type: DateTime
   field :read, type: Boolean
-  field :downloaded, type: Boolean
-  field :flagged, type: Boolean
+  field :flags, type: Array, default: []
+  field :flagged, type: Boolean # TODO remove
+  field :full_text_part, type: String
   field :text_part, type: String
+  field :full_html_part, type: String
   field :html_part, type: String
+  field :sanitized_html, type: String
   field :preview, type: String
   field :raw, type: String
+
+  # indexes
+  index({ uid: 1 }, { name: 'uid_index' })
+  index({ message_id: 1 }, { name: 'message_id_index' })
 
   # ancestry
   include Mongoid::Ancestry
@@ -46,20 +53,18 @@ class Message
   after_destroy :update_mailbox_cache
 
   # associations
-  has_and_belongs_to_many :labels
-  belongs_to :mailbox
+  has_and_belongs_to_many :labels, index: true
+  belongs_to :mailbox, index: true
   embeds_many :participants
   embeds_many :attachments
 
   # validations
-  validates_presence_of :date, :read, :downloaded
+  validates_presence_of :timestamp, :read
 
   # scopes
-  default_scope order_by(:date => :desc).includes(:mailbox, :labels)
+  default_scope order_by(:timestamp => :desc).includes(:mailbox, :labels)
   scope :read, where(read:true)
   scope :unread, where(read:false)
-  scope :downloaded, where(downloaded:true)
-  scope :undownloaded, where(downloaded:false)
 
   # attr_accessor
   attr_accessor :to, :cc, :bcc, :body
@@ -78,27 +83,58 @@ class Message
     self.mailbox.account
   end
 
+  # Determines if this message has been read
+  #
+  # @return [Boolean] true if the message has been read, false otherwise
+  def read?
+    !(%w(seen read) & flags).empty?
+  end
+
+  # Determines if this message has not been read
+  #
+  # @return [Boolean] false if the message has been read, true otherwise
   def unread?
-    !self.read?
+    !read?
+  end
+
+  # Determines if this message has been deleted
+  #
+  # @return [Boolean] true if the message has been deleted, false otherwise
+  def deleted?
+    !(%w(deleted removed) & flags).empty?
+  end
+
+  # Determines if this message has been flagged
+  #
+  # @return [Boolean] true if the message has been flagged, false otherwise
+  def flagged?
+    !(%w(flagged) & flags).empty?
+  end
+
+  # Determines if this message has been answered
+  #
+  # @return [Boolean] true if the message has been answered, false otherwise
+  def answered?
+    !(%w(answered) & flags).empty?
   end
 
   def mark_as_read!
-    self.update_attributes!(read:true)
+    self.push(:flags, 'read')
     uid_store('+FLAGS.SILENT', [:Seen])
   end
 
   def mark_as_unread!
-    self.update_attributes!(read:false)
+    self.pull(:flags, 'read')
     uid_store('-FLAGS.SILENT', [:Seen])
   end
 
   def flag!
-    self.update_attributes(flagged:true)
+    self.push(:flags, 'flagged')
     uid_store('+FLAGS.SILENT', [:Flagged])
   end
 
   def unflag!
-    self.update_attributes(flagged:false)
+    self.pull(:flags, 'flagged')
     uid_store('-FLAGS.SILENT', [:Flagged])
   end
 
@@ -107,6 +143,7 @@ class Message
     uid_store('+FLAGS', [:Deleted])
     self.destroy
   end
+  alias :delete! :move_to_trash!
 
   # Always include certain methods when serializing a message
   def serializable_hash(options = {})
