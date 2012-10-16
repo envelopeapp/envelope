@@ -18,9 +18,9 @@ module Envelope
     end
 
     def connect(&block)
-      raise ArgumentError.new("Envelope::IMAP takes a block") unless block_given?
+      raise ArgumentError.new('Envelope::IMAP takes a block') unless block_given?
 
-      connection = Net::IMAP.new(settings[:address], settings[:port], settings[:ssl?], nil, false)
+      connection = Net::IMAP.new(settings[:address], port: settings[:port], ssl: settings[:ssl?])
       if settings[:authentication].nil?
         connection.login(settings[:username], settings[:password])
       else
@@ -29,8 +29,6 @@ module Envelope
       end
 
       yield connection
-    rescue => e
-      puts "#{e}\n#{e.backtrace.join("\t\n")}"
     ensure
       if defined?(connection) && connection && !connection.disconnected?
         connection.logout
@@ -69,7 +67,6 @@ module Envelope
       end
     ensure
       if defined?(connection) && connection && !connection.disconnected?
-        puts "\n\n\nclosing connection\n\n\n"
         connection.close
       end
     end

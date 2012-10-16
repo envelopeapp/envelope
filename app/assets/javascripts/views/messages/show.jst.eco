@@ -1,6 +1,6 @@
 <div class="message bubble" data-message-id="<%= @message._id %>">
   <div class="bubble-metadata">
-    <%= new Date(@message.date).format("mmm d, h:MMtt"); %>
+    <%= new Date(@message.timestamp).format("mmm d, h:MMtt"); %>
   </div>
 
   <div class="bubble-actions btn-toolbar">
@@ -75,7 +75,7 @@
   <hr class="bubble-divider" />
 
   <div class="bubble-body">
-    <%- @message.html_part || @message.text_part %>
+    <%- @message.html_part || @message.text_part.replace /\n/g, '<br><br>' %>
   </div>
 
   <div class="clear"></div>

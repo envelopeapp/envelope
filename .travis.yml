@@ -6,6 +6,7 @@ services:
   - elasticsearch
 before_install:
   - gem update bundler
+  - sudo apt-get install libicu-dev
   - cp config/envelope.example.yml config/envelope.yml
 script:
   - bundle exec rspec --fail-fast

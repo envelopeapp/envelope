@@ -66,9 +66,9 @@ class User
 
     Message.tire.search(page: options[:page] || 1, per_page: 15, load: true) do
       query do
-        string(q) if q.present?
+        string('Travis-CI') if q.present?
       end
-      filter :term, { user_id: user_id }
+      # filter :term, { user_id: user_id }
     end
   end
 
@@ -99,7 +99,8 @@ class User
   # Generates a new, unique password and sends an email to the user
   # with the new password.
   def reset_password!
-    Delayed::Job.enqueue(Jobs::UserResetPassword.new(self._id))
+    generate_token!(:reset_password_token)
+    UserMail.delay.reset_password(self._id)
   end
 
   # Generates a unique token for this user. It accepts a `column`
@@ -118,6 +119,7 @@ class User
 
   # Calls the job to send a user his confirmation email
   def send_confirmation_email
-    Delayed::Job.enqueue(Jobs::UserConfirmation.new(self._id))
+    generate_token!(:confirmation_token)
+    UserMailer.delay.confirmation(self._id)
   end
 end

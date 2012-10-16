@@ -78,3 +78,4 @@ describe Participant do
     end
   end
 end
+

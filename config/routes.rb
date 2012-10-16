@@ -1,5 +1,6 @@
-Envelope::Application.routes.draw do
+require 'sidekiq/web'
 
+Envelope::Application.routes.draw do
   resources :labels
 
   resources :messages, :only => [:index, :new, :create] do
@@ -57,4 +58,6 @@ Envelope::Application.routes.draw do
   get 'confirmation-email' => 'users#confirmation_email', :as => :confirmation_email
 
   root :to => redirect('/messages/inbox')
+
+  mount Sidekiq::Web, at: '/sidekiq'
 end
