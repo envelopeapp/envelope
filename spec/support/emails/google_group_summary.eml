@@ -1,0 +1,192 @@
+Delivered-To: seth.vargo@gmail.com
+Received: by 10.216.100.194 with SMTP id z44csp212801wef;
+        Fri, 28 Sep 2012 07:46:00 -0700 (PDT)
+Return-Path: <1000plus2013board+bncBDPJZWOYZEDBBJ7QS2BQKGQE5D4DYEA@googlegroups.com>
+Received-SPF: pass (google.com: domain of 1000plus2013board+bncBDPJZWOYZEDBBJ7QS2BQKGQE5D4DYEA@googlegroups.com designates 10.236.180.41 as permitted sender) client-ip=10.236.180.41
+Authentication-Results: mr.google.com; spf=pass (google.com: domain of 1000plus2013board+bncBDPJZWOYZEDBBJ7QS2BQKGQE5D4DYEA@googlegroups.com designates 10.236.180.41 as permitted sender) smtp.mail=1000plus2013board+bncBDPJZWOYZEDBBJ7QS2BQKGQE5D4DYEA@googlegroups.com; dkim=pass header.i=1000plus2013board+bncBDPJZWOYZEDBBJ7QS2BQKGQE5D4DYEA@googlegroups.com
+Received: from mr.google.com ([10.236.180.41])
+        by 10.236.180.41 with SMTP id i29mr814288yhm.4.1348843559612 (num_hops = 1);
+        Fri, 28 Sep 2012 07:45:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlegroups.com; s=20120806;
+        h=x-beenthere:mime-version:to:from:subject:message-id:date
+         :x-original-sender:reply-to:precedence:mailing-list:list-id
+         :x-google-group-id:list-post:list-help:list-archive:sender
+         :list-unsubscribe:content-type;
+        bh=9ueah8wwrY0+l8bTq1SXq1Oe94eodmLgdKtQ9mmOLNM=;
+        b=qrmX9wqCc+vvOlDH42Ckf6hI3IgwVW5iQmBJ3u837kz7HSry39/GwlXd/BWSRUU2q0
+         407nb/I9Z0zx3mwwHrsCsD/ewwVdLbClzvQwMS9O2Ev5DrJr9J41QWGGctZBSr5pwWbx
+         lhxAcXuDB3jMZ7C1q6xWo1wk2c4Uebar+6+VvUM+CEClimSWxJmkvFGp/ehl/fwo68S9
+         AYimMTGnGVWT8cFTLnsmETIO3IPEV9w873hC/twjrV8a8/xgSLXcvd3uzKt/OWp8zuhs
+         kvGQOdBJ4IY/zX4WvBX+/uqA/6rbOjLjBprI5h0pqFsw5H2FAcb8MWDVkcb6DRpeldPR
+         z+JA==
+Received: by 10.236.180.41 with SMTP id i29mr814288yhm.4.1348843559595;
+        Fri, 28 Sep 2012 07:45:59 -0700 (PDT)
+X-BeenThere: 1000plus2013board@googlegroups.com
+Received: by 10.236.120.244 with SMTP id p80ls6939666yhh.0.gmail; Fri, 28 Sep
+ 2012 07:45:59 -0700 (PDT)
+Received: by 10.236.83.235 with SMTP id q71mr5735085yhe.5.1348843559341;
+        Fri, 28 Sep 2012 07:45:59 -0700 (PDT)
+MIME-Version: 1.0
+To: Abridged Recipients <1000plus2013board@googlegroups.com>
+From: 1000plus2013board@googlegroups.com
+Subject: [1000plus] Abridged summary of 1000plus2013board@googlegroups.com - 2
+ Messages in 2 Topics
+Message-ID: <20cf300fac87363ee604cac41d41@google.com>
+Date: Fri, 28 Sep 2012 14:45:59 +0000
+X-Original-Sender: 1000plus2013board@googlegroups.com
+Reply-To: 1000plus2013board@googlegroups.com
+Precedence: list
+Mailing-list: list 1000plus2013board@googlegroups.com; contact 1000plus2013board+owners@googlegroups.com
+List-ID: <1000plus2013board.googlegroups.com>
+X-Google-Group-Id: 225940229726
+List-Post: <http://groups.google.com/group/1000plus2013board/post?hl=en>, <mailto:1000plus2013board@googlegroups.com>
+List-Help: <http://groups.google.com/support/?hl=en>, <mailto:1000plus2013board+help@googlegroups.com>
+List-Archive: <http://groups.google.com/group/1000plus2013board?hl=en>
+Sender: 1000plus2013board@googlegroups.com
+List-Unsubscribe: <http://groups.google.com/group/1000plus2013board/subscribe?hl=en>,
+ <mailto:googlegroups-manage+225940229726+unsubscribe@googlegroups.com>
+Content-Type: multipart/alternative; boundary=0016367f94b4b30060474d22062
+
+--0016367f94b4b30060474d22062
+Content-Type: text/plain; charset=ISO-8859-1
+
+=============================================================================
+Today's Topic Summary
+=============================================================================
+
+Group: 1000plus2013board@googlegroups.com
+Url: http://groups.google.com/group/1000plus2013board/topics
+
+  - 1000plus Agenda (1000plus2013board@googlegroups.com) [1 Update]
+    http://groups.google.com/group/1000plus2013board/t/9cec1effa5129072
+  - Meeting Tonight [1 Update]
+    http://groups.google.com/group/1000plus2013board/t/9545109f83eb9def
+
+
+=============================================================================
+Topic: 1000plus Agenda (1000plus2013board@googlegroups.com)
+Url: http://groups.google.com/group/1000plus2013board/t/9cec1effa5129072
+=============================================================================
+
+---------- 1 of 1 ----------
+From: "Michael Carroll (Google Drive)" <mpacarroll@gmail.com>
+Date: Sep 28 12:03AM
+Url: http://groups.google.com/group/1000plus2013board/msg/7ec6bdfcf0210339
+
+I've shared an item with you:
+
+1000plus Agenda
+https://docs.google.com/document/d/1VX-T_3wt6sqOlJwlzzWKMIUGkbeW4BSe0Tc3WK7STuI/edit
+
+It's not an attachment -- it's stored online at Google Docs.
+
+
+=============================================================================
+Topic: Meeting Tonight
+Url: http://groups.google.com/group/1000plus2013board/t/9545109f83eb9def
+=============================================================================
+
+---------- 1 of 1 ----------
+From: Michael Carroll <mpacarroll@gmail.com>
+Date: Sep 27 01:37PM -0400
+Url: http://groups.google.com/group/1000plus2013board/msg/64792be09c314cc0
+
+Hi everyone,
+
+This is a reminder that we have a meeting tonight at 8 in the Student
+Activities. I had an issue with my grill so can't have people over
+tonight so I'm going to have to postpone it.
+
+
+
+-- 
+You received this message because you are subscribed to the Google Groups "1000plus2013Board" group.
+To post to this group, send email to 1000plus2013board@googlegroups.com.
+To unsubscribe from this group, send email to 1000plus2013board+unsubscribe@googlegroups.com.
+For more options, visit https://groups.google.com/groups/opt_out.
+
+
+
+--0016367f94b4b30060474d22062
+Content-Type: text/html; charset=ISO-8859-1
+
+<div style="font-family: arial; font-weight: bold; color: #222222; padding: 0px">&nbsp;
+  <a name="digest_top" style="color: #222222">Today's Topic Summary</a></div>
+<p>Group: <a style=color:15c;text-decoration:none href=http://groups.google.com/group/1000plus2013board/topics>http://groups.google.com/group/1000plus2013board/topics</a></p>
+<ul style="margin-left:3px; padding-left:0px">
+<li type="square" style="color: #555555"><a style=color:15c;text-decoration:none href="#group_thread_0">1000plus Agenda (1000plus2013board@googlegroups.com)</a> [1 Update]</li>
+<li type="square" style="color: #555555"><a style=color:15c;text-decoration:none href="#group_thread_1">Meeting Tonight</a> [1 Update]</li>
+
+</ul>
+
+
+
+  
+  <a name="group_thread_0"></a>
+  <div style="background-color: #f5f5f5; font-family: arial; border-top: 1px solid #e5e5e5; padding: 4px 0 5px 32px; "
+    >&nbsp;<a target="_blank" href="http://groups.google.com/group/1000plus2013board/t/9cec1effa5129072" style="color:15c;text-decoration:none"
+      >1000plus Agenda (1000plus2013board@googlegroups.com)</a></div>
+
+  
+  <ul>
+    <div style="font-family: arial; padding:10px 20px 14px 20px; margin: 0"
+      ><span style="color: #222222; font-weight: bold"
+      >&quot;Michael Carroll (Google Drive)&quot; &lt;mpacarroll@gmail.com&gt;</span> Sep 28 12:03AM
+      &nbsp;<br /><br />
+      I&#39;ve shared an item with you:<br />
+&nbsp;<br />
+1000plus Agenda<br />
+<a href="https://docs.google.com/document/d/1VX-T_3wt6sqOlJwlzzWKMIUGkbeW4BSe0Tc3WK7STuI/edit">https://docs.google.com/document/d/1VX-T_3wt6sqOlJwlzzWKMIUGkbeW4BSe0Tc3WK7STuI/edit</a><br />
+&nbsp;<br />
+It&#39;s not an attachment -- it&#39;s stored online at Google Docs.
+      <a style=color:15c;text-decoration:none href="http://groups.google.com/group/1000plus2013board/msg/7ec6bdfcf0210339">...more</a><br />
+    </div>
+  </ul>
+  
+
+  
+  <a name="group_thread_1"></a>
+  <div style="background-color: #f5f5f5; font-family: arial; border-top: 1px solid #e5e5e5; padding: 4px 0 5px 32px; "
+    >&nbsp;<a target="_blank" href="http://groups.google.com/group/1000plus2013board/t/9545109f83eb9def" style="color:15c;text-decoration:none"
+      >Meeting Tonight</a></div>
+
+  
+  <ul>
+    <div style="font-family: arial; padding:10px 20px 14px 20px; margin: 0"
+      ><span style="color: #222222; font-weight: bold"
+      >Michael Carroll &lt;mpacarroll@gmail.com&gt;</span> Sep 27 01:37PM -0400
+      &nbsp;<br /><br />
+      Hi everyone,<br />
+&nbsp;<br />
+This is a reminder that we have a meeting tonight at 8 in the Student<br />
+Activities. I had an issue with my grill so can&#39;t have people over<br />
+tonight so I&#39;m going to have to postpone it.
+      <a style=color:15c;text-decoration:none href="http://groups.google.com/group/1000plus2013board/msg/64792be09c314cc0">...more</a><br />
+    </div>
+  </ul>
+  
+
+
+
+  <div style="color:#555555; padding: 27px 0 0 40px">
+  <p>
+    You received this message because you are subscribed to the Google Group 1000plus2013board.<br />
+    You can <a style=color:15c;text-decoration:none href="mailto:1000plus2013board@googlegroups.com">post via email</a>.<br />
+    To unsubscribe from this group, <a style=color:15c;text-decoration:none href="mailto:1000plus2013board+unsubscribe@googlegroups.com">send</a> an empty message.<br />
+    For more options, <a style=color:15c;text-decoration:none href="http://groups.google.com/group/1000plus2013board/topics">visit</a> this group.<br />
+  </p>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &quot;1000plus2013Board&quot; group.<br />
+To post to this group, send email to 1000plus2013board@googlegroups.com.<br />
+To unsubscribe from this group, send email to 1000plus2013board+unsubscribe@googlegroups.com.<br />
+For more options, visit <a href="https://groups.google.com/groups/opt_out">https://groups.google.com/groups/opt_out</a>.<br />
+&nbsp;<br />
+&nbsp;<br />
+
+--0016367f94b4b30060474d22062--
+
+

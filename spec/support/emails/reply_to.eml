@@ -1,0 +1,65 @@
+Delivered-To: sethvargo@gmail.com
+Received: by 10.76.142.129 with SMTP id rw1csp272730oab;
+        Tue, 25 Sep 2012 23:06:05 -0700 (PDT)
+Received: by 10.229.137.20 with SMTP id u20mr12794122qct.84.1348639564726;
+        Tue, 25 Sep 2012 23:06:04 -0700 (PDT)
+Return-Path: <noreply@github.com>
+Received: from smtp1-ext.rs.github.com (smtp1-ext.rs.github.com. [207.97.227.250])
+        by mx.google.com with ESMTP id k10si1282092qct.128.2012.09.25.23.06.04;
+        Tue, 25 Sep 2012 23:06:04 -0700 (PDT)
+Received-SPF: pass (google.com: domain of noreply@github.com designates 207.97.227.250 as permitted sender) client-ip=207.97.227.250;
+Authentication-Results: mx.google.com; spf=pass (google.com: domain of noreply@github.com designates 207.97.227.250 as permitted sender) smtp.mail=noreply@github.com
+Date: Tue, 25 Sep 2012 23:06:04 -0700
+From: Mike Pack <notifications@github.com>
+Reply-To: ryanb/cancan <reply+i-6585950-3b8d3e844c77be9762ce3ba57f57201dc4f79aae-408570@reply.github.com>
+To: ryanb/cancan <cancan@noreply.github.com>
+Cc: Seth Vargo <sethvargo@gmail.com>
+Message-Id: <ryanb/cancan/issues/736/8879853@github.com>
+In-Reply-To: <ryanb/cancan/issues/736@github.com>
+References: <ryanb/cancan/issues/736@github.com>
+Subject: Re: [cancan] Add wiki page for rails-api (#736)
+Mime-Version: 1.0
+Content-Type: multipart/alternative; boundary=mimepart_50629b4c32cc7_2b11115ca744032
+List-Archive: https://github.com/ryanb/cancan
+List-Id: ryanb/cancan <cancan.ryanb.github.com>
+X-Github-Reason: mention
+List-Unsubscribe: <mailto:unsub+i-6585950-3b8d3e844c77be9762ce3ba57f57201dc4f79aae-408570@reply.github.com>
+Precedence: list
+List-Post: <mailto:reply+i-6585950-3b8d3e844c77be9762ce3ba57f57201dc4f79aae-408570@reply.github.com>
+X-Github-Recipient: sethvargo
+
+
+--mimepart_50629b4c32cc7_2b11115ca744032
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: Quoted-printable
+Content-Disposition: inline
+
+Thanks for the note, @sethvargo. It would be great if you could add a pag=
+e to [the wiki](https://github.com/ryanb/cancan/wiki) documenting this. N=
+o documentation is too small :)
+
+---
+Reply to this email directly or view it on GitHub:
+https://github.com/ryanb/cancan/issues/736#issuecomment-8879853=
+
+--mimepart_50629b4c32cc7_2b11115ca744032
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: Quoted-printable
+Content-Disposition: inline
+
+<p>Thanks for the note, <a href=3D"https://github.com/sethvargo" class=3D=
+"user-mention">@sethvargo</a>. It would be great if you could add a page =
+to <a href=3D"https://github.com/ryanb/cancan/wiki">the wiki</a> document=
+ing this. No documentation is too small :)</p>
+
+            <p style=3D"font-size:small;-webkit-text-size-adjust:none;col=
+or:#666;">
+              &mdash;<br>
+              Reply to this email directly or <a href=3D'https://github.c=
+om/ryanb/cancan/issues/736#issuecomment-8879853'>view it on GitHub</a>.
+            </p>
+            <img src=3D'https://github.com/notifications/beacon/5afBehM0i=
+Ft0EIiMwkgmtTRXA5hAOBQHnqEVPXS-mxqtYf7vPbvP7Agfw_JZjgFh.gif' height=3D'1'=
+ width=3D'1'>
+
+--mimepart_50629b4c32cc7_2b11115ca744032--

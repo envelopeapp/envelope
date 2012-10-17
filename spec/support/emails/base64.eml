@@ -1,0 +1,94 @@
+Delivered-To: seth.vargo@gmail.com
+Received: by 10.216.100.194 with SMTP id z44csp256287wef;
+        Thu, 4 Oct 2012 14:41:48 -0700 (PDT)
+Return-Path: <3mwJuUBQKCuAIQQINGCNGTVU-PQTGRNaIQQING.EQOUGVJ.XCTIQIOCKN.EQO@alerts.bounces.google.com>
+Received-SPF: pass (google.com: domain of 3mwJuUBQKCuAIQQINGCNGTVU-PQTGRNaIQQING.EQOUGVJ.XCTIQIOCKN.EQO@alerts.bounces.google.com designates 10.236.161.8 as permitted sender) client-ip=10.236.161.8
+Authentication-Results: mr.google.com; spf=pass (google.com: domain of 3mwJuUBQKCuAIQQINGCNGTVU-PQTGRNaIQQING.EQOUGVJ.XCTIQIOCKN.EQO@alerts.bounces.google.com designates 10.236.161.8 as permitted sender) smtp.mail=3mwJuUBQKCuAIQQINGCNGTVU-PQTGRNaIQQING.EQOUGVJ.XCTIQIOCKN.EQO@alerts.bounces.google.com; dkim=pass header.i=3mwJuUBQKCuAIQQINGCNGTVU-PQTGRNaIQQING.EQOUGVJ.XCTIQIOCKN.EQO@alerts.bounces.google.com
+Received: from mr.google.com ([10.236.161.8])
+        by 10.236.161.8 with SMTP id v8mr5824549yhk.18.1349386907857 (num_hops = 1);
+        Thu, 04 Oct 2012 14:41:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20120113;
+        h=mime-version:list-unsubscribe:list-id:message-id:date:subject:from
+         :to:content-type;
+        bh=gnwa4wa3iOCI/h4IPjpqZZPJU9DNjMN7vcZ4JxFSixQ=;
+        b=KlE9cP96J9OTOofHNCjkWV+vXwuRtRKuPktNLs6iGvXqjbdVCidER73izPLOv8rO4D
+         OpzuozRpYSSu6i6Oc7KZ3bhVpom8AugBZvj60qNmotWLKYOzktrQX4hIbTld9GzxaYS+
+         gZhfDArHvnW51i3UYc9CJHhUs0jPLvrHAadEkmeFqFBQRy8tJISPUj63nrzes3MACt6n
+         2MTkg3h0jeIKCgwxdlfJ4R9Z242ULhMwWdF1th04smEn3FNQgM2N7O7ory+7luN0u1AB
+         GJzhu+/k/q1O9bdAi8jA4A0p8Be8B1qIeqcCO0enLZSn1enbc51OXYuc3BPfE+pfyw44
+         kwpw==
+MIME-Version: 1.0
+Received: by 10.236.161.8 with SMTP id v8mr4870996yhk.18.1349386907428; Thu,
+ 04 Oct 2012 14:41:47 -0700 (PDT)
+List-Unsubscribe: <mailto:ur@unsubscribe.alerts.google.com?subject=AB2Xq4jGLzgsan55HmFoGBjM_ZPeerN1YcRYpYY>
+List-Id: <AB2Xq4jGLzgsan55HmFoGBjM_ZPeerN1YcRYpYY.alerts.google.com>
+Message-ID: <20cf303f633c4828e704cb429f4f@google.com>
+Date: Thu, 04 Oct 2012 21:41:47 +0000
+Subject: Google Alert - "Seth Vargo"
+From: Google Alerts <googlealerts-noreply@google.com>
+To: seth.vargo@gmail.com
+Content-Type: multipart/alternative; boundary=20cf303f633c4828d604cb429f4c
+
+--20cf303f633c4828d604cb429f4c
+Content-Type: text/plain; charset=windows-1252; format=flowed; delsp=yes
+Content-Transfer-Encoding: base64
+
+PT09IFdlYiAtIDEgbmV3IHJlc3VsdCBmb3IgWyJTZXRoIFZhcmdvIl0gPT09DQoNCkN1c3RvbSBH
+bG9iYWwgRWNvL0pTVCBoZWxwZXJzIJUgSXQncyBNeSBMaWZlIC0gU2V0aCBWYXJnbydzIEJsb2cN
+CkN1c3RvbSBHbG9iYWwgRWNvL0pTVCBoZWxwZXJzIFdvcmtpbmcgb24gRW52ZWxvcGUgbGF0ZWx5
+LCBJIHJlYWxpemVkIHRoZQ0KbmVlZCBmb3IgY3VzdG9tIGZvcm0gaGVscGVycy4gV2UgdXNlIFR3
+aXR0ZXIgQm9vdHN0cmFwIGZvciB0aGUgZm9ybSBzdHlsZXMNCmFuZCBsYXlvdXQsIC4uLg0KPGh0
+dHA6Ly93d3cuZ29vZ2xlLmNvbS91cmw/c2E9WCZxPWh0dHA6Ly9zZXRodmFyZ28uY29tL3Bvc3Qv
+MzI3NDI4MDc1OTgvY3VzdG9tLWdsb2JhbC1lY28tanN0LWhlbHBlcnMmY3Q9Z2EmY2FkPUNBY1FB
+UmdBSUFFb0FUQUFPQUJBbTRXNGd3VklBVmdBWWdWbGJpMVZVdyZjZD1lYmtOSXZQYXRWOCZ1c2c9
+QUZRakNOSDloZkJUa0VlQkZHOFRTUi1mTTBaZlhjVURzQT4NCg0KVGhpcyBhcy1pdC1oYXBwZW5z
+IEdvb2dsZSBBbGVydCBpcyBicm91Z2h0IHRvIHlvdSBieSBHb29nbGUuDQotIC0gLSAtIC0gLSAt
+IC0gLSAtIC0gLSAtIC0gLSAtIC0gLSAtIC0gLSAtIC0gLSAtIC0gLSAtIC0gLSAtIC0gLSAtDQpE
+ZWxldGUgdGhpcyBHb29nbGUgQWxlcnQ6DQpodHRwOi8vd3d3Lmdvb2dsZS5jb20vYWxlcnRzL3Jl
+bW92ZT9obD1lbiZnbD11cyZzb3VyY2U9YWxlcnRzbWFpbCZzPUFCMlhxNGpHTHpnc2FuNTVIbUZv
+R0JqTV9aUGVlck4xWWNSWXBZWSZjZD1lYmtOSXZQYXRWOCZjYWQ9Q0FjUUFSZ0FRSnVGdUlNRlNB
+RQ0KDQpDcmVhdGUgYW5vdGhlciBHb29nbGUgQWxlcnQ6DQpodHRwOi8vd3d3Lmdvb2dsZS5jb20v
+YWxlcnRzP2hsPWVuJmdsPXVzJnNvdXJjZT1hbGVydHNtYWlsJmNkPWVia05JdlBhdFY4JmNhZD1D
+QWNRQVJnQVFKdUZ1SU1GU0FFDQoNClNpZ24gaW4gdG8gbWFuYWdlIHlvdXIgYWxlcnRzOg0KaHR0
+cDovL3d3dy5nb29nbGUuY29tL2FsZXJ0cy9tYW5hZ2U/aGw9ZW4mZ2w9dXMmc291cmNlPWFsZXJ0
+c21haWwmY2Q9ZWJrTkl2UGF0VjgmY2FkPUNBY1FBUmdBUUp1RnVJTUZTQUUNCg==
+--20cf303f633c4828d604cb429f4c
+Content-Type: text/html; charset=windows-1252
+Content-Transfer-Encoding: quoted-printable
+
+<html><head></head><body><div style=3D"font-family: arial,sans-serif; width=
+: 600px"><table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"6=
+00px"><tr><td style=3D"background-color:#EBEFF9; padding: 4px 8px 4px 8px">=
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%"><tr>=
+<td><font size=3D"-1"><nobr><b>Web</b></nobr></font></td><td width=3D"70%" =
+align=3D"right"><font size=3D"-1"><b>1</b> new result for <b>&quot;Seth Var=
+go&quot;</b></font></td></tr></table></td></tr><tr><td>&nbsp;</td></tr><tr>=
+<td style=3D"padding: 0px 8px 16px 8px;"><a style=3D"color: #1111CC" href=
+=3D"http://www.google.com/url?sa=3DX&amp;q=3Dhttp://sethvargo.com/post/3274=
+2807598/custom-global-eco-jst-helpers&amp;ct=3Dga&amp;cad=3DCAcQARgAIAEoATA=
+AOABAm4W4gwVIAVgAYgVlbi1VUw&amp;cd=3DebkNIvPatV8&amp;usg=3DAFQjCNH9hfBTkEeB=
+FG8TSR-fM0ZfXcUDsA">Custom Global Eco/JST helpers =95 It&#39;s My Life - <b=
+>Seth Vargo&#39;s</b> Blog</a><br><font size=3D"-1">Custom Global Eco/JST h=
+elpers Working on Envelope lately, I realized the need for custom form help=
+ers. We use Twitter Bootstrap for the form styles and layout, <b>...</b><br=
+><a style=3D"color:#228822" href=3D"http://www.google.com/url?sa=3DX&amp;q=
+=3Dhttp://sethvargo.com/post/32742807598/custom-global-eco-jst-helpers&amp;=
+ct=3Dga&amp;cad=3DCAcQARgAIAEoBDAAOABAm4W4gwVIAVgAYgVlbi1VUw&amp;cd=3DebkNI=
+vPatV8&amp;usg=3DAFQjCNH9hfBTkEeBFG8TSR-fM0ZfXcUDsA" title=3D"http://sethva=
+rgo.com/post/32742807598/custom-global-eco-jst-helpers">sethvargo.com/post/=
+.../custom-global-eco-jst-helpers</a></font></td></tr></table><br><hr nosha=
+de size=3D"1" color=3D"#CCCCCC"><font size=3D"-1">Tip: Use site restrict in=
+ your query to search within a site (site:nytimes.com or site:.edu). <a hre=
+f=3D'http://www.google.com/support/websearch/bin/answer.py?answer=3D136861&=
+hl=3Den&source=3Dalertsmail&cd=3DebkNIvPatV8&cad=3DCAcQARgAQJuFuIMFSAE'>Lea=
+rn more</a>.</font><br><br><font size=3D"-1"><a href=3D"http://www.google.c=
+om/alerts/remove?hl=3Den&gl=3Dus&source=3Dalertsmail&s=3DAB2Xq4jGLzgsan55Hm=
+FoGBjM_ZPeerN1YcRYpYY&cd=3DebkNIvPatV8&cad=3DCAcQARgAQJuFuIMFSAE">Delete</a=
+> this alert.<br><a href=3D"http://www.google.com/alerts?hl=3Den&gl=3Dus&so=
+urce=3Dalertsmail&cd=3DebkNIvPatV8&cad=3DCAcQARgAQJuFuIMFSAE">Create</a> an=
+other alert.<br><a href=3D"http://www.google.com/alerts/manage?hl=3Den&gl=
+=3Dus&source=3Dalertsmail&cd=3DebkNIvPatV8&cad=3DCAcQARgAQJuFuIMFSAE">Manag=
+e</a> your alerts.</font></div></body></html>
+
+--20cf303f633c4828d604cb429f4c--

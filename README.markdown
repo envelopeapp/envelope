@@ -20,11 +20,15 @@ Envelope is a web-based email management solution built with Ruby on Rails. We a
 
         GMAIL_USERNAME=[YOUR GMAIL USERNAME] GMAIL_PASSWORD=[YOUR GMAIL PASSWORD] bundle exec rake db:seed
 
+3. Fire up the application
+
+        bundle exec foreman start
+
 ## Structure
 Envelope has 4 major components:
   - Web Server ([puma](https://github.com/puma/puma))
   - Notifications ([pusher](http://pusher.com/))
   - Search Engine ([elasticsearch](http://www.elasticsearch.org/))
-  - Background Processing ([delayed_job](https://github.com/collectiveidea/delayed_job))
+  - Background Processing ([sidekiq](https://github.com/mperham/sidekiq))
 
 For more information, such as Installation or Scaling, please see the [Wiki](envelope/wiki/Home).

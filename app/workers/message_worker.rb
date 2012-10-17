@@ -28,13 +28,13 @@ class MessageWorker
         # full_text_part: message.full_text_part,
         text_part: message.text_part,
         # full_html_part: message.full_html_part,
-        # html_part: message.html_part,
-        # sanitized_html: message.sanitized_html,
+        html_part: message.html_part,
+        sanitized_html: message.sanitized_html,
         raw: message.raw_source
       }
     end
 
-    messages.each_slice(1000) do |batch|
+    messages.each_slice(2500) do |batch|
       Message.collection.insert(batch)
     end
   end

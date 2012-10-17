@@ -1,0 +1,201 @@
+Delivered-To: sethvargo@gmail.com
+Received: by 10.216.100.194 with SMTP id z44csp118628wef;
+        Thu, 27 Sep 2012 14:09:38 -0700 (PDT)
+Received: by 10.224.52.139 with SMTP id i11mr12481099qag.11.1348780178041;
+        Thu, 27 Sep 2012 14:09:38 -0700 (PDT)
+Return-Path: <pm_bounces@pm.mtasv.net>
+Received: from p2.mtasv.net (p2.mtasv.net. [74.205.19.142])
+        by mx.google.com with ESMTP id s8si4082861qct.129.2012.09.27.14.09.37;
+        Thu, 27 Sep 2012 14:09:38 -0700 (PDT)
+Received-SPF: pass (google.com: domain of pm_bounces@pm.mtasv.net designates 74.205.19.142 as permitted sender) client-ip=74.205.19.142;
+Authentication-Results: mx.google.com; spf=pass (google.com: domain of pm_bounces@pm.mtasv.net designates 74.205.19.142 as permitted sender) smtp.mail=pm_bounces@pm.mtasv.net; dkim=pass header.i=notifications@travis-ci.org
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; s=pm; d=travis-ci.org;
+ h=From:To:Date:Subject:MIME-Version:Content-Type:Message-ID; i=notifications@travis-ci.org;
+ bh=vLAVLM5arE1SDF35pRQYtgwoJnk=;
+ b=gbJ1RN1xlyRKVp3C//ddMZgr4CSOB1cBBtiRVjRfwU18QLfgpn6CvJvpGJUcaSYP7JB94PCI+K/o
+   onqwfcLZaCrdfgxlbUc186t5DtiAlY5QVKLnzruQtx5agePevrdT
+DomainKey-Signature: a=rsa-sha1; c=nofws; q=dns; s=pm; d=travis-ci.org;
+ b=KghyOrOfxaDPzCT69OTtu+2xNg9ehx62L4gyllLRGwHXKFzUnNFcXO90ox6j/0UgNXKdjb9L7in4
+   zTmGA5IjsPq5KWdJFDCNu8ACPMxV939D3oueG/1EYIhYPsXd1FiE;
+Received: by p2.mtasv.net id hcj0841dsrsl for <sethvargo@gmail.com>; Thu, 27 Sep 2012 17:09:11 -0400 (envelope-from <pm_bounces@pm.mtasv.net>)
+X-IADB-IP: 74.205.19.142
+X-IADB-IP-REVERSE: 142.19.205.74
+From: "Travis-CI" <notifications@travis-ci.org> 
+To: "sethvargo@gmail.com" <sethvargo@gmail.com>
+Date: Thu, 27 Sep 2012 17:09:11 -0400
+Subject: [Fixed] envelopeapp/envelope#39 (master - 8532186)
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary="_=aspNetEmail=_1916f1490a3d448d84cc4670a36d26fc"
+X-Mailer: aspNetEmail ver 3.6.1.41
+X-Complaints-To: abuse@postmarkapp.com
+X-PM-RCPT: |bTB8MzM1NDZ8MjA4Njh8c2V0aHZhcmdvQGdtYWlsLmNvbQ==|
+X-PM-Message-Id: 9ef616f5-ec90-4971-8fa8-a9a43b92daf6
+Message-ID: <5064c08683978_d8f28d610368cc@block630322-r7m.mail>
+
+--_=aspNetEmail=_1916f1490a3d448d84cc4670a36d26fc
+Content-Type: text/plain;
+	charset="UTF-8"
+
+Build Update for envelopeapp/envelope
+-------------------------------------
+
+Build: #39
+Status: Fixed
+
+Duration: 3 minutes and 14 seconds
+Commit: 8532186 (master)
+Author: Seth Vargo
+Message: fixing stupid Tire testing failures
+
+View the changeset: https://github.com/envelopeapp/envelope/compare/1da0c09e6b63...853218677f9f
+
+View the full build log and details: http://travis-ci.org/envelopeapp/envelope/builds/2588161
+
+--
+
+You can configure recipients for build notifications in your .travis.yml file. See http://bit.ly/lCybCJ
+
+The delivery of this notification was kindly sponsored by Postmark. Send transactional email confidently using http://postmarkapp.com
+
+
+
+
+--_=aspNetEmail=_1916f1490a3d448d84cc4670a36d26fc
+Content-Type: text/html;
+	charset="UTF-8"
+
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link href="/email.css" media="screen" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div id="body" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 16px; color: #333; width: 754px; margin: 0 auto;">
+      <div id="build" class="section" style="margin-bottom: 16px; width: 752px; -webkit-border-radius: 6px; -moz-border-radius: 6px; border-radius: 6px; padding: 0; border: 1px solid #ccc;">
+        <div class="content" style="padding: 16px 16px 0;">
+          <h1 style="margin-top: 0;">
+            <table class="result" background="https://travis-assets.herokuapp.com/c3934215/images/mailer/success-header-bg.png" style="font-size: 28px; font-weight: bold; color: white; width: 720px; height: 52px; margin-bottom: 18px; text-align: center; vertical-align: middle; border-collapse: collapse; background-repeat: no-repeat;">
+              <tr style="text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);">
+                <td style="line-height: 36px; padding: 8px 0;">The build was fixed.</td>
+              </tr>
+            </table>
+          </h1>
+          <table>
+            <tr>
+              <th style="text-align: right; padding-right: 16px;" align="right">Repository</th>
+              <td>envelopeapp/envelope</td>
+            </tr>
+            <tr>
+              <th style="text-align: right; padding-right: 16px;" align="right">Build #39</th>
+              <td><a href="http://travis-ci.org/envelopeapp/envelope/builds/2588161">http://travis-ci.org/envelopeapp/envelope/builds/2588161</a></td>
+            </tr>
+            <tr>
+              <th style="text-align: right; padding-right: 16px;" align="right">Changeset</th>
+              <td><a href="https://github.com/envelopeapp/envelope/compare/1da0c09e6b63...853218677f9f">https://github.com/envelopeapp/envelope/compare/1da0c09e6b63...853218677f9f</a></td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <th style="text-align: right; padding-right: 16px;" align="right">Commit</th>
+              <td>8532186 (master)</td>
+            </tr>
+            <tr>
+              <th style="text-align: right; padding-right: 16px;" align="right">Message</th>
+              <td>fixing stupid Tire testing failures</td>
+            </tr>
+            <tr>
+              <th style="text-align: right; padding-right: 16px;" align="right">Author</th>
+              <td>Seth Vargo</td>
+            </tr>
+            <tr>
+              <th style="text-align: right; padding-right: 16px;" align="right">Duration</th>
+              <td>3 minutes and 14 seconds</td>
+            </tr>
+          </table>
+        </div>
+        <table border="0" class="footer" style="background-color: #f3f4fa; -webkit-border-bottom-right-radius: 6px; -webkit-border-bottom-left-radius: 6px; -moz-border-radius-bottomright: 6px; -moz-border-radius-bottomleft: 6px; border-bottom-right-radius: 6px; border-bottom-left-radius: 6px; margin: 26px 0 0; padding: 16px 16px 14px;" bgcolor="#f3f4fa">
+          <tr>
+            <td style="font-size: 13px; color: #aaa; line-height: 18px;">
+              <img src="https://travis-assets.herokuapp.com/c3934215/images/mailer/footer-logo-38x38.png" style="margin-right: 16px; width: 38px; height: 38px;" />
+            </td>
+            <td style="font-size: 13px; color: #aaa; line-height: 18px;">
+              You can configure recipients for build notifications in your
+              <a href="http://about.travis-ci.org/docs/user/build-configuration" style="color: #aaa;">configuration file</a>.
+              Further documentation about Travis CI can be found <a href="http://about.travis-ci.org/docs" style="color: #aaa;">here</a>.
+              For help please join our IRC channel irc.freenode.net#travis.
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div id="please-donate" class="section" style="margin-bottom: 16px; width: 720px; -webkit-border-radius: 6px; -moz-border-radius: 6px; border-radius: 6px; padding: 16px; border: 1px solid #ccc;">
+        <table border="0">
+          <tr>
+            <td style="font-size: 14px;">
+              <img src="https://travis-assets.herokuapp.com/c3934215/images/mailer/please-donate.png" style="margin-right: 16px; width: 214px; height: 146px;" />
+            </td>
+            <td style="font-size: 14px;">
+              <h2 style="margin-top: 0; font-size: 24px;">We need your help!</h2>
+              <p>
+                Travis CI has run 406,714 tests for 5,442 OSS projects to date,
+                including Ruby, Rails, Rubinius, Rubygems, Bundler, Node.js, Leiningen, Symfony ...
+              </p>
+              <p>
+                If you use any of these then you benefit from Travis CI.
+              </p>
+              <p class="last-child" style="margin-bottom: 0;">
+                <a href="http://love.travis-ci.org" style="font-size: 14px; font-weight: bold; color: #118000;">Please donate so we can make Travis CI even better!</a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div id="sponsors" style="width: 756px; margin-bottom: 16px; position: relative;">
+        <table border="0">
+          <tr>
+              <td style="margin-top: 0; font-size: 14px;">
+                <div class="section" style="margin-bottom: 0; width: auto; -webkit-border-radius: 6px; -moz-border-radius: 6px; border-radius: 6px; padding: 16px; border: 1px solid #ccc;">
+                  <table border="0" style="width: 717px">
+                    <tr>
+                      <td style="margin-top: 0; font-size: 14px;">
+                        <a href="http://cloudcontrol.com">
+                          <img src="https://love.travis-ci.org/images/sponsors/cloudcontrol-100x60.png" style="margin-right: 16px; width: 100px; height: 60px; margin-top: -5px; border: 0;" />
+                        </a>
+                      </td>
+                      <td style="margin-top: 0; font-size: 14px;">
+                        <a href="http://cloudcontrol.com">cloudControl</a> is PaaS made in Berlin, Germany.
+Since 2009 we're dedicated to supercharge development by building the best platform
+possible to help developers build better apps faster.
+
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="section footnote" style="margin-bottom: 16px; width: 720px; -webkit-border-radius: 6px; -moz-border-radius: 6px; border-radius: 6px; margin-top: 0; font-size: 14px; padding: 16px; border: 1px solid #ccc;">
+        The delivery of this email was kindly sponsored by
+        <a href="http://postmarkapp.com">Postmark</a>, an
+        amazing service for transactional email delivery.
+      </div>
+
+      <p class="footnote" style="font-size: 14px; margin: 0 0 0 4px;">
+        <a href="http://love.travis-ci.org/sponsors" style="font-size: 13px; color: #aaa;">See all of our sponsors &rarr;</a>
+      <p>
+    </div>
+
+    <style type="text/css">
+      img { margin-right: 16px !important; }
+    </style>
+  </body>
+</html>
+
+
+--_=aspNetEmail=_1916f1490a3d448d84cc4670a36d26fc--
+

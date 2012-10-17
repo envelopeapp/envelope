@@ -4,6 +4,14 @@ GIT
   specs:
     nested_form (0.2.3)
 
+GIT
+  remote: git://github.com/sethvargo/figaro.git
+  revision: 178485cbb8892231362780fd0b130f64f98f1852
+  branch: stringify
+  specs:
+    figaro (0.4.1)
+      rails (~> 3.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -280,6 +288,7 @@ DEPENDENCIES
   eco
   factory_girl_rails
   faker
+  figaro!
   foreman
   guard
   guard-rspec

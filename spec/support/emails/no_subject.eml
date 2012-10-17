@@ -1,0 +1,25 @@
+Delivered-To: sethvargo@gmail.com
+Received: by 10.216.100.194 with SMTP id z44csp237621wef;
+        Mon, 8 Oct 2012 09:43:57 -0700 (PDT)
+Received: by 10.224.198.131 with SMTP id eo3mr30777635qab.78.1349714636706;
+        Mon, 08 Oct 2012 09:43:56 -0700 (PDT)
+Return-Path: <teamenvelope@gmail.com>
+Received: from optic.wv.cc.cmu.edu (OPTIC.WV.CC.CMU.EDU. [128.237.228.187])
+        by mx.google.com with ESMTP id en7si9049985qab.80.2012.10.08.09.43.56;
+        Mon, 08 Oct 2012 09:43:56 -0700 (PDT)
+Received-SPF: neutral (google.com: 128.237.228.187 is neither permitted nor denied by domain of teamenvelope@gmail.com) client-ip=128.237.228.187;
+Authentication-Results: mx.google.com; spf=neutral (google.com: 128.237.228.187 is neither permitted nor denied by domain of teamenvelope@gmail.com) smtp.mail=teamenvelope@gmail.com
+Received: by optic.wv.cc.cmu.edu (Postfix, from userid 501)
+	id 6603E5C3302; Mon,  8 Oct 2012 12:43:55 -0400 (EDT)
+Date: Mon, 08 Oct 2012 12:43:55 -0400
+From: teamenvelope@gmail.com
+To: sethvargo@gmail.com
+Message-ID: <507302cb3387c_3d383fe041922e74129a9@optic.wv.cc.cmu.edu.mail>
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<h1>Dear Default,</h1>
+<p>Thank you for registering with Envelope!</p>
+<p>Here is a confirmation link: <a href="http://localhost:5000/users/confirm/507302bba3bbcc1a3d000005/fKKb2Atj6Iz33LI4amkXdg" target="_TOP">http://localhost:5000/users/confirm/507302bba3bbcc1a3d000005/fKKb2Atj6Iz33LI4amkXdg</a></p>

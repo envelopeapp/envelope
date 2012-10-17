@@ -1,4 +1,5 @@
 require 'charlock_holmes'
+require 'charlock_holmes/string'
 require 'json'
 require 'mail'
 require 'nokogiri'
@@ -54,7 +55,7 @@ module Envelope
     def full_html_part
       part = (message.html_part && message.html_part.body) || message.body
       return nil if part.nil?
-      @full_html_part ||= convert(part)
+      @full_html_part ||= filter(convert(part))
     end
 
     # Returns the fully-sanitized HTML, removing any classes, styles,
@@ -138,14 +139,14 @@ module Envelope
     #
     # @return [Array] the list of references
     def references
-      @references ||= message.references
+      @references ||= message.references || []
     end
 
     # The character set for this message
     #
-    # @return [String] the character set
+    # @return [String] the character set (lowercase)
     def charset
-      @charset ||= message.charset
+      @charset ||= message.charset.upcase
     end
 
     # Was the message a bounce?
@@ -173,11 +174,11 @@ module Envelope
     #
     # @return [String] the subject
     def subject
-      @subject ||= convert(Mail::Encodings.decode_encode(message.subject, :decode))
+      @subject ||= convert(Mail::Encodings.decode_encode(message.subject || '', :decode))
     end
 
     # Accessor methods for each of the participant types
-    [:to, :from, :sender, :cc, :bcc, :reply_to, :sender].each do |participant_type|
+    [:to, :from, :sender, :cc, :bcc, :reply_to].each do |participant_type|
       define_method participant_type do
         addresses = [message[participant_type] || []].flatten
 
@@ -185,12 +186,12 @@ module Envelope
           email_address = convert(Mail::Encodings.decode_encode(address.field.addresses.first, :decode)) unless address.field.addresses.first.nil?
           name = convert(Mail::Encodings.decode_encode(address.field.display_names.first, :decode)) unless address.field.display_names.first.nil?
 
-          { name: name, email_address: email_address }
+          OpenStruct.new({ name: name, email_address: email_address })
         end
       end
 
       define_method "formatted_#{participant_type}" do
-        self.send(participant_type).collect { |p| p[:name] || p[:email_address] }
+        self.send(participant_type).collect { |p| p.name || p.email_address }
       end
     end
 
@@ -219,7 +220,7 @@ module Envelope
     #
     # @return [String] the string representation of this message
     def to_s
-      "#<Envelope::Message to=\"#{formatted_to}\" from=\"#{formatted_from}\" cc=\"#{formatted_cc}\" bcc=\"#{formatted_bcc}\" reply_to=\"#{formatted_reply_to}\" subject=\"#{subject}\" text_part=\"#{text_part.gsub(/\n+/, ' ')[0..50]}...\">"
+      "#<Envelope::Message to=#{formatted_to} from=#{formatted_from} cc=#{formatted_cc} bcc=#{formatted_bcc} reply_to=#{formatted_reply_to} subject=\"#{subject}\" text_part=\"#{text_part.gsub(/\s+/, ' ')[0..50]}...\">"
     end
 
     # YAML dump of the object
@@ -246,13 +247,10 @@ module Envelope
       return nil if text.nil? || text.empty?
       string = text.to_s # ensure we have a string
       string = string.gsub /\r\n?/, "\n" # normalize line breaks
+      string.detect_encoding!
 
-      begin
-        detection = CharlockHolmes::EncodingDetector.detect(string)
-        CharlockHolmes::Converter.convert string, detection[:encoding], 'UTF-8'
-      rescue Exception => e
-        string.force_encoding('UTF-8')
-      end
+      string.encode!('UTF-8', :invalid => nil)
+      string
     end
 
     # Attempt to normalize the text by converting newlines and breaks appropriately
@@ -264,9 +262,11 @@ module Envelope
       string = text.to_s # ensure we have a string
       string.gsub! /\u00A0/, ' ' # convert all non-breaking spaces to normal-people spaces
       string.gsub! /\ +/, ' ' # replace double+ spaces with single spaces
+      string.gsub! /&nbsp;/, ' '
+      string.squeeze! ' '
       string.squeeze! "\n"
-      string.strip!
       string.chomp! '<br>'
+      string.strip!
       string
     end
 
@@ -278,19 +278,23 @@ module Envelope
       return nil if text.nil? || text.empty?
       string = text.to_s # ensure we have a string
 
-      string.gsub! /^-----Original Message-----.*/mi, ''
+      # ------------ Original Message ------------
+      string.gsub! /(<[\w\s=:"#]+>|^)+[-=]+.*Original Message.*/mi, ''
+
+      # ------------ Forwarded Message ------------
+      string.gsub! /(<[\w\s=:"#]+>|^)+[-=]+.*Forwarded Message.*/mi, ''
 
       # From: Seth Vargo <svargo@andrew.cmu.edu>
       # Send: Tues, Oct 9, 2012
       # To: Robbin Stormer <a@example.com>
       # Subject: Cookies and Cream
-      string.gsub! /^From:.*\nSent:.*\n(To:.*\n)?(Cc:.*\n)?(Subject:.*)?.*/im, ''
+      string.gsub! /(<[\w\s=:"#]+>|^)+From:.*Sent:.*(To:.*)?.*(Cc:.*)?.*(Subject:.*)?.*/im, ''
 
       # On Oct 9, 2012, at 6:48 PM, Robbin Stormer wrote:
-      string.gsub! /(<\w+>|^)+On\ \w+\ \d+,?\ \d+,\ at\ \d+:\d+\ [AP]M,?\ .*\ wrote:.*/mi, ''
+      string.gsub! /(<[\w\s=:"#]+>|^)+On \w+,? [\w\d]+ \d+,? \d+ at \d+:\d+ [AP]M,?.*wrote\:.*/mi, ''
 
       # Begin forwarded message:
-      string.gsub! /(<\w+>|^)+Begin\ forwarded\ message:.*/mi, ''
+      string.gsub! /(<[\w\s=:"#]+>|^)+Begin\ forwarded\ message:.*/mi, ''
       string
     end
 
@@ -357,11 +361,18 @@ module Envelope
     # @return [String] the resulting text
     def html2text(text)
       return nil if text.nil? || text.empty?
-      string = text.to_s # ensure we have a string
 
-      doc = Nokogiri::HTML.parse(text)
-      doc.css('script, link, img').each { |node| node.remove }
-      doc.css('body').text.squeeze(' ').squeeze("\n").to_s
+      doc = Nokogiri::HTML.parse(text.to_s)
+      doc.css('script, link, img').each { |node| node.remove } # remove evil things
+      doc.css('br').each { |node| node.replace "\n" } # br to newline
+
+      string = doc.css('body').text
+      string.gsub! /[\t ]+/, ' '
+      string.squeeze! "\n"
+      string.squeeze! ' '
+      string.gsub! /(\n )+/, "\n"
+      string.strip!
+      string
     end
   end
 end
@@ -369,7 +380,7 @@ end
 # require 'net/imap'
 # require 'benchmark'
 # connection = Net::IMAP.new('imap.gmail.com', port: 993, ssl: true)
-# connection.login('sethvargo', 'yrnkjhswazygntpq')
+# connection.login('', '')
 # connection.examine('[Gmail]/Sent Mail')
 
 # uids = connection.uid_search(['ALL'])

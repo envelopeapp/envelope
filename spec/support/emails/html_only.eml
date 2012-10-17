@@ -1,0 +1,47 @@
+Delivered-To: sethvargo@gmail.com
+Received: by 10.216.100.194 with SMTP id z44csp118868wef;
+        Thu, 27 Sep 2012 14:12:03 -0700 (PDT)
+Received: by 10.182.147.8 with SMTP id tg8mr4365047obb.21.1348780322881;
+        Thu, 27 Sep 2012 14:12:02 -0700 (PDT)
+Return-Path: <bounces+6754-0981-sethvargo=gmail.com@sendgrid.me>
+Received: from o3.shared.sendgrid.net (o3.shared.sendgrid.net. [208.117.48.85])
+        by mx.google.com with SMTP id c3si7937813obl.27.2012.09.27.14.12.02;
+        Thu, 27 Sep 2012 14:12:02 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounces+6754-0981-sethvargo=gmail.com@sendgrid.me designates 208.117.48.85 as permitted sender) client-ip=208.117.48.85;
+Authentication-Results: mx.google.com; spf=pass (google.com: domain of bounces+6754-0981-sethvargo=gmail.com@sendgrid.me designates 208.117.48.85 as permitted sender) smtp.mail=bounces+6754-0981-sethvargo=gmail.com@sendgrid.me; dkim=pass header.i=@sendgrid.me
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=sendgrid.me; h=from
+	:reply-to:to:subject:mime-version:content-type
+	:content-transfer-encoding:sender; s=smtpapi; bh=IjQTf8BVOwtgII6
+	oh05K9oMNoJo=; b=gpGCz908xZYLd8JUlv0pQfYRWHd2scgf6sgw3MLH0PkAYTK
+	eTVuCezRVoLx8LLGPikTr17ru2jH64DputgAJbAcIqAcUF9zRgO3Q9fwMOFdctte
+	3KiU0g2KwRa/q37ppAnfiJfFPNSuQqDKAvhbXBQ55zoLW8ibhrmrPGTjGXOI=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=sendgrid.me; h=from:reply-to
+	:to:subject:mime-version:content-type:content-transfer-encoding
+	:sender; q=dns; s=smtpapi; b=LM/B5CBTWWsr2WUv2vfNwX8AkTvsRvfCafd
+	qIrC5CoBBrEkc8ghCRwPyJ7IdKjUshFdCBd9RFAfFaMsEXSABI1pE+P/8VM7C7o1
+	cPEV0XFDR3Xiqmi4QwinvE0G+TQwQIeBRFEPlx29qBzOCmO17joTi+DLjB3sgzZG
+	QjtBYD7A=
+Received: by 10.36.109.169 with SMTP id mf6.17928.5064C1216
+        Thu, 27 Sep 2012 16:12:01 -0500 (CDT)
+Received: from pusherapp.com (unknown [10.8.49.124])
+	by mi16 (SG) with ESMTP id 5064c121.1df0.4a50e6b
+	for <sethvargo@gmail.com>; Thu, 27 Sep 2012 16:12:01 -0500 (CST)
+Date: Thu, 27 Sep 2012 21:12:01 +0000
+From: support@pusher.com
+Reply-To: support@pusher.com
+To: sethvargo@gmail.com
+Message-ID: <5064c121a374_c324366006461f@vm23.pusher.com.mail>
+Subject: [Pusher] please verify your email address
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Sendgrid-EID: L4pyarBxO46qvyW659F6hlxzYCuihVQDvBfQ0Y6DsUAz2AY5KyEAmFEAybPtZu1katolS3gM5Rwfm1/bO1Llna7LCm9n/eWhAHj75MU8nDWFdc/5bvLyPQxQMtXdrw/W
+Sender: support=pusher.com@sendgrid.me
+
+<p>Please verify your email address to activate your account:</p>
+
+<p><a href="http://app.pusherapp.com/accounts/confirmation?confirmation_token=lol_quit_hacking_bro">Confirm my account</a></p>
+
+<p>Thanks,</p>
+<p>The Pusher team</p>

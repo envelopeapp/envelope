@@ -1,0 +1,57 @@
+Delivered-To: sethvargo@gmail.com
+Received: by 10.216.100.194 with SMTP id z44csp437505wef;
+        Sat, 6 Oct 2012 01:03:03 -0700 (PDT)
+Received: by 10.49.14.198 with SMTP id r6mr29800460qec.14.1349510582521;
+        Sat, 06 Oct 2012 01:03:02 -0700 (PDT)
+Return-Path: <pm_bounces@pm.mtasv.net>
+Received: from p2.mtasv.net (p2.mtasv.net. [74.205.19.142])
+        by mx.google.com with ESMTP id v3si4591842qct.164.2012.10.06.01.03.02;
+        Sat, 06 Oct 2012 01:03:02 -0700 (PDT)
+Received-SPF: pass (google.com: domain of pm_bounces@pm.mtasv.net designates 74.205.19.142 as permitted sender) client-ip=74.205.19.142;
+Authentication-Results: mx.google.com; spf=pass (google.com: domain of pm_bounces@pm.mtasv.net designates 74.205.19.142 as permitted sender) smtp.mail=pm_bounces@pm.mtasv.net; dkim=pass header.i=support@plan.io
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; s=pm; d=plan.io;
+ h=From:To:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-ID; i=support@plan.io;
+ bh=0eTMtWNnThrmECOjHBRFx4df1NE=;
+ b=eVGngbLejAUIwf6CwvRjtHOqzaW64A1tBlbAEsoU7/BeE/jTjzMgJm9xfJ0AdS8QBvZ4LGCC1ooQ
+   Gdlr8H4JT8cK21QW3tq/1ziFsMwquGasX0E/BBmc++P3mQHHnhEW
+DomainKey-Signature: a=rsa-sha1; c=nofws; q=dns; s=pm; d=plan.io;
+ b=nVh0FTBi/Iu3tEtdoi5CHKGja7LAb//naEl+lb6fK+pcTmvRcc9w18tF7M7W55o2h/9Gkye/ufiS
+   fe2wLwSMvE/UeQj945iFZzRVNLAete4BWFaeUjz2y1JBEgE5n81a;
+Received: by p2.mtasv.net id hdviq21dsrsu for <sethvargo@gmail.com>; Sat, 6 Oct 2012 04:02:24 -0400 (envelope-from <pm_bounces@pm.mtasv.net>)
+X-IADB-IP: 74.205.19.142
+X-IADB-IP-REVERSE: 142.19.205.74
+From: "Planio GmbH" <support@plan.io> 
+To: "Envelopeapp Admin" <sethvargo@gmail.com>
+Date: Sat, 06 Oct 2012 04:02:00 -0400
+Subject: [Planio] Trial period expired
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: aspNetEmail ver 3.6.1.41
+X-Complaints-To: abuse@postmarkapp.com
+X-PM-RCPT: |bTB8NDk4OTN8Mzk3NTl8c2V0aHZhcmdvQGdtYWlsLmNvbQ==|
+X-PM-Message-Id: 3f39de4b-be5c-4bcc-9ff4-f45b2d43fe64
+X-Redmine-Status: System Notification
+Message-ID: <506fe5a3986fd_1ee313031346517@apollo.tmail>
+
+Dear Customer,=0A=0AYour Planio trial period has expired=2E=0A=0AWe are s=
+orry that you didn=27t like to continue using Planio=2E Would you mind le=
+tting us know why? Is there anything we can change to make Planio better?=
+ We would love to hear from you=2E To let us know your thoughts you can j=
+ust reply to this email=2E=0A=0AOf course, we=27d understand should you n=
+ot have the time for a detailed answer=2E If you like, just mark any of t=
+he following reason(s) with an X=2E=0A=0AReason for cancellation:=0A=0A( =
+ ) I do not need a tool like Planio right now=2E=0A(  ) Planio is too exp=
+ensive=2E=0A(  ) Planio is too complicated=2E=0A(  ) I am missing the fol=
+lowing feature: =2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=
+=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=0A(  ) Instead of =
+Planio I decided to use: =2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=
+=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=0A(  ) Ot=
+her reason: =2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=
+=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=0A=0AThank you=21=0A=0A=0A=
+--=0APlanio is a product of Planio GmbH=0A=0APlanio GmbH=0AWarschauer Str=
+=2E 70A=0AD-10243 Berlin=0A=0Ahttp://plan=2Eio=0AEmail: support=40plan=2E=
+io=0A=0ASitz der Gesellschaft: Berlin=0ARegistergericht: Amtsgericht Char=
+lottenburg, HRB 130617 B=0AGesch=C3=A4ftsf=C3=BChrer: Jan Schulz-Hofen=0A=
+USt-IdNr=2E: DE214836735
+

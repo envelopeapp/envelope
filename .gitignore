@@ -37,5 +37,5 @@ coverage
 .env
 .foreman
 
-# Envelope config
-config/envelope.yml
+# Ignore application configuration
+/config/application.yml

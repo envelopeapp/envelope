@@ -1,0 +1,182 @@
+Delivered-To: sethvargo@gmail.com
+Received: by 10.216.100.194 with SMTP id z44csp385254wef;
+        Tue, 2 Oct 2012 20:06:47 -0700 (PDT)
+Received: by 10.68.134.97 with SMTP id pj1mr9373368pbb.55.1349233606160;
+        Tue, 02 Oct 2012 20:06:46 -0700 (PDT)
+Return-Path: <coryc@pdphotos.com>
+Received: from outbound-ss-1834.hostmonster.com (soproxy1.bluehost.com. [2605:dc00:100:2::c1])
+        by mx.google.com with SMTP id vz2si5380916pbc.183.2012.10.02.20.06.44;
+        Tue, 02 Oct 2012 20:06:45 -0700 (PDT)
+Received-SPF: pass (google.com: domain of coryc@pdphotos.com designates 2605:dc00:100:2::c1 as permitted sender) client-ip=2605:dc00:100:2::c1;
+Authentication-Results: mx.google.com; spf=pass (google.com: domain of coryc@pdphotos.com designates 2605:dc00:100:2::c1 as permitted sender) smtp.mail=coryc@pdphotos.com; dkim=pass header.i=@pdphotos.com
+Received: (qmail 17076 invoked by uid 0); 3 Oct 2012 03:06:44 -0000
+Received: from unknown (HELO box764.bluehost.com) (66.147.244.64)
+  by soproxy1.bluehost.com with SMTP; 3 Oct 2012 03:06:44 -0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=pdphotos.com; s=default;
+	h=Content-Type:To:From:Subject:Message-ID:Date:References:In-Reply-To:MIME-Version; bh=pWwK5000MW5PRQxljH6midf/PtBiGx8nW/fvVi5Pg80=;
+	b=WrPXSyTlD+kJm4EWzJyLzBHjlcGoq+wXVFkJlulT5f79tu4ZCeVRXoRQ1E65Zv8X5X+IV/DWmyO3qJBfy1TOEDEQxDRE2QBcfFAvTQ7A5XjiZZEdSwyGgJQ8MKHBMQQa;
+Received: from [209.85.217.181] (port=59197 helo=mail-lb0-f181.google.com)
+	by box764.bluehost.com with esmtpsa (TLSv1:RC4-SHA:128)
+	(Exim 4.76)
+	(envelope-from <coryc@pdphotos.com>)
+	id 1TJFIK-00089E-GV
+	for sethvargo@gmail.com; Tue, 02 Oct 2012 21:06:44 -0600
+Received: by lbbgg6 with SMTP id gg6so5657832lbb.40
+        for <sethvargo@gmail.com>; Tue, 02 Oct 2012 20:06:42 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.112.27.232 with SMTP id w8mr1227994lbg.77.1349233602775; Tue,
+ 02 Oct 2012 20:06:42 -0700 (PDT)
+Received: by 10.112.147.106 with HTTP; Tue, 2 Oct 2012 20:06:42 -0700 (PDT)
+In-Reply-To: <CANjPEs949YeQch-KDY9X5ZSNENdks53X7qAjOnEwQu01JykerA@mail.gmail.com>
+References: <20120913223437.A859A6C0072@app2.rails.site5.com>
+	<CANjPEs949YeQch-KDY9X5ZSNENdks53X7qAjOnEwQu01JykerA@mail.gmail.com>
+Date: Tue, 2 Oct 2012 21:06:42 -0600
+Message-ID: <CANjPEs9zdneoCDJU8+VQ=7gSmni7VdLhob0Ba1eEbvbRPrVUVQ@mail.gmail.com>
+Subject: Fwd: Your Site5 Backstage Login Info
+From: Cory - Pro Digital Photos <coryc@pdphotos.com>
+To: Seth Vargo <sethvargo@gmail.com>
+Content-Type: multipart/alternative; boundary=bcaec554deda9ccb6604cb1eed77
+X-Identified-User: {1162:box764.bluehost.com:prodigit:pdphotos.com} {sentby:smtp auth 209.85.217.181 authed with coryc@pdphotos.com}
+
+--bcaec554deda9ccb6604cb1eed77
+Content-Type: text/plain; charset=ISO-8859-1
+
+Seth,
+Here are the emails I sent on the 13th, so I have a about a week and a half
+to cancel it if the site doesn't work here.  Let me know...
+I more email after this one.
+
+
+---------- Forwarded message ----------
+From: Cory - Pro Digital Photos <coryc@pdphotos.com>
+Date: Thu, Sep 13, 2012 at 4:37 PM
+Subject: Fwd: Your Site5 Backstage Login Info
+To: Seth Vargo <seth@plaidlock.com>
+
+
+I just signed up, Bluehost won't work, they won't upgrade.  It's 30 free
+trial, so if it doesn't work I can cancel it.  Let me know what you are
+able to help me with here.
+
+
+Thanks,
+Cory Chapman
+Pro Digital Photos
+801-785-7432 x101
+
+ <http://www.prodigitalphotos.com/>
+<http://www.prodigitalphotos.com/blog>
+<http://www.facebook.com/home.php?#/pages/Pro-Digital-Photos/112600016329?ref=ts>
+<http://pinterest.com/pdphotos/> <http://www.twitter.com/pdphotos>
+
+
+
+
+---------- Forwarded message ----------
+From: Site5 Web Hosting <noreply@site5.com>
+Date: Thu, Sep 13, 2012 at 3:34 PM
+Subject: Your Site5 Backstage Login Info
+To: example@example.com
+
+
+Welcome to Site5!
+
+Backstage is our exclusive fully-featured customer account manager designed
+to provide you with a great web hosting experience. Within Backstage, you
+are able to access your billing information, submit support requests to our
+team, and much more!
+
+Your login information for Backstage is as follows:
+
+==============================================
+URL: https://backstage.site5.com
+Email: example@example.com
+Password: (hidden)
+==============================================
+
+We very much appreciate you choosing Site5 for your web hosting needs.
+Continue to expect even more improvements and features in the future!
+
+Thanks,
+The Site5 Team
+
+--bcaec554deda9ccb6604cb1eed77
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+<br clear=3D"all"><div><div>Seth,</div><div>Here are the emails I sent on t=
+he 13th, so I have a about a week and a half to cancel it if the site doesn=
+&#39;t work here. =A0Let me know... =A0</div><div>I more email after this o=
+ne.</div>
+</div>
+<br><br><div class=3D"gmail_quote">---------- Forwarded message ----------<=
+br>From: <b class=3D"gmail_sendername">Cory - Pro Digital Photos</b> <span =
+dir=3D"ltr">&lt;<a href=3D"mailto:coryc@pdphotos.com">coryc@pdphotos.com</a=
+>&gt;</span><br>
+Date: Thu, Sep 13, 2012 at 4:37 PM<br>Subject: Fwd: Your Site5 Backstage Lo=
+gin Info<br>To: Seth Vargo &lt;<a href=3D"mailto:seth@plaidlock.com">seth@p=
+laidlock.com</a>&gt;<br><br><br>I just signed up, Bluehost won&#39;t work, =
+they won&#39;t upgrade. =A0It&#39;s 30 free trial, so if it doesn&#39;t wor=
+k I can cancel it. =A0Let me know what you are able to help me with here.<d=
+iv>
+<br></div><div><br clear=3D"all">
+Thanks,<div>Cory Chapman<div>Pro Digital Photos</div><div><a href=3D"tel:80=
+1-785-7432%20x101" value=3D"+18017857432" target=3D"_blank">801-785-7432 x1=
+01</a></div><div><br></div><div><a href=3D"http://www.prodigitalphotos.com/=
+" target=3D"_blank">
+<img border=3D"0" src=3D"http://www.prodigitalphotos.com/social/ProDigitalP=
+hotos.jpg" width=3D"30" height=3D"29"></a>
+<a href=3D"http://www.prodigitalphotos.com/blog" target=3D"_blank">
+<img border=3D"0" src=3D"http://www.prodigitalphotos.com/social/Wordpress.j=
+pg" width=3D"30" height=3D"30"></a>
+<a href=3D"http://www.facebook.com/home.php?#/pages/Pro-Digital-Photos/1126=
+00016329?ref=3Dts" target=3D"_blank">
+<img border=3D"0" src=3D"http://www.prodigitalphotos.com/social/Facebook.jp=
+g" width=3D"30" height=3D"30"></a>
+<a href=3D"http://pinterest.com/pdphotos/" target=3D"_blank">
+<img border=3D"0" src=3D"http://www.prodigitalphotos.com/social/Pinterest.j=
+pg" width=3D"30" height=3D"30"></a>
+<a href=3D"http://www.twitter.com/pdphotos" target=3D"_blank">
+<img border=3D"0" src=3D"http://www.prodigitalphotos.com/social/Twitter.jpg=
+" width=3D"30" height=3D"30"></a><br></div><div><font face=3D"&#39;Times Ne=
+w Roman&#39;"><span style=3D"font-size:medium"><font face=3D"arial"><span s=
+tyle=3D"font-size:small"><br>
+
+</span></font></span></font></div></div><div><div class=3D"h5"><br>
+<br><br><div class=3D"gmail_quote">---------- Forwarded message ----------<=
+br>From: <b class=3D"gmail_sendername">Site5 Web Hosting</b> <span dir=3D"l=
+tr">&lt;<a href=3D"mailto:noreply@site5.com" target=3D"_blank">noreply@site=
+5.com</a>&gt;</span><br>
+
+Date: Thu, Sep 13, 2012 at 3:34 PM<br>Subject: Your Site5 Backstage Login I=
+nfo<br>To: <a href=3D"mailto:coryc@pdphotos.com" target=3D"_blank">example@=
+example.com</a><br><br><br>Welcome to Site5!<br>
+<br>
+Backstage is our exclusive fully-featured customer account manager designed=
+ to provide you with a great web hosting experience. Within Backstage, you =
+are able to access your billing information, submit support requests to our=
+ team, and much more!<br>
+
+
+<br>
+Your login information for Backstage is as follows:<br>
+<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+URL: <a href=3D"https://backstage.site5.com" target=3D"_blank">https://back=
+stage.site5.com</a><br>
+Email: <a href=3D"mailto:xxxxx@xxxxxxxx.com" target=3D"_blank">example@exam=
+ple.com</a><br>
+Password: (hidden)<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+<br>
+We very much appreciate you choosing Site5 for your web hosting needs. Cont=
+inue to expect even more improvements and features in the future!<br>
+<br>
+Thanks,<br>
+The Site5 Team<br>
+</div><br></div></div></div>
+</div><br>
+
+--bcaec554deda9ccb6604cb1eed77--

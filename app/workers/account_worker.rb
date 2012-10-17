@@ -16,8 +16,7 @@ class AccountWorker
   include Sidekiq::Worker
 
   def perform(account_id)
-    @account = Account.find_by(id: account_id)
-    return if @account.nil?
+    @account = Account.find(account_id)
 
     # create an imap connection
     @imap = Envelope::IMAP.new(@account)
@@ -25,7 +24,7 @@ class AccountWorker
 
     # delete old mailboxes
     imap_mailbox_locations = imap_mailboxes.collect{ |m| m.name }
-    deleted_mailboxes = @account.mailboxes.where(:location.nin => imap_mailbox_locations).destroy_all
+    @account.mailboxes.where(:location.nin => imap_mailbox_locations).destroy_all
 
     # iterate over each mailbox and create/update it's attributes
     mailboxes_hash = Hash[ *@account.mailboxes.collect{|m| [m.location, m]}.flatten ]

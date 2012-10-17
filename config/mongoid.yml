@@ -43,7 +43,7 @@ development:
 
     # Raise an error when performing a #find and the document is not found.
     # (default: true)
-    raise_not_found_error: false
+    # raise_not_found_error: true
 
     # Raise an error when defining a scope with the same name as an
     # existing method. (default: false)
@@ -65,7 +65,6 @@ production:
       uri: <%= ENV['MONGOHQ_URL'] %>
       options:
         identity_map_enabled: true
-        raise_not_found_error: false
         scope_overwrite_exception: true
         skip_version_check: true
         safe: true

@@ -1,0 +1,57 @@
+Delivered-To: sethvargo@gmail.com
+Received: by 10.216.100.194 with SMTP id z44csp416580wef;
+        Fri, 5 Oct 2012 19:10:52 -0700 (PDT)
+Received: by 10.60.170.142 with SMTP id am14mr8461723oec.40.1349489451894;
+        Fri, 05 Oct 2012 19:10:51 -0700 (PDT)
+Return-Path: <bounces+25728-7497-sethvargo=gmail.com@email.heroku.com>
+Received: from o1.email.heroku.com (o1.email.heroku.com. [173.193.132.88])
+        by mx.google.com with SMTP id c3si12896084obl.99.2012.10.05.19.10.51;
+        Fri, 05 Oct 2012 19:10:51 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounces+25728-7497-sethvargo=gmail.com@email.heroku.com designates 173.193.132.88 as permitted sender) client-ip=173.193.132.88;
+Authentication-Results: mx.google.com; spf=pass (google.com: domain of bounces+25728-7497-sethvargo=gmail.com@email.heroku.com designates 173.193.132.88 as permitted sender) smtp.mail=bounces+25728-7497-sethvargo=gmail.com@email.heroku.com; dkim=pass header.i=@heroku.com
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=heroku.com; h=from:to
+	:subject:mime-version:content-type:content-transfer-encoding; s=
+	smtpapi; bh=RbQrRwPosHYXurTu92xNqdZAhfY=; b=xuCKJ6JSHbp6q60Jrtq4
+	sHbf7Uk1jY6iWhHW29z3NW0xNUcMfk/WgVKpbWXERwRvCs5TIjm0CaSbT9FDYdwK
+	OTJX9XIFBeNAkCFyh22FUTN91D8stgzADM0Eh6l35fIir5ax89bPG1ts5ZQqZ4pz
+	iN2Glvp7udmh+I8XOhMa39U=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=heroku.com; h=from:to
+	:subject:mime-version:content-type:content-transfer-encoding; q=
+	dns; s=smtpapi; b=MurC2bvv2p5M6/xA6DwlMCBjFqE6HtGrFDopinTEi4k2bB
+	hvcGGYJifP/Cv/kdygyWZJXOMSIdKlnsqln8Q1ZbdNwbJjVfBNDhtX0imo3jas9n
+	qUqF918fQl1VooGpXAxz35grywyUE2Qt8gLhYYKSYW1RmE1eJw00n1q5Ipu/E=
+Received: by 10.4.35.212 with SMTP id mf4.8738.506F93171
+        Fri, 05 Oct 2012 21:10:31 -0500 (CDT)
+Received: from heroku.com (unknown [10.60.208.17])
+	by mi20 (SG) with ESMTP id 506f9317.7621.179fc98
+	for <sethvargo@gmail.com>; Fri, 05 Oct 2012 21:10:31 -0500 (CST)
+Date: Sat, 06 Oct 2012 02:10:31 +0000
+From: Heroku Postgres <no-reply@heroku.com>
+To: sethvargo@gmail.com
+Message-ID: <506f931757cc4_2878ea83365a@a3cc4d21-5749-4e10-9fb0-04684b07d99b.mail>
+Subject: [notice] Database upgrade in progress on app plotify
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_506f9317545cd_2878ea833498";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Sendgrid-EID: L4pyarBxO46qvyW659F6hlxzYCuihVQDvBfQ0Y6DsUB5eEyDz+8NoozOgHgz/VQdftIeoTqOW6DGCcFxLrKB/mdkMWdc5mh45wsdtDbiLcW9Zg4ty6rX4RjUyKPTF3h4
+
+
+----==_mimepart_506f9317545cd_2878ea833498
+Date: Sat, 06 Oct 2012 02:10:31 +0000
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Content-ID: <506f93175719d_2878ea8335e7@a3cc4d21-5749-4e10-9fb0-04684b07d99b.mail>
+
+
+<p>We have begun the database upgrade on your app, plotify. You will be notified when the upgrade is complete. </p>
+
+<p>During this upgrade the app is placed into maintenance mode and is not available to serve web requests or accept code pushes. </p>
+
+<p>Best regards,<br>
+Heroku</p>
+
+----==_mimepart_506f9317545cd_2878ea833498--

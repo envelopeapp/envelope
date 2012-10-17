@@ -4,11 +4,11 @@ Rails.application.config.middleware.use Warden::Manager do |manager|
 end
 
 Warden::Manager.serialize_into_session do |user|
-  user._id
+  user.id
 end
 
 Warden::Manager.serialize_from_session do |id|
-  User.find_by(:id => id)
+  User.where(id: id)
 end
 
 Warden::Strategies.add(:password) do

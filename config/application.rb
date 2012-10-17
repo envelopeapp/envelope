@@ -66,8 +66,5 @@ module Envelope
 
     # Prevent initializing your application and connecting to the database
     # config.assets.initialize_on_precompile = false
-
-    # Add our configuration to the Application
-    config.envelope = YAML.load(ERB.new(File.read(Rails.root.join('config/envelope.yml'))).result)[Rails.env]
   end
 end

@@ -40,9 +40,9 @@ module Envelope
     def mailboxes
       self.connect do |connection|
         begin
-          connection.xlist('', "#{directory}*")
+          connection.xlist(directory, '*')
         rescue
-          connection.list('', "#{directory}*")
+          connection.list(directory, '*')
         end
       end
     end
@@ -147,12 +147,12 @@ module Envelope
 
     # Get the directory where our stuff is stored
     def directory
-      @account.imap_directory
+      @account.imap_directory || ''
     end
 
     # Gets the server's mailbox hierarchy delimiter.
     def delimiter
-      self.list[0].delim || '.'
+      @delimiter ||= self.list[0].delim || '.'
     end
   end
 end

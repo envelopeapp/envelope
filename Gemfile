@@ -7,6 +7,7 @@ gem 'bson_ext'
 gem 'charlock_holmes', :require => false
 gem 'chronic'
 gem 'eco'
+gem 'figaro', :git => 'git://github.com/sethvargo/figaro.git', :branch => 'stringify' # Go back when https://github.com/laserlemon/figaro/pull/13 is merged and released
 gem 'foreman'
 gem 'haml'
 gem 'jquery-rails'

@@ -51,17 +51,17 @@ which -s || (
 )
 
 # Config
-if [ ! -f config/envelope.yml ];
+if [ ! -f config/application.yml ];
 then
   echo -n 'Copying config file... '
-    cp config/envelope.example.yml config/envelope.yml 2>&1 > /dev/null
+    cp config/application.example.yml config/application.yml 2>&1 > /dev/null
   echo 'Done!'
 fi
 
 # Foreman
 echo -n 'Setting up foreman... '
-  echo 'concurrency: web=1,worker=3' > .foreman
   echo 'RACK_ENV=development' > .env
+  echo 'PORT=5000' > .env
 echo 'Done!'
 
 # Bundler
