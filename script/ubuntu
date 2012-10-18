@@ -1,0 +1,21 @@
+#!/bin/bash
+set +x
+
+# Config
+if [ ! -f config/application.yml ];
+then
+  echo -n 'Copying config file... '
+    cp config/application.example.yml config/application.yml 2>&1 > /dev/null
+  echo 'Done!'
+fi
+
+# Foreman
+echo -n 'Setting up foreman... '
+  echo 'RACK_ENV=development' >> .env
+  echo 'PORT=5000' >> .env
+echo 'Done!'
+
+# Bundler
+echo -n 'Bundling... '
+  sudo bundle install --quiet
+echo 'Done!'
