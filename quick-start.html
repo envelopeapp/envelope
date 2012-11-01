@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  	<meta charset="utf-8">
+  	<meta name="author" content="" />
+  	<meta name="description" content="" />
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+  	<title>Envelope</title>	
+	  
+	  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" media="screen" />
+	  <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css" media="screen" />
+  	<link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
+  </head>
+  <body>
+    
+    <div class="navbar navbar-inverse">
+      <div class="navbar-inner">
+        <ul class="nav">
+          <li><a href="index.html">Home</a></li>
+          <li class="active"><a href="quick-start.html">Quick Start</a></li>
+          <li><a href="http://github.com/envelopeapp/envelope/wiki">Wiki</a></li>
+        </ul>
+        <a class="btn" href="https://github.com/envelopeapp/envelope">View on GitHub</a>
+      </div>
+    </div>
+    
+    <div class="container-fluid">
+      
+      <!--CONTENT START-->
+      
+      <div class="row-fluid">
+        <h1>Quick Start</h1>
+        
+        <h3>On a Mac</h3>
+        <ol>
+          <li>
+            <p>Clone the project</p>
+            <pre>git clone git@github.com:envelopeapp/envelope.git && cd envelope</pre>
+          </li>
+          <li>
+            <p>Run script/mac:</p>
+            <pre>./script/mac</pre>
+            <p>I highly encourage you to look at the script for you personal sanity. In short, it's:</p>
+            <ol>
+              <li>Install homebrew</li>
+              <li>Install elasticsearch</li>
+              <li>Install mongodb</li>
+              <li>Bundle the gems</li>
+            </ol>
+            <br />
+          </li>
+          <li>
+            <p>(optional) Seed the database</p>
+            <pre>GMAIL_USERNAME=[YOUR GMAIL USERNAME] GMAIL_PASSWORD=[YOUR GMAIL PASSWORD] bundle exec rake db:seed</pre>
+          </li>
+          <li>
+            <p>Fire up the application</p>
+            <pre>bundle exec foreman start</pre>
+          </li>
+        </ol>
+        
+        <h3>With Vagrant</h3>
+        <p>Envelope is packaged with vagrant and is available for download. It is currently an ubuntu precise64 box packaged with all the necessary dependencies already installed.</p>
+        <ol>
+          <li>
+            <p>Install <a href="http://vagrantup.com/">vagrant</a></p>
+          </li>
+          <li>
+            <p>Clone the project</p>
+            <pre>git clone git@github.com:envelopeapp/envelope.git && cd envelope</pre>
+          </li>   
+          <li>
+            <p>Install the envelope base box:</p>
+            <pre>vagrant box add envelope http://github.com/downloads/envelopeapp/envelope/base.box</pre>
+          </li>
+          <li>
+            <p>Initialize the box:</p>
+            <pre>vagrant init envelope</pre>
+          </li>
+          <li>
+            <p>Boot up the VM</p>
+            <pre>vagrant up</pre>
+          </li>
+          <li>
+            <p>You should now be able to ssh into the Ubuntu box:</p>
+            <pre>vagrant ssh</pre>
+          </li>
+          <li>
+            <p>Change into the /vagrant bootstrap the application</p>
+            <pre>./script/ubuntu</pre>
+          </li>
+          <li>
+            <p>(optional) Seed the database</p>
+            <pre>GMAIL_USERNAME=[YOUR GMAIL USERNAME] GMAIL_PASSWORD=[YOUR GMAIL PASSWORD] bundle exec rake db:seed</pre>
+          </li>
+          <li>
+            <p>Fire up the application</p>
+            <pre>bundle exec foreman start</pre>
+          </li>
+        </ol>
+      </div>
+      
+      <!--CONTENT END-->
+      
+      <div id="footer" class="row-fluid">
+        <div class="span12">
+          <p id="copyright">
+            &copy; 2012 Information Systems Program at Carnegie Mellon University</span>
+            <br /><span>Entypo pictograms by Daniel Bruce &mdash; <a href="http://www.entypo.com">www.entypo.com</a></span>
+          </p>
+        </div>
+      </div>
+      
+    </div>
+    
+  </body>
+</html>
