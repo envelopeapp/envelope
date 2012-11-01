@@ -1,0 +1,157 @@
+/*========================================
+  FONT DEFINITIONS
+  ========================================*/
+
+@import url(http://fonts.googleapis.com/css?family=Raleway);
+
+@font-face {
+	font-family: 'Entypo';
+	src: url('entypo/entypo.eot'); /* IE9 */
+	src: url('entypo/entypo.woff') format('woff'),
+	     url('entypo/entypo.ttf')  format('truetype'),
+	     url('entypo/entypo.svg#entypo') format('svg');
+}
+@font-face {
+	font-family: 'EntypoSocial';
+	src: url('entypo/entypo-social.eot'); /* IE9 */
+	src: url('entypo/entypo-social.woff') format('woff'),
+	     url('entypo/entypo-social.ttf')  format('truetype'),
+	     url('entypo/entypo-social.svg#entypo-social') format('svg');
+}
+
+/*========================================
+  GENERAL STYLES
+  ========================================*/
+
+body {
+  font-family: 'Raleway', Helvetica, Arial, sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.container-fluid {
+  padding: 20px 10% 50px 10%;
+  width: 80%;
+}
+
+.row {
+  margin: 0 auto;
+}
+
+/* clearfix */
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+
+/*========================================
+  NAVBAR
+  ========================================*/
+
+.navbar-inner {
+  border-radius: 0;
+  padding: 0 10%;
+}
+
+.navbar .btn {
+  float: right;
+}
+
+/*========================================
+  TITLE
+  ========================================*/
+
+#title {
+  text-align: center;
+}
+  #logo, #slogan {
+    display: block;
+    margin: 0 auto;
+  }
+  #slogan {
+    font-size: 1.5em;
+    margin-top: 3px;
+  }
+
+/*========================================
+  3-COLUMN MIDDLE
+  ========================================*/
+
+#three-col {
+  margin: 30px 0;
+}
+  #three-col .span4 {
+    border: 1px solid #333;
+    float: left;
+    height: 360px;
+    overflow: hidden;  
+    position: relative;
+  }
+    #three-col .span4 .screenshot {
+      max-width: none;
+      opacity: 1;
+    
+      position: absolute;
+      left: 0px;
+      top: 0px;
+    }
+    #three-col .span4 .caption {
+      background: rgba(0, 0, 0, 0.9);
+      color: #fff;
+      padding: 15px;
+    
+      position: absolute;
+      bottom: 0;
+    }
+      #three-col .span4 .caption h1 {
+        font-size: 1.8em;
+        font-weight: 600;
+        margin: 0 0 10px 0;
+        white-space: nowrap;
+      }
+      #three-col .span4 .caption p {
+        margin: 0;
+      }
+
+/*========================================
+  FOOTER
+  ========================================*/
+
+#footer {
+  text-align: center;
+}
+  #connect {
+    margin-bottom: 30px;
+  }
+    #connect h1 {
+      display: inline-block;
+      font-size: 1.5em;
+      font-weight: normal;
+      margin: 0;
+    }
+    #social-icons {
+      display: inline-block;
+      padding: 0;
+      margin: 0 0 0 10px;
+      vertical-align: middle;
+    }
+      #social-icons li a {
+        color: #333;
+        font-family: 'EntypoSocial', sans-serif;
+        font-size: 3em;
+      }
+      #social-icons li {
+        display: inline-block;
+        margin-right: 2px;
+      }
+      #social-icons .email {
+        font-family: 'Entypo', sans-serif;
+      }
+  #copyright {
+    font-size: 0.8em;
+    line-height: 1.6em;
+  }
