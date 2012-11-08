@@ -30,9 +30,22 @@ body {
   font-weight: 400;
 }
 
+div {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+.container-fluid,
+.navbar-wrapper {
+  margin: 0 auto;
+  width: 85%;
+}
+
 .container-fluid {
-  padding: 20px 10% 50px 10%;
-  width: 80%;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  padding: 0;
 }
 
 .row {
@@ -55,12 +68,11 @@ body {
 
 .navbar-inner {
   border-radius: 0;
-  padding: 0 10%;
+  padding: 0; 
 }
-
-.navbar .btn {
-  float: right;
-}
+  .navbar .btn {
+    float: right;
+  }
 
 /*========================================
   TITLE
@@ -88,7 +100,7 @@ body {
   #three-col .span4 {
     border: 1px solid #333;
     float: left;
-    height: 360px;
+    height: 320px;
     overflow: hidden;  
     position: relative;
   }
@@ -104,6 +116,7 @@ body {
       background: rgba(0, 0, 0, 0.9);
       color: #fff;
       padding: 15px;
+      width: 100%;
     
       position: absolute;
       bottom: 0;
@@ -112,7 +125,6 @@ body {
         font-size: 1.8em;
         font-weight: 600;
         margin: 0 0 10px 0;
-        white-space: nowrap;
       }
       #three-col .span4 .caption p {
         margin: 0;

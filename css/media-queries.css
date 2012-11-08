@@ -1,11 +1,64 @@
 /* Large desktop */
-@media (min-width: 1200px) { ... }
- 
+@media (min-width: 1440px) { ... }
+
+@media (max-width: 1200px) {
+  
+  .container-fluid,
+  .navbar-wrapper {
+    width: 90%;
+  }
+  
+}
+
 /* Portrait tablet to landscape and desktop */
-@media (min-width: 768px) and (max-width: 979px) { ... }
+@media (max-width: 980px) {
+  
+  .container-fluid,
+  .navbar-wrapper {
+    width: 95%;
+  }
+  
+}
  
 /* Landscape phone to portrait tablet */
-@media (max-width: 767px) { ... }
+@media (max-width: 768px) {
+  
+  body {
+    padding: 0;
+  }
+  
+  #three-col .span4 {
+    height: 240px;
+    margin-bottom: 20px;
+  }
+  
+}
  
 /* Landscape phones and down */
-@media (max-width: 480px) { ... }
+@media (max-width: 480px) {
+  
+  .navbar .nav li a {
+    font-size: 0.85em;
+    padding: 10px;
+  }
+  
+  .container-fluid {
+    margin-top: 0;
+    margin-bottom: 30px;
+  }
+  
+  #title {
+    margin-bottom: 30px;
+  }
+    #logo {
+      width: 80%;
+    }
+    #slogan {
+      font-size: 1em;
+    }
+  
+  #three-col .span4 {
+    height: 200px;
+  }
+  
+}
