@@ -37,6 +37,10 @@
 /* Landscape phones and down */
 @media (max-width: 480px) {
   
+  .navbar-wrapper {
+    margin: 0;
+  }
+  
   .navbar .nav li a {
     font-size: 0.85em;
     padding: 10px;
@@ -58,7 +62,15 @@
     }
   
   #three-col .span4 {
-    height: 200px;
+    height: 180px;
   }
+    #three-col .span4 .caption h1 {
+      font-size: 1.4em;
+      line-height: 1.4em;
+      margin-bottom: 0;
+    }
+    #three-col .span4 .caption p {
+      display: none;
+    }
   
 }

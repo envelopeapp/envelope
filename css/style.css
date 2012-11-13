@@ -98,19 +98,21 @@ div {
 #three-col {
 }
   #three-col .span4 {
+    background: #fff;
     border: 1px solid #333;
     float: left;
     height: 320px;
+    max-width: 500px;
     overflow: hidden;  
     position: relative;
   }
     #three-col .span4 .screenshot {
-      max-width: none;
-      opacity: 1;
+      max-height: 320px;
+      max-width: 500px;
     
       position: absolute;
-      left: 0px;
-      top: 0px;
+      left: 0;
+      top: 0;
     }
     #three-col .span4 .caption {
       background: rgba(0, 0, 0, 0.9);
