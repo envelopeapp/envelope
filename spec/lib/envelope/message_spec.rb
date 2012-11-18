@@ -103,6 +103,48 @@ describe Envelope::Message do
     end
   end
 
+  context '#remove_appended_messages', :focus => true do
+    let(:message) { build_message 'appended_messages_1' }
+
+    it 'removes "On Nov 8, 2012, at 7:52 PM, Robbin Stormer wrote:"' do
+      text = <<-EOH
+That's awesome!
+On Nov 8, 2012, at 7:52 PM, Robbin Stormer wrote:
+> Hi Seth....Well do you know how much I love you?
+EOH
+      message.send(:remove_appended_messages, text).should == 'That\'s awesome!'
+    end
+
+    it 'removes "On Nov 9, 2012, at 4:35 PM, Sam Smith <sam@smith.com> wrote:"' do
+      text = <<-EOH
+That's awesome!
+On Nov 9, 2012, at 4:35 PM, Paul Edelhertz <pedelhertz@opscode.com> wrote:
+Cookies and creame and ponies too!
+EOH
+      message.send(:remove_appended_messages, text).should == 'That\'s awesome!'
+    end
+
+    it 'removes "On Nov 5, 2012, at 11:28 AM, "Lionel \"Ltrain\" Cares" <sigmachi01@gmail.com> wrote:"' do
+      text = <<-EOH
+That's awesome!
+On Nov 5, 2012, at 11:28 AM, "Lionel \"Ltrain\" Cares" <sigmachi01@gmail.com> wrote:
+Awesome sauce!
+EOH
+
+      message.send(:remove_appended_messages, text).should == 'That\'s awesome!'
+    end
+
+    it 'removes "On Nov 2, 2012, at 3:15 PM, "Bryan McLellan (JIRA)" wrote:"' do
+      text = <<-EOH
+That's awesome!
+On Nov 2, 2012, at 3:15 PM, "Bryan McLellan (JIRA)" wrote:
+Chef is awesome!
+EOH
+
+      message.send(:remove_appended_messages, text).should == 'That\'s awesome!'
+    end
+  end
+
   context 'appended_messages_1' do
     subject { build_message 'appended_messages_1' }
 
@@ -130,8 +172,8 @@ describe Envelope::Message do
   context 'base64 encoded' do
     subject { build_message 'base64' }
 
-    its(:text_part) { should == "=== Web - 1 new result for [\"Seth Vargo\"] ===\nCustom Global Eco/JST helpers • It's My Life - Seth Vargo's Blog\nCustom Global Eco/JST helpers Working on Envelope lately, I realized the\nneed for custom form helpers. We use Twitter Bootstrap for the form styles\nand layout, ...\n<http://www.google.com/url?sa=X&q=http://sethvargo.com/post/32742807598/custom-global-eco-jst-helpers&ct=ga&cad=CAcQARgAIAEoATAAOABAm4W4gwVIAVgAYgVlbi1VUw&cd=ebkNIvPatV8&usg=AFQjCNH9hfBTkEeBFG8TSR-fM0ZfXcUDsA>\nThis as-it-happens Google Alert is brought to you by Google.\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\nDelete this Google Alert:\nhttp://www.google.com/alerts/remove?hl=en&gl=us&source=alertsmail&s=AB2Xq4jGLzgsan55HmFoGBjM_ZPeerN1YcRYpYY&cd=ebkNIvPatV8&cad=CAcQARgAQJuFuIMFSAE\nCreate another Google Alert:\nhttp://www.google.com/alerts?hl=en&gl=us&source=alertsmail&cd=ebkNIvPatV8&cad=CAcQARgAQJuFuIMFSAE\nSign in to manage your alerts:\nhttp://www.google.com/alerts/manage?hl=en&gl=us&source=alertsmail&cd=ebkNIvPatV8&cad=CAcQARgAQJuFuIMFSAE" }
-    its(:html_part) { should == "<html><head></head><body><div style=\"font-family: arial,sans-serif; width: 600px\"><table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" width=\"600px\"><tr><td style=\"background-color:#EBEFF9; padding: 4px 8px 4px 8px\"><table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" width=\"100%\"><tr><td><font size=\"-1\"><nobr><b>Web</b></nobr></font></td><td width=\"70%\" align=\"right\"><font size=\"-1\"><b>1</b> new result for <b>&quot;Seth Vargo&quot;</b></font></td></tr></table></td></tr><tr><td> </td></tr><tr><td style=\"padding: 0px 8px 16px 8px;\"><a style=\"color: #1111CC\" href=\"http://www.google.com/url?sa=X&amp;q=http://sethvargo.com/post/32742807598/custom-global-eco-jst-helpers&amp;ct=ga&amp;cad=CAcQARgAIAEoATAAOABAm4W4gwVIAVgAYgVlbi1VUw&amp;cd=ebkNIvPatV8&amp;usg=AFQjCNH9hfBTkEeBFG8TSR-fM0ZfXcUDsA\">Custom Global Eco/JST helpers • It&#39;s My Life - <b>Seth Vargo&#39;s</b> Blog</a><br><font size=\"-1\">Custom Global Eco/JST helpers Working on Envelope lately, I realized the need for custom form helpers. We use Twitter Bootstrap for the form styles and layout, <b>...</b><br><a style=\"color:#228822\" href=\"http://www.google.com/url?sa=X&amp;q=http://sethvargo.com/post/32742807598/custom-global-eco-jst-helpers&amp;ct=ga&amp;cad=CAcQARgAIAEoBDAAOABAm4W4gwVIAVgAYgVlbi1VUw&amp;cd=ebkNIvPatV8&amp;usg=AFQjCNH9hfBTkEeBFG8TSR-fM0ZfXcUDsA\" title=\"http://sethvargo.com/post/32742807598/custom-global-eco-jst-helpers\">sethvargo.com/post/.../custom-global-eco-jst-helpers</a></font></td></tr></table><br><hr noshade size=\"1\" color=\"#CCCCCC\"><font size=\"-1\">Tip: Use site restrict in your query to search within a site (site:nytimes.com or site:.edu). <a href='http://www.google.com/support/websearch/bin/answer.py?answer=136861&hl=en&source=alertsmail&cd=ebkNIvPatV8&cad=CAcQARgAQJuFuIMFSAE'>Learn more</a>.</font><br><br><font size=\"-1\"><a href=\"http://www.google.com/alerts/remove?hl=en&gl=us&source=alertsmail&s=AB2Xq4jGLzgsan55HmFoGBjM_ZPeerN1YcRYpYY&cd=ebkNIvPatV8&cad=CAcQARgAQJuFuIMFSAE\">Delete</a> this alert.<br><a href=\"http://www.google.com/alerts?hl=en&gl=us&source=alertsmail&cd=ebkNIvPatV8&cad=CAcQARgAQJuFuIMFSAE\">Create</a> another alert.<br><a href=\"http://www.google.com/alerts/manage?hl=en&gl=us&source=alertsmail&cd=ebkNIvPatV8&cad=CAcQARgAQJuFuIMFSAE\">Manage</a> your alerts.</font></div></body></html>" }
+    its(:text_part) { should == "=== Web - 1 new result for [\"Seth Vargo\"] ===\nCustom Global Eco/JST helpers ? It's My Life - Seth Vargo's Blog\nCustom Global Eco/JST helpers Working on Envelope lately, I realized the\nneed for custom form helpers. We use Twitter Bootstrap for the form styles\nand layout, ...\n<http://www.google.com/url?sa=X&q=http://sethvargo.com/post/32742807598/custom-global-eco-jst-helpers&ct=ga&cad=CAcQARgAIAEoATAAOABAm4W4gwVIAVgAYgVlbi1VUw&cd=ebkNIvPatV8&usg=AFQjCNH9hfBTkEeBFG8TSR-fM0ZfXcUDsA>\nThis as-it-happens Google Alert is brought to you by Google.\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\nDelete this Google Alert:\nhttp://www.google.com/alerts/remove?hl=en&gl=us&source=alertsmail&s=AB2Xq4jGLzgsan55HmFoGBjM_ZPeerN1YcRYpYY&cd=ebkNIvPatV8&cad=CAcQARgAQJuFuIMFSAE\nCreate another Google Alert:\nhttp://www.google.com/alerts?hl=en&gl=us&source=alertsmail&cd=ebkNIvPatV8&cad=CAcQARgAQJuFuIMFSAE\nSign in to manage your alerts:\nhttp://www.google.com/alerts/manage?hl=en&gl=us&source=alertsmail&cd=ebkNIvPatV8&cad=CAcQARgAQJuFuIMFSAE" }
+    its(:html_part) { should == "<html><head></head><body><div style=\"font-family: arial,sans-serif; width: 600px\"><table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" width=\"600px\"><tr><td style=\"background-color:#EBEFF9; padding: 4px 8px 4px 8px\"><table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" width=\"100%\"><tr><td><font size=\"-1\"><nobr><b>Web</b></nobr></font></td><td width=\"70%\" align=\"right\"><font size=\"-1\"><b>1</b> new result for <b>&quot;Seth Vargo&quot;</b></font></td></tr></table></td></tr><tr><td> </td></tr><tr><td style=\"padding: 0px 8px 16px 8px;\"><a style=\"color: #1111CC\" href=\"http://www.google.com/url?sa=X&amp;q=http://sethvargo.com/post/32742807598/custom-global-eco-jst-helpers&amp;ct=ga&amp;cad=CAcQARgAIAEoATAAOABAm4W4gwVIAVgAYgVlbi1VUw&amp;cd=ebkNIvPatV8&amp;usg=AFQjCNH9hfBTkEeBFG8TSR-fM0ZfXcUDsA\">Custom Global Eco/JST helpers ? It&#39;s My Life - <b>Seth Vargo&#39;s</b> Blog</a><br><font size=\"-1\">Custom Global Eco/JST helpers Working on Envelope lately, I realized the need for custom form helpers. We use Twitter Bootstrap for the form styles and layout, <b>...</b><br><a style=\"color:#228822\" href=\"http://www.google.com/url?sa=X&amp;q=http://sethvargo.com/post/32742807598/custom-global-eco-jst-helpers&amp;ct=ga&amp;cad=CAcQARgAIAEoBDAAOABAm4W4gwVIAVgAYgVlbi1VUw&amp;cd=ebkNIvPatV8&amp;usg=AFQjCNH9hfBTkEeBFG8TSR-fM0ZfXcUDsA\" title=\"http://sethvargo.com/post/32742807598/custom-global-eco-jst-helpers\">sethvargo.com/post/.../custom-global-eco-jst-helpers</a></font></td></tr></table><br><hr noshade size=\"1\" color=\"#CCCCCC\"><font size=\"-1\">Tip: Use site restrict in your query to search within a site (site:nytimes.com or site:.edu). <a href='http://www.google.com/support/websearch/bin/answer.py?answer=136861&hl=en&source=alertsmail&cd=ebkNIvPatV8&cad=CAcQARgAQJuFuIMFSAE'>Learn more</a>.</font><br><br><font size=\"-1\"><a href=\"http://www.google.com/alerts/remove?hl=en&gl=us&source=alertsmail&s=AB2Xq4jGLzgsan55HmFoGBjM_ZPeerN1YcRYpYY&cd=ebkNIvPatV8&cad=CAcQARgAQJuFuIMFSAE\">Delete</a> this alert.<br><a href=\"http://www.google.com/alerts?hl=en&gl=us&source=alertsmail&cd=ebkNIvPatV8&cad=CAcQARgAQJuFuIMFSAE\">Create</a> another alert.<br><a href=\"http://www.google.com/alerts/manage?hl=en&gl=us&source=alertsmail&cd=ebkNIvPatV8&cad=CAcQARgAQJuFuIMFSAE\">Manage</a> your alerts.</font></div></body></html>" }
   end
 
   context 'forwarded message' do

@@ -1,5 +1,3 @@
-require 'net/imap'
-
 class Account
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -9,14 +7,6 @@ class Account
   field :reply_to_address, type: String, default: -> { email_address }
   field :imap_directory, type: String
   field :last_synced, type: DateTime
-
-  # t.integer  "inbox_mailbox_id"
-  # t.integer  "sent_mailbox_id"
-  # t.integer  "junk_mailbox_id"
-  # t.integer  "drafts_mailbox_id"
-  # t.integer  "trash_mailbox_id"
-  # t.integer  "starred_mailbox_id"
-  # t.integer  "important_mailbox_id"
 
   # attr accessible
   attr_accessor :provider, :password

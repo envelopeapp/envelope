@@ -12,9 +12,13 @@ class MailboxWorker
   def perform(mailbox_id)
     @mailbox = Mailbox.find(mailbox_id)
     @account = @mailbox.account
+    @user = @account.user
 
     # don't do anything if the mailbox is not selectable
     return unless @mailbox.selectable?
+
+    # tell the frontend we've started to load this mailbox
+    publish_start
 
     # create an imap connection
     @imap = Envelope::IMAP.new(@account)
@@ -30,6 +34,9 @@ class MailboxWorker
 
     # update the mailbox
     @mailbox.update_attribute(:last_synced, Time.now)
+
+    # tell the frontend we are done
+    publish_finish
   end
 
   private
@@ -48,5 +55,13 @@ class MailboxWorker
       @mailbox.uid_validity = imap_uid_validity
       @mailbox.update_attribute(:uid_validity, imap_uid_validity)
     end
+  end
+
+  def publish_start
+    @user.publish('mailbox-worker-start', { mailbox: @mailbox, account: @account })
+  end
+
+  def publish_finish
+    @user.publish('mailbox-worker-finish', { mailbox: @mailbox, account: @account })
   end
 end

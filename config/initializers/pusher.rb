@@ -1,4 +1,6 @@
-Pusher.app_id = ENV['PUSHER_APP_ID']
-Pusher.key = ENV['PUSHER_KEY']
-Pusher.secret = ENV['PUSHER_SECRET']
-Pusher.logger = Rails.logger
+if Envelope::Config.pusher
+  Pusher.app_id = Envelope::Config.pusher['app_id']
+  Pusher.key = Envelope::Config.pusher['key']
+  Pusher.secret = Envelope::Config.pusher['secret']
+  Pusher.logger = Rails.logger
+end

@@ -27,13 +27,11 @@ class Message
   field :timestamp, type: DateTime
   field :read, type: Boolean
   field :flags, type: Array, default: []
-  field :flagged, type: Boolean # TODO remove
   field :full_text_part, type: String
   field :text_part, type: String
   field :full_html_part, type: String
   field :html_part, type: String
   field :sanitized_html, type: String
-  field :preview, type: String
   field :raw, type: String
 
   # indexes
@@ -44,13 +42,8 @@ class Message
   include Mongoid::Ancestry
   has_ancestry :cache_depth => true
 
-  # attr_accessor
-  attr_accessor :account_id
-
   # callbacks
-  after_save :update_mailbox_cache
   before_destroy :clear_labels
-  after_destroy :update_mailbox_cache
 
   # associations
   has_and_belongs_to_many :labels, index: true
@@ -58,8 +51,11 @@ class Message
   embeds_many :participants
   embeds_many :attachments
 
+  # nested attributes
+  accepts_nested_attributes_for :participants, :attachments
+
   # validations
-  validates_presence_of :timestamp, :read
+  validates_presence_of :mailbox, :timestamp, :read
 
   # scopes
   default_scope order_by(:timestamp => :desc).includes(:mailbox, :labels)
@@ -76,11 +72,15 @@ class Message
 
   # instance methods
   def user_id
-    self.mailbox.account.user_id
+    account.user_id
   end
 
   def account
     self.mailbox.account
+  end
+
+  def account_id
+    account.id
   end
 
   # Determines if this message has been read
@@ -104,6 +104,13 @@ class Message
     !(%w(deleted removed) & flags).empty?
   end
 
+  # Determine if this message is a draft
+  #
+  # @return [Boolean] true if the message is a draft, false otherwise
+  def draft?
+    !(%w(draft) & flags).empty?
+  end
+
   # Determines if this message has been flagged
   #
   # @return [Boolean] true if the message has been flagged, false otherwise
@@ -116,6 +123,15 @@ class Message
   # @return [Boolean] true if the message has been answered, false otherwise
   def answered?
     !(%w(answered) & flags).empty?
+  end
+
+  # Returns a list of all participants; used for as_json
+  #
+  # @return [Hash] all participants
+  [:toers, :fromers, :senders, :ccers, :bccers, :reply_toers].each do |participant_type|
+    define_method participant_type do
+      self.participants.send(participant_type)
+    end
   end
 
   def mark_as_read!
@@ -145,16 +161,16 @@ class Message
   end
   alias :delete! :move_to_trash!
 
-  # Always include certain methods when serializing a message
-  def serializable_hash(options = {})
-    options = {
-      :include => [:account, :mailbox, :labels, :fromers]
-    }.update(options)
-    super(options)
-  end
-
   def to_indexed_json
     to_json :methods => %w(user_id)
+  end
+
+  def as_json(options = {})
+    super(options.merge({
+      :only => [ :mailbox_id, :uid, :message_id, :subject, :timestamp, :flags, :text_part, :sanitized_html ],
+      :methods => [ :id, :account_id, :read?, :flagged?, :unanswered?, :toers, :fromers, :senders, :ccers, :bccers, :reply_toers ],
+      :include => [ :labels ]
+    }))
   end
 
   # private methods
@@ -171,9 +187,5 @@ class Message
 
   def clear_labels
     self.labels.clear
-  end
-
-  def update_mailbox_cache
-    self.mailbox.update_unread_messages_counter_cache!
   end
 end

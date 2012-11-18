@@ -9,13 +9,15 @@ class VcardWorker
   include Sidekiq::Worker
 
   def perform(user_id, path)
+    @user = User.find(user_id)
     @file = File.open(path, 'r')
     @vcards = Vpim::Vcard.decode(@file)
     @file.close
+    @contacts = []
 
     @vcards.each do |vcard|
-      contact = Contact.create({
-        user_id: user_id,
+      @contacts << Contact.create({
+        user_id: @user.id,
         prefix: vcard.name.prefix.presence,
         first_name: vcard.name.given.presence,
         middle_name: vcard.name.additional.presence,
@@ -29,6 +31,8 @@ class VcardWorker
         addresses_attributes: addresses_for(vcard)
       })
     end
+
+    publish_finish
   end
 
   private
@@ -63,5 +67,9 @@ class VcardWorker
 
       { label: label || 'Default', line_1: line_1, line_2: line_2, city: city, state: state, country: country, zip_code: zip_code }
     end
+  end
+
+  def publish_finish
+    @user.publish('vcard-worker-finish', { contacts: @contacts })
   end
 end

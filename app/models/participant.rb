@@ -1,5 +1,5 @@
 class Participant
-  TYPES = %w(To From Sender Cc Bcc Reply-To).freeze unless defined?(TYPES)
+  TYPES = %w(to from sender cc bcc reply_to).freeze unless defined?(TYPES)
 
   include Mongoid::Document
 
@@ -20,12 +20,12 @@ class Participant
   validates_inclusion_of :participant_type, :in => Participant::TYPES
 
   # scopes
-  scope :toers, where(participant_type:'To')
-  scope :fromers, where(participant_type:'From')
-  scope :senders, where(participant_type:'Sender')
-  scope :ccers, where(participant_type:'Cc')
-  scope :bbcers, where(participant_type:'Bcc')
-  scope :reply_toers, where(participant_type:'Reply-To')
+  scope :toers, where(participant_type: 'to')
+  scope :fromers, where(participant_type: 'from')
+  scope :senders, where(participant_type: 'sender')
+  scope :ccers, where(participant_type: 'cc')
+  scope :bccers, where(participant_type: 'bcc')
+  scope :reply_toers, where(participant_type: 'reply_to')
 
   # class methods
   class << self
@@ -39,6 +39,16 @@ class Participant
     else
       self.name.presence || self.email_address
     end
+  end
+
+  def serializable_hash(options = {})
+    {
+      id: self.id,
+      participant_type: self.participant_type,
+      name: self.name,
+      email_address: self.email_address,
+      contact: self.contact
+    }
   end
 
   # private methods

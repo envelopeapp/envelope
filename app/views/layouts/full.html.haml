@@ -7,6 +7,13 @@
     = javascript_include_tag 'application'
     = javascript_include_tag "http://js.pusher.com/1.12/pusher.min.js"
     = csrf_meta_tag
+    :javascript
+      var pusher =  new Pusher('#{Envelope::Config.pusher['key']}');
+      var channel = pusher.subscribe('#{User.first.channel}');
+      channel.bind('cookies', function(data) {
+        console.log(data);
+      });
+
 
   %body.full
     / topbar

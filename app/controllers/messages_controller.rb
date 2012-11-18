@@ -19,7 +19,17 @@ class MessagesController < ApplicationController
   end
 
   def unified
-    @messages = [] #current_user.send("#{params[:unified_mailbox]}_messages".to_sym).includes(:fromers).page(params[:page] || 1).per(15)
+    @messages = case params[:unified_mailbox]
+    when 'inbox'
+      current_user.inbox_messages
+    when 'sent'
+      current_user.sent_messages
+    when 'trash'
+      current_user.trash_messages
+    end
+
+    @messages = @messages.page(params[:page] || 1).per(15)
+
     respond_with(@messages) do |format|
       format.html { render action:'index' }
       format.json
@@ -100,14 +110,8 @@ class MessagesController < ApplicationController
 
     if @message.labels.include?(@label)
       @message.labels.delete(@label)
-      begin
-        PrivatePub.publish_to current_user.queue_name, :action => 'removed_label', :label => @label, :message => @message
-      rescue; end
     else
       @message.labels.push(@label)
-      begin
-        PrivatePub.publish_to current_user.queue_name, :action => 'added_label', :label => @label, :message => @message
-      rescue; end
     end
 
     respond_to do |format|

@@ -14,8 +14,6 @@ class Mailbox
   has_ancestry :cache_depth => true
 
   # callbacks
-  after_create :publish_mailbox_created
-  after_destroy :publish_mailbox_destroyed
 
   # associations
   belongs_to :account, :inverse_of => :mailboxes, index: true
@@ -38,7 +36,7 @@ class Mailbox
   #
   # @return [Boolean] true if the mailbox is selectable, false otherwise
   def selectable?
-    ([:Noselect] & self.flags).empty?
+    (%w(noselect) & self.flags).empty?
   end
 
   # Return the UID of the last message received by this client
@@ -57,22 +55,6 @@ class Mailbox
     Rails.cache.fetch(unread_messages_cache_key) { self.messages.unread.size }
   end
 
-  def update_unread_messages_counter_cache!
-    Rails.cache.delete(unread_messages_cache_key)
-    begin
-      PrivatePub.publish_to self.account.user.queue_name, :action => 'update_unread_messages_counter', :mailbox => self
-    rescue; end
-  end
-
-  # Always include certain methods when serializing a mailbox
-  def serializable_hash(options = {})
-    options = {
-      :methods => [:queue_name, :unread_messages],
-      :include => [:account]
-    }.update(options)
-    super(options)
-  end
-
   # private methods
   private
   # This method returns the sha1 of the location hash. This is
@@ -84,13 +66,5 @@ class Mailbox
 
   def unread_messages_cache_key
     cache_key = [self._id, 'unread_messages'].join('/')
-  end
-
-  def publish_mailbox_created
-    #PrivatePub.publish_to self.user.queue_name, :action => 'mailbox_created', :mailbox => self
-  end
-
-  def publish_mailbox_destroyed
-    #PrivatePub.publish_to self.user.queue_name, :action => 'mailbox_destroyed', :mailbox => self
   end
 end

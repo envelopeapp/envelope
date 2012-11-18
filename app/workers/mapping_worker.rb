@@ -8,6 +8,7 @@ class MappingWorker
 
   def perform(account_id)
     @account = Account.find_by(id: account_id)
+    @user = @account.user
     return if @account.nil?
 
     @account.mailboxes.each do |mailbox|
@@ -20,7 +21,10 @@ class MappingWorker
       @account.important_mailbox  = mailbox unless (mailbox.flags & important_flags).empty?
     end
 
-    @account.save if @account.changed?
+    if @account.changed?
+      @account.save
+      publish_finish
+    end
   end
 
   private
@@ -50,5 +54,9 @@ class MappingWorker
 
   def important_flags
     %w(important)
+  end
+
+  def publish_finish
+    @user.publish('mapping-worker-finish', { account: @account })
   end
 end

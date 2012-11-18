@@ -1,4 +1,4 @@
-<div class="message bubble" data-message-id="<%= @message._id %>">
+<div class="message bubble" data-message-id="<%= @message.id %>">
   <div class="bubble-metadata">
     <%= new Date(@message.timestamp).format("mmm d, h:MMtt"); %>
   </div>
@@ -13,7 +13,7 @@
         <% mailbox_labels = @message.labels.map (l) -> l.name %>
         <% for label in @labels: %>
           <li>
-            <a href="<%= Routes.account_mailbox_message_toggle_label_path(@message.mailbox.account_id, @message.mailbox_id, @message._id) %>" data-label-id="<%= label._id %>" class="<%= 'checked' if label.name in mailbox_labels %>">
+            <a href="<%= Routes.account_mailbox_message_toggle_label_path(@message.account_id, @message.mailbox_id, @message.id) %>" data-label-id="<%= label.id %>" class="<%= 'checked' if label.name in mailbox_labels %>">
               <span class="label <%= label.color %>"><%= label.name %></span>
             </a>
           </li>
@@ -22,25 +22,25 @@
     </div>
 
     <div class="btn-group">
-      <a href="<%= Routes.new_message_path(message_id:@message._id, mode:'reply') %>" class="btn" id="reply-button" rel="tooltip" title="Reply" data-placement="bottom">
+      <a href="<%= Routes.new_message_path(message_id: @message.id, mode:'reply') %>" class="btn" id="reply-button" rel="tooltip" title="Reply" data-placement="bottom">
         <i class="icon icon-share-alt"></i>
       </a>
-      <a href="<%= Routes.new_message_path(message_id:@message._id, mode:'reply-all') %>" class="btn" id="reply-all-button" rel="tooltip" title="Reply All" data-placement="bottom">
+      <a href="<%= Routes.new_message_path(message_id: @message.id, mode:'reply-all') %>" class="btn" id="reply-all-button" rel="tooltip" title="Reply All" data-placement="bottom">
         <i class="icon icon-share"></i>
       </a>
-      <a href="<%= Routes.new_message_path(message_id:@message._id, mode:'forward') %>" class="btn" id="forward-button" rel="tooltip" title="Forward" data-placement="bottom">
+      <a href="<%= Routes.new_message_path(message_id: @message.id, mode:'forward') %>" class="btn" id="forward-button" rel="tooltip" title="Forward" data-placement="bottom">
         <i class="icon icon-arrow-right"></i>
       </a>
     </div>
 
     <div class="btn-group">
-      <a href="<%= Routes.account_mailbox_message_path(@message.mailbox.account_id, @message.mailbox_id, @message._id) %>" class="btn" id="delete-button" data-remote="true" data-method="delete" rel="tooltip" title="Move to Trash" data-placement="bottom">
+      <a href="<%= Routes.account_mailbox_message_path(@message.account_id, @message.mailbox_id, @message.id) %>" class="btn" id="delete-button" data-remote="true" data-method="delete" rel="tooltip" title="Move to Trash" data-placement="bottom">
         <i class="icon icon-trash"></i>
       </a>
       <a href="#" class="btn" id="flag-button" rel="tooltip" title="Flag" data-placement="bottom">
         <i class="icon icon-flag"></i>
       </a>
-      <a href="<%= Routes.account_mailbox_message_path(@message.mailbox.account_id, @message.mailbox_id, @message._id) %>" class="btn" target="_TOP" id="print-button" rel="tooltip" title="Print" data-placement="bottom">
+      <a href="<%= Routes.account_mailbox_message_path(@message.account_id, @message.mailbox_id, @message.id) %>" class="btn" target="_TOP" id="print-button" rel="tooltip" title="Print" data-placement="bottom">
         <i class="icon icon-print"></i>
       </a>
     </div>
@@ -60,8 +60,8 @@
     </div>
 
     <div class="message-read-toggle">
-      <% if @message.read == true: %>
-        <a href="<%= Routes.account_mailbox_message_unread_path(@message.mailbox.account_id, @message.mailbox_id, @message._id) %>" id="unread-button" data-remote="true" data-method="put">Mark as Unread</a>
+      <% if @message.read? == true: %>
+        <a href="<%= Routes.account_mailbox_message_unread_path(@message.account_id, @message.mailbox_id, @message.id) %>" id="unread-button" data-remote="true" data-method="put">Mark as Unread</a>
       <% end %>
     </div>
 
@@ -75,7 +75,7 @@
   <hr class="bubble-divider" />
 
   <div class="bubble-body">
-    <%- @message.html_part || @message.text_part.replace /\n/g, '<br><br>' %>
+    <%- @message.sanitized_html %>
   </div>
 
   <div class="clear"></div>
