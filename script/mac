@@ -17,7 +17,7 @@ which -s elasticsearch || (
   brew install elasticsearch 2>&1 > /dev/null
   mkdir -p ~/Library/LaunchAgents 2>&1 > /dev/null
   launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.elasticsearch.plist 2>&1 > /dev/null
-  ln -nfs /usr/local/Cellar/elasticsearch/0.19.9/homebrew.mxcl.elasticsearch.plist ~/Library/LaunchAgents/ 2>&1 > /dev/null
+  ln -nfs `brew list elasticsearch | grep homebrew.mxcl` ~/Library/LaunchAgents/ 2>&1 > /dev/null
   launchctl load -wF ~/Library/LaunchAgents/homebrew.mxcl.elasticsearch.plist 2>&1 > /dev/null
   echo 'Done!'
 )
@@ -28,7 +28,7 @@ which -s redis-cli || (
   brew install redis 2>&1 > /dev/null
   mkdir -p ~/Library/LaunchAgents 2>&1 > /dev/null
   launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.redis.plist 2>&1 > /dev/null
-  cp /usr/local/Cellar/redis/2.4.17/homebrew.mxcl.redis.plist ~/Library/LaunchAgents/ 2>&1 > /dev/null
+  cp `brew list redis | grep homebrew.mxcl` ~/Library/LaunchAgents/ 2>&1 > /dev/null
   launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.redis.plist 2>&1 > /dev/null
   echo 'Done!'
 )
@@ -39,28 +39,28 @@ which -s mongo || (
   brew install mongodb 2>&1 > /dev/null
   mkdir -p ~/Library/LaunchAgents 2>&1 > /dev/null
   launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist 2>&1 > /dev/null
+  ln -nfs `brew list mongo | grep homebrew.mxcl` ~/Library/LaunchAgents/ 2>&1 > /dev/null
   launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist 2>&1 > /dev/null
   echo 'Done!'
 )
 
 # icu4c
-which -s || (
+[ -f /usr/local/opt/icu4c/bin/icuinfo ] || (
   echo -n 'Installing icu4c... '
-  brew install icu4c 2>&1 > /dev/null
+    brew install icu4c 2>&1 > /dev/null
   echo 'Done!'
 )
 
 # Config
-if [ ! -f config/application.yml ];
-then
+[ -f config/application.yml ] || (
   echo -n 'Copying config file... '
     cp config/application.example.yml config/application.yml 2>&1 > /dev/null
   echo 'Done!'
-fi
+)
 
 # Foreman
 echo -n 'Setting up foreman... '
-  echo 'RACK_ENV=development' >> .env
+  echo 'RACK_ENV=development' > .env
   echo 'PORT=5000' >> .env
 echo 'Done!'
 
