@@ -17,6 +17,9 @@ class AccountWorker
 
   def perform(account_id)
     @account = Account.find(account_id)
+    @user = @account.user
+
+    publish_start
 
     # create an imap connection
     @imap = Envelope::IMAP.new(@account)
@@ -36,7 +39,7 @@ class AccountWorker
       # set attributes
       mailbox.name = imap_mailbox.name
       mailbox.location = imap_mailbox.name
-      mailbox.flags = imap_mailbox.attr
+      mailbox.flags = imap_mailbox.attr.collect{ |f| f.to_s.downcase }
 
       mailboxes_hash[mailbox.location] = mailbox
 
@@ -54,5 +57,16 @@ class AccountWorker
     MappingWorker.perform_async(@account.id)
 
     @account.save! if @account.changed?
+
+    publish_finish
+  end
+
+  private
+  def publish_start
+    @user.publish('account-worker-start', { account: @account })
+  end
+
+  def publish_finish
+    @user.publish('account-worker-finish', { account: @account })
   end
 end

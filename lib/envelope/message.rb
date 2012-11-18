@@ -1,6 +1,4 @@
-require 'charlock_holmes'
-require 'charlock_holmes/string'
-require 'json'
+# encoding: utf-8
 require 'mail'
 require 'nokogiri'
 require 'yaml'
@@ -23,7 +21,7 @@ module Envelope
     def initialize(message)
       @uid = message.attr['UID'].to_i
       @rfc822 = message.attr['RFC822']
-      @flags = (message.attr['FLAGS'] || []).collect{ |f| f.to_s.downcase }
+      @flags = (message.attr['FLAGS'] || []).collect{ |f| f.to_s.downcase.gsub('$', '') }.uniq
     end
 
     # Returns only the relevant text part of the conversation,
@@ -76,7 +74,7 @@ module Envelope
     #
     # @return [Boolean] true if the message has been read, false otherwise
     def read?
-      @read_ ||= !(%w(seen read) & flags).empty?
+      !(%w(seen read) & flags).empty?
     end
 
     # Determines if this message has not been read
@@ -90,14 +88,21 @@ module Envelope
     #
     # @return [Boolean] true if the message has been deleted, false otherwise
     def deleted?
-      @deleted_ ||= !(%w(deleted removed) & flags).empty?
+      !(%w(deleted removed) & flags).empty?
+    end
+
+    # Determine if this message is a draft
+    #
+    # @return [Boolean] true if the message is a draft, false otherwise
+    def draft?
+      !(%w(draft) & flags).empty?
     end
 
     # Determines if this message has been flagged
     #
     # @return [Boolean] true if the message has been flagged, false otherwise
     def flagged?
-      @flagged_ ||= !(%w(flagged) & flags).empty?
+      !(%w(flagged) & flags).empty?
     end
 
     # Returns the unique identifier for this message
@@ -195,6 +200,18 @@ module Envelope
       end
     end
 
+    def participants
+      [:to, :from, :sender, :cc, :bcc, :reply_to].collect do |participant_type|
+        self.send(participant_type).collect do |participant|
+          {
+            participant_type: participant_type.to_s,
+            name: participant.name,
+            email_address: participant.email_address
+          }
+        end
+      end.flatten
+    end
+
     # Determine whether there are attachments to this message
     #
     # @return [Boolean] true if there are attachments, false otherwise
@@ -247,10 +264,8 @@ module Envelope
       return nil if text.nil? || text.empty?
       string = text.to_s # ensure we have a string
       string = string.gsub /\r\n?/, "\n" # normalize line breaks
-      string.detect_encoding!
-
-      string.encode!('UTF-8', :invalid => nil)
-      string
+      string.encode!(:invalid => :replace, :undef => :replace, :replace => '?')
+      return string
     end
 
     # Attempt to normalize the text by converting newlines and breaks appropriately
@@ -291,11 +306,11 @@ module Envelope
       string.gsub! /(<[\w\s=:"#]+>|^)+From:.*Sent:.*(To:.*)?.*(Cc:.*)?.*(Subject:.*)?.*/im, ''
 
       # On Oct 9, 2012, at 6:48 PM, Robbin Stormer wrote:
-      string.gsub! /(<[\w\s=:"#]+>|^)+On \w+,? [\w\d]+ \d+,? \d+ at \d+:\d+ [AP]M,?.*wrote\:.*/mi, ''
+      string.gsub! /(<[\w\s=:"#]+>|^)+On.+at.+wrote:.*/mi, ''
 
       # Begin forwarded message:
       string.gsub! /(<[\w\s=:"#]+>|^)+Begin\ forwarded\ message:.*/mi, ''
-      string
+      string.strip
     end
 
     # A very strict sanitization of the DOM. This method removes any styles, classes,
@@ -376,19 +391,3 @@ module Envelope
     end
   end
 end
-
-# require 'net/imap'
-# require 'benchmark'
-# connection = Net::IMAP.new('imap.gmail.com', port: 993, ssl: true)
-# connection.login('', '')
-# connection.examine('[Gmail]/Sent Mail')
-
-# uids = connection.uid_search(['ALL'])
-# connection.uid_fetch(uids, ['RFC822', 'FLAGS']).each do |message|
-#   m = Envelope::Message.new(message)
-#   puts "#{m.subject}"
-#   puts '='*10
-#   puts m.text_part
-#   puts '-'*10
-#   puts "\n"*5
-# end

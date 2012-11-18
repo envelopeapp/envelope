@@ -62,7 +62,6 @@ user = User.create!(first_name: 'Default', last_name: 'User', username: ENV['GMA
 user.accounts.create!(
   name: 'GMail',
   email_address: "#{ENV['GMAIL_USERNAME']}@gmail.com",
-  imap_directory: '[Gmail]',
   incoming_server: {
     address:'imap.gmail.com',
     port:993,

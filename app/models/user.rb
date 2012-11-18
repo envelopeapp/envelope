@@ -23,14 +23,6 @@ class User
 
   # associations
   has_many :accounts, :dependent => :destroy
-  # has_many :mailboxes, :through => :accounts
-  # has_many :messages, :through => :mailboxes
-  #   has_many :inbox_mailboxes, :through => :accounts
-  #     has_many :inbox_messages, :through => :inbox_mailboxes, :class_name => 'Message', :source => :messages
-  #   has_many :sent_mailboxes, :through => :accounts
-  #     has_many :sent_messages, :through => :sent_mailboxes, :class_name => 'Message', :source => :messages
-  #   has_many :trash_mailboxes, :through => :accounts
-  #     has_many :trash_messages, :through => :trash_mailboxes, :class_name => 'Message', :source => :messages
   has_many :labels, :dependent => :destroy
   has_many :contacts, :dependent => :destroy
 
@@ -47,6 +39,24 @@ class User
   end
 
   # instance methods
+  # Get a paginated list of all messages in the "inbox" mailboxes for all accounts;.
+  # @return [Mongoid::Relation] the message objects
+  def inbox_messages
+    mailbox_messages('inbox')
+  end
+
+  # Get a paginated list of all messages in the "sent" mailboxes for all accounts.
+  # @return [Mongoid::Relation] the message objects
+  def sent_messages
+    mailbox_messages('sent')
+  end
+
+  # Get a paginated list of all messages in the "trash" mailboxes for all accounts;.
+  # @return [Mongoid::Relation] the message objects
+  def trash_messages
+    mailbox_messages('trash')
+  end
+
   def name
     [self.first_name, self.last_name].join(' ')
   end
@@ -57,6 +67,19 @@ class User
 
   def queue_name
     ['', Digest::SHA1.hexdigest([self._id, self.name, self.created_at, self.updated_at].join('/'))].join('/')
+  end
+
+  # Publish a message to this user's queue using Pusher
+  #
+  # @param []
+  def publish(event = 'default_event', data = {})
+    unless Rails.env.test? || ENV['SEEDING']
+      Pusher[self.channel].trigger!(event, { user: self, timestamp: Time.now }.merge(data))
+    end
+  end
+
+  def channel
+    Digest::SHA1.hexdigest(self.id)
   end
 
   # Search elastic search index using tire. Currently we only search messages, but
@@ -103,9 +126,9 @@ class User
     UserMail.delay.reset_password(self._id)
   end
 
-  # Generates a unique token for this user. It accepts a `column`
-  # argument so that we can have multiple tokens. This method
-  # returns the generated token
+  # Generates a unique token for this user
+  # @param [String] column the column for which to generate a token
+  # @return [String] the generated token
   def generate_token!(column)
     begin
       token = SecureRandom.urlsafe_base64
@@ -121,5 +144,10 @@ class User
   def send_confirmation_email
     generate_token!(:confirmation_token)
     UserMailer.delay.confirmation(self._id)
+  end
+
+  def mailbox_messages(mailbox_name)
+    mailbox_ids = self.accounts.collect{ |account| account.send("#{mailbox_name}_mailbox_id") }.compact
+    Message.where(:mailbox_id.in => mailbox_ids)
   end
 end

@@ -8,7 +8,6 @@ FactoryGirl.define do
     timestamp 5.days.ago
     read true
     text_part { Faker::Lorem.paragraphs(3) }
-    preview { Faker::Lorem.sentences(2) }
     raw { Faker::Lorem.paragraphs(5) }
 
     participants { [

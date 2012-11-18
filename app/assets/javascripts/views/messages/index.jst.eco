@@ -5,7 +5,7 @@
 <% else: %>
   <div class="left-pane messages">
     <% for message in @messages: %>
-      <%- JST['views/messages/_message']({ message:message }) %>
+      <%- JST['views/messages/_message']({ message: message }) %>
     <% end %>
   </div>
 

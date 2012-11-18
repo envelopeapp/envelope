@@ -20,21 +20,11 @@ class ServerAuthentication
   end
 
   # instance methods
-  def password=(unencrypted_password)
-    unless unencrypted_password.blank?
-      self.encrypted_password = encryptor.encrypt_and_sign(unencrypted_password.to_s)
-    end
+  def password=(raw_password)
+    self.encrypted_password = Base64.encode64(Base64.encode64(raw_password).encrypt)
   end
 
   def password
-    unless self.encrypted_password.blank?
-      encryptor.decrypt_and_verify(self.encrypted_password.to_s)
-    end
-  end
-
-  # private methods
-  private
-  def encryptor
-    @@encryptor ||= ActiveSupport::MessageEncryptor.new(ENV['ENCRYPTION_KEY'])
+    Base64.decode64(Base64.decode64(self.encrypted_password).decrypt)
   end
 end

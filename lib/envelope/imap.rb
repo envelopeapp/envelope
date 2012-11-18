@@ -1,7 +1,8 @@
+require 'net/imap'
+require File.expand_path 'lib/envelope/message'
+
 module Envelope
   class IMAP
-    require 'net/imap'
-
     attr_accessor :settings
 
     def initialize(account = nil, options = {})
@@ -29,6 +30,13 @@ module Envelope
       end
 
       yield connection
+    rescue Net::IMAP::NoResponseError => e
+      case e.message.strip
+      when 'Too many simultaneous connections. (Failure)'
+        return
+      else
+        raise
+      end
     ensure
       if defined?(connection) && connection && !connection.disconnected?
         connection.logout
@@ -51,6 +59,7 @@ module Envelope
       raise ArgumentError.new("Envelope::IMAP.examine takes a block") unless block_given?
 
       mailbox_name = mailbox.is_a?(String) ? mailbox : mailbox.location
+
       self.connect do |connection|
         connection.examine(Net::IMAP.encode_utf7(mailbox_name))
         yield connection
@@ -87,17 +96,59 @@ module Envelope
       end
     end
 
-    def uid_fetch(mailbox, set, attrs = [])
-      return [] if set.empty?
+    # Fetch messages in the given mailbox parameter using UIDs.
+    # This method returns a hash of messages (not an array), in the
+    # following format:
+    #
+    # { uid<String> => message<Envelope::Message> }
+    #
+    # Example:
+    #   { '234' => <Envelope::Message@da2j3a> }
+    #
+    # This is so we can quickly find a message by its UID without
+    # rebuilding the hash.
+    #
+    # You can easily get an array of all messages by calling `.values`
+    # on the returned hash.
+    #
+    # @param [String] mailbox the mailbox to examine and search
+    # @param [Array] set the list of UIDs to search
+    # @param [Array] attrs the IMAP message attributes to fetch
+    # @return [Hash] the hash of all messages (key: uid)
+    def uid_fetch(mailbox, set = [], attrs = [])
+      return {} if set.empty?
 
-      self.examine(mailbox) do |connection|
-        # gmail throws an error on uid_fetch an empty mailbox
+      examine(mailbox) do |connection|
+        # Gmail throws an error on uid_fetch empty mailbox
         if connection.uid_search(['ALL']).try(:size) > 0
-          (connection.uid_fetch(set, attrs) || []).collect{ |message| Envelope::Message.new(message) }
+          uid_messages = connection.uid_fetch(set, attrs) || []
+          list = uid_messages.collect do |imap_message|
+            message = ::Envelope::Message.new(imap_message)
+            [ message.uid, message ]
+          end
+
+          return Hash[ *list.flatten ]
         else
-          []
+          return {}
         end
-      end
+      end || {}
+    end
+
+    # Search for messages in the given mailbox parameter using UIDs.
+    # This method returns an Array of message UIDs
+    #
+    # Example:
+    #   [123, 456, 789]
+    #
+    # @param [String] mailbox the mailbox to examine and search
+    # @param [Array] query the query to search
+    # @return [Array] the Array of message UIDs
+    def uid_search(mailbox, query = [])
+      return [] if query.nil? || query.empty?
+
+      examine(mailbox) do |connection|
+        return connection.uid_search(query)
+      end || []
     end
 
     # Return the uid_validity value of the given mailbox

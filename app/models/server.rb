@@ -7,7 +7,7 @@ class Server
   field :ssl, type: Boolean
 
   # associations
-  has_one :account
+  embedded_in :account
   embeds_one :authentication, class_name: 'ServerAuthentication'
 
   # validations

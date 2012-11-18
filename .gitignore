@@ -39,3 +39,6 @@ coverage
 
 # Ignore application configuration
 /config/application.yml
+
+# documentation
+/documentation
