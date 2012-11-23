@@ -6,9 +6,7 @@ describe Mailbox do
     Envelope::IMAP.any_instance.stub(:uid_copy).and_return(true)
   end
 
-  before(:all) do
-    @mailbox = build(:mailbox)
-  end
+  subject { build(:mailbox) }
 
   # associations
   it { should have_many(:messages) }
@@ -18,14 +16,14 @@ describe Mailbox do
   it { should validate_presence_of(:name) }
 
   # methods
-  describe 'last_seen_uid' do
-    it 'should get the last uid' do
-      3.times { create(:message, mailbox:@mailbox) }
-      @mailbox.last_seen_uid.should == @mailbox.messages.order_by(:uid => :desc).limit(1).last.try(:uid)
+  describe '#last_seen_uid' do
+    it 'returns the last uid' do
+      [1040, 1041, 1042].each { |i| create(:message, uid: i, mailbox: subject) }
+      subject.last_seen_uid.should == 1042
     end
 
-    it 'should return 1 if there are no messages' do
-      @mailbox.last_seen_uid.should == 1
+    it 'returns 1 if there are no messages' do
+      subject.last_seen_uid.should == 1
     end
   end
 end

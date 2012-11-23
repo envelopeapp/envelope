@@ -17,20 +17,20 @@ describe Message do
   it { should embed_many(:participants) }
 
   # methods
-  describe 'unread?' do
-    it 'should return true if the message was not yet read' do
+  describe '#unread?' do
+    it 'returns true if the message was not yet read' do
       @message.push(:flags, 'read')
-      @message.unread?.should == false
+      @message.unread?.should be_false
     end
 
-    it 'should return false if the was was already read' do
+    it 'returns false if the was was already read' do
       @message.pull(:flags, 'read')
-      @message.unread?.should == true
+      @message.unread?.should be_true
     end
   end
 
-  describe 'mark_as_read!' do
-    it 'should mark a message as read' do
+  describe '#mark_as_read!' do
+    it 'marks a message as read' do
       @message.pull(:flags, 'read')
 
       expect {
@@ -39,8 +39,8 @@ describe Message do
     end
   end
 
-  describe 'mark_as_unread!' do
-    it 'should mark a message as unread' do
+  describe '#mark_as_unread!' do
+    it 'marks a message as unread' do
       @message.push(:flags, 'read')
 
       expect {
@@ -49,8 +49,8 @@ describe Message do
     end
   end
 
-  describe 'flag!' do
-    it 'should flag a message' do
+  describe '#flag!' do
+    it 'flags a message' do
       @message.pull(:flags, 'flagged')
 
       expect {
@@ -59,8 +59,8 @@ describe Message do
     end
   end
 
-  describe 'unflag!' do
-    it 'should unflag a message' do
+  describe '#unflag!' do
+    it 'unflags a message' do
       @message.push(:flags, 'flagged')
 
       expect {
@@ -69,8 +69,8 @@ describe Message do
     end
   end
 
-  describe 'move_to_trash!' do
-    it 'should delete the message' do
+  describe '#move_to_trash!' do
+    it 'deletes the message' do
       @message.save!
 
       expect {

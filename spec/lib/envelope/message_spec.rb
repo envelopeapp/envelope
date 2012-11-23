@@ -45,106 +45,6 @@ describe Envelope::Message do
     end
   end
 
-  context 'html2text' do
-    let(:message) { build_message 'appended_messages_3' }
-
-    it 'removes <script> tags' do
-      result = message.send(:html2text, "<script src=\"http://www.google.com\">alert('hello');</script>Hello, what's up?")
-      result.should == 'Hello, what\'s up?'
-    end
-
-    it 'removes <link> tags' do
-      result = message.send(:html2text, "<link rel=\"stylesheet\" src=\"google.com\" />Hello, what's up?")
-      result.should == 'Hello, what\'s up?'
-    end
-
-    it 'removes <img> tags' do
-      result = message.send(:html2text, "<img src=\"http://www.google.com\" />Hello, what's up?")
-      result.should == 'Hello, what\'s up?'
-    end
-
-    it 'converts <br> to \n' do
-      result = message.send(:html2text, "<font color=\"#000000\" size=\"2\" face=\"Tahoma\"><b>From:</b> Seth Vargo [seth.vargo@gmail.com] On Behalf Of Seth Vargo [sethvargo@gmail.com]<br>\n<b>Sent:</b> Thursday, October 11, 2012 4:08 PM<br>\n<b>To:</b> Dani McDonough<br>\n<b>Subject:</b> Re:<br>\n</font>")
-      result.should == "From: Seth Vargo [seth.vargo@gmail.com] On Behalf Of Seth Vargo [sethvargo@gmail.com]\nSent: Thursday, October 11, 2012 4:08 PM\nTo: Dani McDonough\nSubject: Re:"
-    end
-
-    it 'squeezes \n and spaces' do
-      result = message.send(:html2text, "<p>i\n\n\n\n\n\n don't like   \n\n\nthis     message  \n</p>")
-      result.should == "i\ndon't like \nthis message"
-    end
-  end
-
-  context 'all messages' do
-    %w(appended_messages_1 appended_messages_2 appended_messages_3 base64 forwarded google_group_summary html_only iso_8859 line_breaks multipart multipart_alternative no_subject original_email quoted_printable reply_to us_ascii utf8).each do |email|
-      subject { build_message email }
-
-      context 'is not nil' do
-        its(:text_part) { should_not be_nil }
-        its(:html_part) { should_not be_nil }
-        its(:sanitized_html) { should_not be_nil }
-      end
-
-      context 'does not start with whitespace' do
-        its(:text_part) { should_not match /\A\s+/ }
-        its(:html_part) { should_not match /\A\s+/ }
-        its(:sanitized_html) { should_not match /^\s+/ }
-      end
-
-      context 'does not end with whitespace' do
-        its(:text_part) { should_not match /\s+\z/ }
-        its(:html_part) { should_not match /\s+\z/ }
-        its(:sanitized_html) { should_not match /\s+\z/ }
-      end
-
-      context 'removes malicious tags' do
-        its(:sanitized_html) { should_not match /\<\/?font.*\>/i }
-        its(:sanitized_html) { should_not match /style=|class=|id=|font-size=|color=|size=|face=|bgcolor=/i }
-      end
-    end
-  end
-
-  context '#remove_appended_messages', :focus => true do
-    let(:message) { build_message 'appended_messages_1' }
-
-    it 'removes "On Nov 8, 2012, at 7:52 PM, Robbin Stormer wrote:"' do
-      text = <<-EOH
-That's awesome!
-On Nov 8, 2012, at 7:52 PM, Robbin Stormer wrote:
-> Hi Seth....Well do you know how much I love you?
-EOH
-      message.send(:remove_appended_messages, text).should == 'That\'s awesome!'
-    end
-
-    it 'removes "On Nov 9, 2012, at 4:35 PM, Sam Smith <sam@smith.com> wrote:"' do
-      text = <<-EOH
-That's awesome!
-On Nov 9, 2012, at 4:35 PM, Paul Edelhertz <pedelhertz@opscode.com> wrote:
-Cookies and creame and ponies too!
-EOH
-      message.send(:remove_appended_messages, text).should == 'That\'s awesome!'
-    end
-
-    it 'removes "On Nov 5, 2012, at 11:28 AM, "Lionel \"Ltrain\" Cares" <sigmachi01@gmail.com> wrote:"' do
-      text = <<-EOH
-That's awesome!
-On Nov 5, 2012, at 11:28 AM, "Lionel \"Ltrain\" Cares" <sigmachi01@gmail.com> wrote:
-Awesome sauce!
-EOH
-
-      message.send(:remove_appended_messages, text).should == 'That\'s awesome!'
-    end
-
-    it 'removes "On Nov 2, 2012, at 3:15 PM, "Bryan McLellan (JIRA)" wrote:"' do
-      text = <<-EOH
-That's awesome!
-On Nov 2, 2012, at 3:15 PM, "Bryan McLellan (JIRA)" wrote:
-Chef is awesome!
-EOH
-
-      message.send(:remove_appended_messages, text).should == 'That\'s awesome!'
-    end
-  end
-
   context 'appended_messages_1' do
     subject { build_message 'appended_messages_1' }
 
@@ -172,7 +72,27 @@ EOH
   context 'base64 encoded' do
     subject { build_message 'base64' }
 
-    its(:text_part) { should == "=== Web - 1 new result for [\"Seth Vargo\"] ===\nCustom Global Eco/JST helpers ? It's My Life - Seth Vargo's Blog\nCustom Global Eco/JST helpers Working on Envelope lately, I realized the\nneed for custom form helpers. We use Twitter Bootstrap for the form styles\nand layout, ...\n<http://www.google.com/url?sa=X&q=http://sethvargo.com/post/32742807598/custom-global-eco-jst-helpers&ct=ga&cad=CAcQARgAIAEoATAAOABAm4W4gwVIAVgAYgVlbi1VUw&cd=ebkNIvPatV8&usg=AFQjCNH9hfBTkEeBFG8TSR-fM0ZfXcUDsA>\nThis as-it-happens Google Alert is brought to you by Google.\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\nDelete this Google Alert:\nhttp://www.google.com/alerts/remove?hl=en&gl=us&source=alertsmail&s=AB2Xq4jGLzgsan55HmFoGBjM_ZPeerN1YcRYpYY&cd=ebkNIvPatV8&cad=CAcQARgAQJuFuIMFSAE\nCreate another Google Alert:\nhttp://www.google.com/alerts?hl=en&gl=us&source=alertsmail&cd=ebkNIvPatV8&cad=CAcQARgAQJuFuIMFSAE\nSign in to manage your alerts:\nhttp://www.google.com/alerts/manage?hl=en&gl=us&source=alertsmail&cd=ebkNIvPatV8&cad=CAcQARgAQJuFuIMFSAE" }
+    its(:text_part) { should == <<-EOH.strip
+=== Web - 1 new result for ["Seth Vargo"] ===
+
+Custom Global Eco/JST helpers ? It's My Life - Seth Vargo's Blog
+Custom Global Eco/JST helpers Working on Envelope lately, I realized the
+need for custom form helpers. We use Twitter Bootstrap for the form styles
+and layout, ...
+<http://www.google.com/url?sa=X&q=http://sethvargo.com/post/32742807598/custom-global-eco-jst-helpers&ct=ga&cad=CAcQARgAIAEoATAAOABAm4W4gwVIAVgAYgVlbi1VUw&cd=ebkNIvPatV8&usg=AFQjCNH9hfBTkEeBFG8TSR-fM0ZfXcUDsA>
+
+This as-it-happens Google Alert is brought to you by Google.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Delete this Google Alert:
+http://www.google.com/alerts/remove?hl=en&gl=us&source=alertsmail&s=AB2Xq4jGLzgsan55HmFoGBjM_ZPeerN1YcRYpYY&cd=ebkNIvPatV8&cad=CAcQARgAQJuFuIMFSAE
+
+Create another Google Alert:
+http://www.google.com/alerts?hl=en&gl=us&source=alertsmail&cd=ebkNIvPatV8&cad=CAcQARgAQJuFuIMFSAE
+
+Sign in to manage your alerts:
+http://www.google.com/alerts/manage?hl=en&gl=us&source=alertsmail&cd=ebkNIvPatV8&cad=CAcQARgAQJuFuIMFSAE
+EOH
+}
     its(:html_part) { should == "<html><head></head><body><div style=\"font-family: arial,sans-serif; width: 600px\"><table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" width=\"600px\"><tr><td style=\"background-color:#EBEFF9; padding: 4px 8px 4px 8px\"><table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" width=\"100%\"><tr><td><font size=\"-1\"><nobr><b>Web</b></nobr></font></td><td width=\"70%\" align=\"right\"><font size=\"-1\"><b>1</b> new result for <b>&quot;Seth Vargo&quot;</b></font></td></tr></table></td></tr><tr><td> </td></tr><tr><td style=\"padding: 0px 8px 16px 8px;\"><a style=\"color: #1111CC\" href=\"http://www.google.com/url?sa=X&amp;q=http://sethvargo.com/post/32742807598/custom-global-eco-jst-helpers&amp;ct=ga&amp;cad=CAcQARgAIAEoATAAOABAm4W4gwVIAVgAYgVlbi1VUw&amp;cd=ebkNIvPatV8&amp;usg=AFQjCNH9hfBTkEeBFG8TSR-fM0ZfXcUDsA\">Custom Global Eco/JST helpers ? It&#39;s My Life - <b>Seth Vargo&#39;s</b> Blog</a><br><font size=\"-1\">Custom Global Eco/JST helpers Working on Envelope lately, I realized the need for custom form helpers. We use Twitter Bootstrap for the form styles and layout, <b>...</b><br><a style=\"color:#228822\" href=\"http://www.google.com/url?sa=X&amp;q=http://sethvargo.com/post/32742807598/custom-global-eco-jst-helpers&amp;ct=ga&amp;cad=CAcQARgAIAEoBDAAOABAm4W4gwVIAVgAYgVlbi1VUw&amp;cd=ebkNIvPatV8&amp;usg=AFQjCNH9hfBTkEeBFG8TSR-fM0ZfXcUDsA\" title=\"http://sethvargo.com/post/32742807598/custom-global-eco-jst-helpers\">sethvargo.com/post/.../custom-global-eco-jst-helpers</a></font></td></tr></table><br><hr noshade size=\"1\" color=\"#CCCCCC\"><font size=\"-1\">Tip: Use site restrict in your query to search within a site (site:nytimes.com or site:.edu). <a href='http://www.google.com/support/websearch/bin/answer.py?answer=136861&hl=en&source=alertsmail&cd=ebkNIvPatV8&cad=CAcQARgAQJuFuIMFSAE'>Learn more</a>.</font><br><br><font size=\"-1\"><a href=\"http://www.google.com/alerts/remove?hl=en&gl=us&source=alertsmail&s=AB2Xq4jGLzgsan55HmFoGBjM_ZPeerN1YcRYpYY&cd=ebkNIvPatV8&cad=CAcQARgAQJuFuIMFSAE\">Delete</a> this alert.<br><a href=\"http://www.google.com/alerts?hl=en&gl=us&source=alertsmail&cd=ebkNIvPatV8&cad=CAcQARgAQJuFuIMFSAE\">Create</a> another alert.<br><a href=\"http://www.google.com/alerts/manage?hl=en&gl=us&source=alertsmail&cd=ebkNIvPatV8&cad=CAcQARgAQJuFuIMFSAE\">Manage</a> your alerts.</font></div></body></html>" }
   end
 
@@ -228,17 +148,17 @@ EOH
     subject { build_message 'no_html' }
 
     its(:text_part) { should match /\ADear Customer,\nYour Planio trial period has expired/ }
-    its(:html_part) { should match /\ADear Customer,\nYour Planio trial period has expired./ }
-    its(:sanitized_html) { should match /\A<p>Dear Customer,<br>Your Planio trial period has expired/ }
+    its(:html_part) { should match /\ADear Customer,\n\nYour Planio trial period has expired./ }
+    its(:sanitized_html) { should match /\A<p>Dear Customer,<br><br>Your Planio trial period has expired/ }
   end
 
   context 'original_message' do
     subject { build_message 'original_message' }
 
     its(:text_part) { should_not match /-----Original Message-----/ }
-    its(:text_part) { should match /\AHi, Seth,\nThe final amount is \$3,000\.00/ }
+    its(:text_part) { should == "Hi, Seth,\n\nThe final amount is $3,000.00" }
     its(:html_part) { should_not match /-----Original Message-----/ }
-    its(:sanitized_html) { should match /<p>Hi, Seth,<\/p><br><p>The final amount is \$3,000\.00<\/p>/ }
+    its(:sanitized_html) { should == "<p>Hi, Seth,</p><p></p><p>The final amount is $3,000.00</p>" }
   end
 
   context 'reply_to' do
@@ -258,7 +178,7 @@ EOH
   context 'utf8' do
     subject { build_message 'utf8' }
 
-    its(:text_part) { should match /\AAndrew Willig \npaid you\n\$5\.00\nfor Papa John\'s Pizza/ }
+    its(:text_part) { should match /\AAndrew Willig\npaid you\n\$5\.00\n\n\n\nfor Papa John\'s Pizza/ }
     its(:html_part) { should match /Andrew Willig/ }
     its(:sanitized_html) { should match /<table.*>/ }
   end

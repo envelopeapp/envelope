@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 describe Account do
-  before(:all) do
-    @account = build(:account)
-  end
+  subject { build(:account) }
 
   # associations
   it { should belong_to(:user) }
@@ -24,9 +22,5 @@ describe Account do
   it { should validate_presence_of(:email_address) }
 
   # methods
-  describe 'queue_name' do
-    it 'should return the user_id and slug joined together' do
-      @account.queue_name.should == ['', @account.user_id, @account._id].join('/')
-    end
-  end
+  its(:queue_name) { should match /\A\/[a-z0-9]+\/[a-z0-9]+\z/ }
 end

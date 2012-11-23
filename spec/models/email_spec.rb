@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Email do
+  subject { build(:email) }
+
   # assocations
   it { should be_embedded_in(:contact) }
 

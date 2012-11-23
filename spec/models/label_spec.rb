@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 describe Label do
-  before(:all) do
-    @label = build(:label)
-  end
+  subject { build(:label) }
 
   # associations
   it { should belong_to(:user) }

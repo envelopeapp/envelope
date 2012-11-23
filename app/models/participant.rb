@@ -9,7 +9,7 @@ class Participant
   field :email_address, type: String
 
   # callbacks
-  #before_save :find_contact
+  before_save :find_contact
 
   # associations
   embedded_in :message
@@ -54,9 +54,11 @@ class Participant
   # private methods
   private
   def find_contact
-    if contact = self.message.mailbox.account.user.contact_emails.find{ |email| email.email_address == self.email_address }.try(:contact)
+    if contact = self.message.mailbox.account.user.contacts.collect(&:emails).flatten.find{ |email| email.email_address == email_address }.try(:contact)
       self.name, self.email_address = nil, nil
       self.contact = contact
     end
+
+    self
   end
 end

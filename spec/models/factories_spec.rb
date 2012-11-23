@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'benchmark'
 
 FactoryGirl.factories.each do |factory|
   describe "The '#{factory.name}' factory" do

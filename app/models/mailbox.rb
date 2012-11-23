@@ -43,7 +43,7 @@ class Mailbox
   #
   # @return [Integer] the last UID
   def last_seen_uid
-    self.messages.order_by(:uid => :desc).limit(1).last.try(:uid) || 1
+    self.messages.order_by(:uid => :desc).limit(1).first.try(:uid) || 1
   end
 
   # returns the mailbox's queue name (prefixed with /) for delayed job

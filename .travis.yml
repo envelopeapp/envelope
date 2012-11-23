@@ -9,7 +9,7 @@ before_install:
   - sudo apt-get install -y -qq libicu-dev
   - cp config/application.example.yml config/application.yml
 script:
-  - bundle exec rspec --fail-fast
+  - bundle exec rspec --color
 branches:
   only:
     - master

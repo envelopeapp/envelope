@@ -105,15 +105,6 @@ class User
     return self.update_attributes(confirmed_at:Time.now)
   end
 
-  # Returns a list of all emails for all contacts for this user
-  def contact_emails
-    self.contacts.collect do |contact|
-      contact.emails.collect do |email|
-        email
-      end
-    end.flatten
-  end
-
   # Ensures a user has responded to the confirmation email
   def confirmed?
     !confirmed_at.nil?

@@ -7,9 +7,6 @@ class Message
   include Tire::Model::Callbacks
   index_name BONSAI_INDEX_NAME
 
-  include Kaminari::MongoidExtension::Criteria
-  include Kaminari::MongoidExtension::Document
-
   mapping do
     indexes :_id, index: :not_analyzed
     indexes :user_id
@@ -19,6 +16,13 @@ class Message
     indexes :participants
     indexes :labels
   end
+
+  # pagination
+  include Kaminari::MongoidExtension::Criteria
+  include Kaminari::MongoidExtension::Document
+
+  # message helpers
+  include Envelope::MessageTools
 
   # fields
   field :uid, type: Integer

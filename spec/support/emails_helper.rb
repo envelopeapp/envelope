@@ -8,7 +8,7 @@ module EmailsHelper
   def build_message(filename, *flags)
     struct = OpenStruct.new(
       attr: {
-        'RFC822' => File.read( File.expand_path("spec/support/emails/#{filename}.eml") ),
+        'RFC822' => File.read("spec/support/emails/#{filename}.eml"),
         'FLAGS' => flags,
         'UID' => rand(1000)
       }

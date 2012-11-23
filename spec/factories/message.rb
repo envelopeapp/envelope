@@ -3,7 +3,7 @@ FactoryGirl.define do
     association :mailbox
 
     message_id { "<message-#{Digest::SHA1.hexdigest(Random.new.rand(1000).to_s).downcase}@example.com>" }
-    uid { Random.new.rand(1000) }
+    sequence(:uid) { |i| i }
     subject { Faker::Company.catch_phrase }
     timestamp 5.days.ago
     read true
