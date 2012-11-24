@@ -1,6 +1,8 @@
 language: ruby
 rvm:
+  - 1.9.2
   - 1.9.3
+  - 2.0.0
 services:
   - mongodb
   - elasticsearch
@@ -10,6 +12,10 @@ before_install:
   - cp config/application.example.yml config/application.yml
 script:
   - bundle exec rspec --color
+matrix:
+  allow_failures:
+    rvm:
+      - 2.0.0
 branches:
   only:
     - master
