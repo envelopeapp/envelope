@@ -5,7 +5,7 @@
 
   .controls {
     margin-left: 60px !important;
-  }
+  } 
 
 = bootstrap_form_for @message, :html => { :class => 'form-horizontal' } do |f|
   .modal
@@ -28,7 +28,9 @@
       = f.text_field :cc, :class => 'span5 contact-search'
       = f.text_field :bcc, :class => 'span5 contact-search'
       = f.text_field :subject, :class => 'span5'
-      = f.text_area :body, :class => 'span5', :rows => 10
+      = f.text_area :body, :class => 'span5', :rows => 8
+      = f.file_field :attach, :class => 'span5', :style => 'display: none;' 
+      <div id="downloadDrop"><p>Drag and drop files here or <a href='#' id='browseButton'>browse</a>!<p></div>
     .modal-footer
       = link_to 'Cancel', unified_mailbox_messages_path(:inbox), :class => 'btn'
       = f.submit 'Send Message'
@@ -46,3 +48,61 @@
     $(function() {
       $('#message_to').focus();
     });
+
+//Move to coffee file
+:javascript
+  $(document).ready(function() {
+    //ATTACHED FILES ARE SAVED IN ATTACHMENTS VAR
+    var attachments = [];
+    $('#browseButton').live('click', function(){
+      $('#message_attach').click();
+    });
+
+    $('#message_attach').change(function(e) {
+      attachments.push(e.currentTarget.files[0]);
+      $('#downloadDrop').html("");
+      handleFiles();
+    });
+
+    var dropbox = document.getElementById("downloadDrop");
+    dropbox.addEventListener("dragenter", noopHandler, false);
+    dropbox.addEventListener("dragexit", noopHandler, false);
+    dropbox.addEventListener("dragover", noopHandler, false);
+    dropbox.addEventListener("drop", drop, false);
+
+    function noopHandler(evt) {
+      evt.stopPropagation();
+      evt.preventDefault();
+    }
+
+    function drop(evt) {
+      evt.stopPropagation();
+      evt.preventDefault();
+
+      if(evt.dataTransfer.files.length > 0)
+      {
+        attachments.push(evt.dataTransfer.files[0]);
+
+        handleFiles();
+      }
+    }
+
+    function handleFiles(){
+      
+      $('#downloadDrop').html("");
+      var count = 0;
+      for(var f in attachments)
+      {
+        $(dropbox).append("<p>" + attachments[f].name + ": " + attachments[f].size + " kb <a href='#' id='remove" + count + "'>x</a></p>");
+        $('#remove'+count).click(removeFile);
+        count++;
+      }
+      $(dropbox).append("<p>Drag and drop files here or <a href='#' id='browseButton'>browse</a>!</p>");
+    }
+
+    function removeFile(e){
+      attachments.splice(e.target.id.substring(6),1);
+      handleFiles();
+    }
+
+  });
