@@ -1,6 +1,5 @@
 language: ruby
 rvm:
-  - 1.9.2
   - 1.9.3
   - 2.0.0
 services:
@@ -8,7 +7,6 @@ services:
   - elasticsearch
 before_install:
   - gem update bundler
-  - sudo apt-get install -y -qq libicu-dev
   - cp config/application.example.yml config/application.yml
 script:
   - bundle exec rspec --color

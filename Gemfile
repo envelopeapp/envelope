@@ -1,14 +1,13 @@
 source :rubygems
-ruby '1.9.3'
 
 gem 'attr_encrypted'
 gem 'bcrypt-ruby'
 gem 'bootstrap_forms'
 gem 'bson_ext'
-gem 'charlock_holmes', :require => false
 gem 'chronic'
 gem 'eco'
 gem 'foreman'
+gem 'gemoji', :require => 'emoji/railtie'
 gem 'haml'
 gem 'jquery-rails'
 gem 'js-routes'

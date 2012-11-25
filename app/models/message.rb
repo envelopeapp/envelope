@@ -38,13 +38,15 @@ class Message
   field :sanitized_html, type: String
   field :raw, type: String
 
-  # indexes
+  # mongo indexes
   index({ uid: 1 }, { name: 'uid_index' })
   index({ message_id: 1 }, { name: 'message_id_index' })
 
   # ancestry
   include Mongoid::Ancestry
   has_ancestry :cache_depth => true
+
+  attr_accessor :account_id
 
   # callbacks
   before_destroy :clear_labels

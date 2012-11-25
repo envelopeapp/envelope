@@ -4,7 +4,8 @@ class Server
   # fields
   field :address, type: String
   field :port, type: Integer
-  field :ssl, type: Boolean
+  field :ssl, type: Boolean, default: true
+  field :tls, type: Boolean, default: true
 
   # associations
   embedded_in :account

@@ -50,32 +50,5 @@ class MessageWorker
         participants_attributes: message.participants
       )
     end
-
-    # # Create an Array of messages to mass-insert into Mongo.
-    # hash = messages.values.collect do |message|
-    #   {
-    #     mailbox_id: @mailbox.id,
-    #     uid: message.uid,
-    #     message_id: message.message_id,
-    #     subject: message.subject,
-    #     timestamp: message.timestamp,
-    #     read: message.read?,
-    #     flags: message.flags,
-    #     flagged: message.flagged?,
-    #     # full_text_part: message.full_text_part,
-    #     text_part: message.text_part,
-    #     # full_html_part: message.full_html_part,
-    #     html_part: message.html_part,
-    #     sanitized_html: message.sanitized_html,
-    #     raw: message.raw_source,
-    #     participants_attributes: message.participants
-    #   }
-    # end
-
-    # # Mongo places a limit on the size of a document that can be inserted
-    # # at one time, so let's move in batches of 2500.
-    # hash.each_slice(2500) do |batch|
-    #   Message.collection.insert(batch)
-    # end
   end
 end

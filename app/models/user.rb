@@ -73,8 +73,13 @@ class User
   #
   # @param []
   def publish(event = 'default_event', data = {})
+    return
     unless Rails.env.test? || ENV['SEEDING']
-      Pusher[self.channel].trigger!(event, { user: self, timestamp: Time.now }.merge(data))
+      begin
+        Pusher[self.channel].trigger!(event, { user: self, timestamp: Time.now }.merge(data))
+      rescue Pusher::Error => e
+        Rails.logger.error e
+      end
     end
   end
 
