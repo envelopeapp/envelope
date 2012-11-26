@@ -1,4 +1,5 @@
 # encoding: utf-8
+require 'envelope/message_tools'
 require 'mail'
 require 'yaml'
 
@@ -224,7 +225,9 @@ module Envelope
     #
     # @return [Array] the attachments
     def attachments
-      @attachments ||= message.attachments
+      @attachments ||= message.attachments.collect do |attachment|
+        { filename: attachment.filename, body: attachment.body.to_s }
+      end
     end
 
     # The full, unedited and unmodified email

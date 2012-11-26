@@ -5,7 +5,7 @@ class MessagesController < ApplicationController
 
   load_and_authorize_resource :account
   load_and_authorize_resource :mailbox, :through => :account
-  load_and_authorize_resource :message, :through => :mailbox, :shallow => true
+  load_and_authorize_resource :message, :through => :mailbox, :shallow => true, :except => [:create]
 
   def index
     @messages = @messages.page(params[:page] || 1).per(15)
@@ -120,6 +120,18 @@ class MessagesController < ApplicationController
   end
 
   def create
+    params[:message][:attachments] = params[:message][:attachments].collect do |attachment|
+      # Create a temporary storage path
+      parent = Rails.root.join 'tmp', 'attachments', current_user.id
+      FileUtils.mkdir_p parent
+
+      # Move the file to the tmp path
+      path = File.join(parent, attachment.original_filename)
+      FileUtils.cp attachment.tempfile.path, path
+
+      { filename: attachment.original_filename, path: path }
+    end
+
     MessageSenderWorker.perform_async(current_user.id, params[:message])
     redirect_to unified_mailbox_messages_path(:inbox)
   end

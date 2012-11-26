@@ -13,6 +13,7 @@ class MessageWorker
   def perform(mailbox_id)
     @mailbox = Mailbox.find(mailbox_id)
     @account = @mailbox.account
+    @user = @account.user
     @imap = Envelope::IMAP.new(@account)
 
     # RFC-4549 recommends the following commands:
@@ -32,7 +33,7 @@ class MessageWorker
     messages.delete_if{ |k,v| existing_uids.include?(k) }
 
     messages.values.each do |message|
-      @mailbox.messages.create!(
+      m = @mailbox.messages.create!(
         mailbox_id: @mailbox.id,
         uid: message.uid,
         message_id: message.message_id,
@@ -40,7 +41,6 @@ class MessageWorker
         timestamp: message.timestamp,
         read: message.read?,
         flags: message.flags,
-        flagged: message.flagged?,
         # full_text_part: message.full_text_part,
         text_part: message.text_part,
         # full_html_part: message.full_html_part,
@@ -49,6 +49,13 @@ class MessageWorker
         raw: message.raw_source,
         participants_attributes: message.participants
       )
+
+      message.attachments.each do |attachment|
+        m.attachments.create!(
+          filename: attachment[:filename],
+          body: attachment[:body]
+        )
+      end
     end
   end
 end

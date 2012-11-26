@@ -46,8 +46,6 @@ class Message
   include Mongoid::Ancestry
   has_ancestry :cache_depth => true
 
-  attr_accessor :account_id
-
   # callbacks
   before_destroy :clear_labels
 
@@ -69,7 +67,7 @@ class Message
   scope :unread, where(read:false)
 
   # attr_accessor
-  attr_accessor :to, :cc, :bcc, :body
+  attr_accessor :account_id, :to, :cc, :bcc, :body
 
   # class methods
   class << self
@@ -175,7 +173,7 @@ class Message
     super(options.merge({
       :only => [ :mailbox_id, :uid, :message_id, :subject, :timestamp, :flags, :text_part, :sanitized_html ],
       :methods => [ :id, :account_id, :read?, :flagged?, :unanswered?, :toers, :fromers, :senders, :ccers, :bccers, :reply_toers ],
-      :include => [ :labels ]
+      :include => [ :labels, :attachments ]
     }))
   end
 

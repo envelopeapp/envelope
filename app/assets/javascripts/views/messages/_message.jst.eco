@@ -11,6 +11,9 @@
     <div class="bubble-header-main">
       <% for fromer in @message.fromers: %>
         <span class="fromer"><%= fromer.name || fromer.email_address %></span>
+        <% if @message.attachments?.length > 0: %>
+          <i class="icon icon-upload"></i>
+        <% end %>
       <% end %>
     </div>
     <div class="bubble-header-alt">

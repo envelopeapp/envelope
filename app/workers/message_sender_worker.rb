@@ -18,15 +18,25 @@ class MessageSenderWorker
     @user     = User.find_by(id: user_id)
     @account  = @user.accounts.find_by(id: @message['account_id'])
 
+    # Create the basic message
     mail = Mail.new(
       from:       @account.email_address,
-      reply_to:   @account.reply_to_address,
       to:         @message['to'],
       cc:         @message['cc'],
       bcc:        @message['bcc'],
       subject:    @message['subject'],
       body:       @message['body']
     )
+
+    # Set the reply-to value, unless it is the same as the account
+    unless @account.reply_to_address.blank? || @account.reply_to_address == @account.email_address
+      mail.reply_to = @account.reply_to_address
+    end
+
+    # Add attachments
+    @message['attachments'].each do |attachment|
+      mail.add_file attachment['path']
+    end unless @message['attachments'].nil?
 
     # Setup the SMTP server to use the user's credentials
     smtp = @account.outgoing_server

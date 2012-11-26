@@ -15,8 +15,12 @@
 #= require messages
 #= require sidebar
 #= require topbar
+#= require uploader
 
 #= require_self
+
+# jQuery overrides
+jQuery.event.props.push("dataTransfer");
 
 $ ->
   $('body').tooltip

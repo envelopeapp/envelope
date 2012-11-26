@@ -1,5 +1,5 @@
 require 'net/imap'
-require File.expand_path 'lib/envelope/message'
+require 'envelope/message'
 
 module Envelope
   class IMAP

@@ -149,7 +149,7 @@
 /*
  * Drag & Drop attachments
  */
-#downloadDrop {
+#download-drop {
   height: 75px;
   width: 370px;
   border-style: dashed;
@@ -159,9 +159,4 @@
   margin-left: 60px;
   margin-bottom: 25px;
   overflow-y: auto;
-}
-
-#downloadDrop p {  
-  text-align: center;
-  vertical-align: center;
 }

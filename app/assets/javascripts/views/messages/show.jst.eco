@@ -76,6 +76,13 @@
 
   <div class="bubble-body">
     <%- @message.sanitized_html %>
+
+    <% if @message.attachments?.length > 0: %>
+      <hr class="bubble-divider" />
+      <% for attachment in @message.attachments: %>
+        <a href="<%= Routes.account_mailbox_message_attachment_path(@message.account_id, @message.mailbox_id, @message.id, attachment.id) %>" target="_TOP" class="btn btn-mini"><%= attachment.filename %></a>
+      <% end %>
+    <% end %>
   </div>
 
   <div class="clear"></div>
