@@ -56,20 +56,20 @@ EOH
     end
   end
 
-  context '.html2text' do
+  context '.html_to_text' do
     it 'removes <script> tags' do
       text = "<script src=\"http://www.google.com\">alert('hello');</script>Hello, what's up?"
-      tools.html2text(text).should == "Hello, what's up?"
+      tools.html_to_text(text).should == "Hello, what's up?"
     end
 
     it 'removes <link> tags' do
       text = "<link rel=\"stylesheet\" src=\"google.com\" />Hello, what's up?"
-      tools.html2text(text).should == "Hello, what's up?"
+      tools.html_to_text(text).should == "Hello, what's up?"
     end
 
     it 'removes <img> tags' do
       text = "<img src=\"http://www.google.com\" />Hello, what's up?"
-      tools.html2text(text).should == "Hello, what's up?"
+      tools.html_to_text(text).should == "Hello, what's up?"
     end
 
     it 'converts <br> to \n' do
@@ -84,7 +84,7 @@ EOH
 </font><br>
 </div>
 EOH
-      tools.html2text(text).should == <<-EOH.strip
+      tools.html_to_text(text).should == <<-EOH.strip
 From: Seth Vargo [seth.vargo@gmail.com] On Behalf Of Seth Vargo [sethvargo@gmail.com]
 Sent: Thursday, October 11, 2012 4:08 PM
 To: Dani McDonough
@@ -94,7 +94,7 @@ EOH
 
     it 'converts <br> to a newline' do
       text = "This should be<br>on two lines!"
-      tools.html2text(text).should == "This should be\non two lines!"
+      tools.html_to_text(text).should == "This should be\non two lines!"
     end
 
     it 'foo' do
@@ -117,7 +117,7 @@ EOH
 </body>
 EOH
 
-      tools.html2text(text).should == <<-EOH.strip
+      tools.html_to_text(text).should == <<-EOH.strip
 Seth,
 We received the photo copies of the card and drivers license but not the cover sheet.
 Have a great day!!
@@ -131,17 +131,17 @@ EOH
 
     it 'preserves content in nested tags' do
       text = "<font class\"foo\">This is <span>freak<strong>ing</strong></span> awesome!</font>"
-      tools.html2text(text).should == 'This is freaking awesome!'
+      tools.html_to_text(text).should == 'This is freaking awesome!'
     end
 
     it 'removes leading whitespace' do
       text = "<body>\n\n\nThis is awesome!</body>"
-      tools.html2text(text).should == 'This is awesome!'
+      tools.html_to_text(text).should == 'This is awesome!'
     end
 
     it 'removes trailing whitespace' do
       text = "<body>This is awesome!\n\n\n\n</body>"
-      tools.html2text(text).should == 'This is awesome!'
+      tools.html_to_text(text).should == 'This is awesome!'
     end
   end
 

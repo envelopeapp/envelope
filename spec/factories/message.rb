@@ -6,7 +6,7 @@ FactoryGirl.define do
     sequence(:uid) { |i| i }
     subject { Faker::Company.catch_phrase }
     timestamp 5.days.ago
-    read true
+    flags ['read']
     text_part { Faker::Lorem.paragraphs(3) }
     raw { Faker::Lorem.paragraphs(5) }
 

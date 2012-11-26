@@ -22,6 +22,7 @@ class Message
   include Kaminari::MongoidExtension::Document
 
   # message helpers
+  require 'envelope/message_tools'
   include Envelope::MessageTools
 
   # fields
@@ -29,7 +30,6 @@ class Message
   field :message_id, type: String
   field :subject, type: String
   field :timestamp, type: DateTime
-  field :read, type: Boolean
   field :flags, type: Array, default: []
   field :full_text_part, type: String
   field :text_part, type: String
@@ -59,7 +59,7 @@ class Message
   accepts_nested_attributes_for :participants, :attachments
 
   # validations
-  validates_presence_of :mailbox, :timestamp, :read
+  validates_presence_of :mailbox, :timestamp
 
   # scopes
   default_scope order_by(:timestamp => :desc).includes(:mailbox, :labels)
@@ -85,48 +85,6 @@ class Message
 
   def account_id
     account.id
-  end
-
-  # Determines if this message has been read
-  #
-  # @return [Boolean] true if the message has been read, false otherwise
-  def read?
-    !(%w(seen read) & flags).empty?
-  end
-
-  # Determines if this message has not been read
-  #
-  # @return [Boolean] false if the message has been read, true otherwise
-  def unread?
-    !read?
-  end
-
-  # Determines if this message has been deleted
-  #
-  # @return [Boolean] true if the message has been deleted, false otherwise
-  def deleted?
-    !(%w(deleted removed) & flags).empty?
-  end
-
-  # Determine if this message is a draft
-  #
-  # @return [Boolean] true if the message is a draft, false otherwise
-  def draft?
-    !(%w(draft) & flags).empty?
-  end
-
-  # Determines if this message has been flagged
-  #
-  # @return [Boolean] true if the message has been flagged, false otherwise
-  def flagged?
-    !(%w(flagged) & flags).empty?
-  end
-
-  # Determines if this message has been answered
-  #
-  # @return [Boolean] true if the message has been answered, false otherwise
-  def answered?
-    !(%w(answered) & flags).empty?
   end
 
   # Returns a list of all participants; used for as_json
