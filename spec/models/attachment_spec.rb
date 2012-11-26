@@ -8,5 +8,5 @@ describe Attachment do
 
   # validations
   it { should validate_presence_of(:filename) }
-  it { should validate_presence_of(:size) }
+  it { should validate_presence_of(:path) }
 end

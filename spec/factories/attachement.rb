@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :attachment do
     sequence(:filename){ |i| "file_#{i}" }
-    size 1000000
+    path '/tmp/file'
   end
 end
