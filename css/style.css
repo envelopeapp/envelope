@@ -43,7 +43,7 @@ div {
 }
 
 .container-fluid {
-  margin-top: 30px;
+  margin-top: 50px;
   margin-bottom: 50px;
   padding: 0;
 }
@@ -66,13 +66,15 @@ div {
   NAVBAR
   ========================================*/
 
-.navbar-inner {
-  border-radius: 0;
-  padding: 0; 
+.navbar {
 }
-  .navbar .btn {
-    float: right;
+  .navbar-inner {
+    border-radius: 0;
+    padding: 0; 
   }
+    .navbar .btn {
+      float: right;
+    }
 
 /*========================================
   TITLE
@@ -88,6 +90,7 @@ div {
   }
   #slogan {
     font-size: 1.5em;
+    line-height: 1.5em;
     margin-top: 8px;
   }
 
@@ -103,6 +106,7 @@ div {
     float: left;
     height: 360px;
     max-width: 500px;
+    opacity: 0.9;
     overflow: hidden;  
     position: relative;
   }
@@ -138,11 +142,11 @@ div {
   ========================================*/
 
 #footer {
-  margin-top: 30px;
+  margin-top: 50px;
   text-align: center;
 }
   #connect {
-    margin-bottom: 30px;
+    margin-bottom: 50px;
   }
     #connect h1 {
       display: inline-block;
@@ -160,6 +164,10 @@ div {
         color: #333;
         font-family: 'EntypoSocial', sans-serif;
         font-size: 3em;
+      }
+      #social-icons li a:hover {
+        color: #666;
+        text-decoration: none;
       }
       #social-icons li {
         display: inline-block;

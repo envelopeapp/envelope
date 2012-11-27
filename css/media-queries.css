@@ -54,21 +54,21 @@
     margin: 0;
     width: 100%;
   }
-  .navbar .nav {
-    margin-right: 0;
+  .navbar .nav li a {
+    font-size: 0.85em;
+    padding: 10px;
   }
-    .navbar .nav li a {
-      font-size: 0.85em;
-      padding: 10px;
-    }
   .navbar .btn {
-    padding-left: 8px;
-    padding-right: 8px;
-    margin-right: 5px;
+    margin-top: 0;
+    width: 40%;
+    
+    position: absolute;
+    left: 26%;
+    top: 53px;
   }
   
   .container-fluid {
-    margin-top: 0;
+    margin-top: 60px;
     margin-bottom: 30px;
   }
   
@@ -80,6 +80,7 @@
     }
     #slogan {
       font-size: 1em;
+      line-height: 1em;
     }
   
   #three-col .span4 {

@@ -1,0 +1,9 @@
+/* Hide page elements by default on homepage */
+
+.navbar, #three-col, #footer {
+  opacity: 0;
+}
+
+#slogan {
+  display: none;
+}
