@@ -21,10 +21,10 @@ module SidebarHelper
   # returns the name of the mailbox + the number of unread messages
   # in a nice span for styling
   def name_and_unread(mailbox)
-    if mailbox.unread_messages.zero?
+    if mailbox.messages.unread.size.zero?
       folder_icon(mailbox) + mailbox.name
     else
-      folder_icon(mailbox) + mailbox.name + content_tag(:span, mailbox.unread_messages, :class => 'unread-messages-counter')
+      folder_icon(mailbox) + mailbox.name + content_tag(:span, mailbox.messages.unread.size, :class => 'unread-messages-counter')
     end
   end
 

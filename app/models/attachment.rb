@@ -9,7 +9,7 @@ class Attachment
   embedded_in :message
 
   # validations
-  validates_presence_of :filename, :path
+  validates_presence_of :filename
 
   # scopes
 

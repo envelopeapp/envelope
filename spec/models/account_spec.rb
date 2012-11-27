@@ -22,5 +22,4 @@ describe Account do
   it { should validate_presence_of(:email_address) }
 
   # methods
-  its(:queue_name) { should match /\A\/[a-z0-9]+\/[a-z0-9]+\z/ }
 end

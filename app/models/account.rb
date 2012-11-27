@@ -41,9 +41,4 @@ class Account
   def sync!
     AccountWorker.perform_async(self.id)
   end
-
-  # returns the account's queue name (prefixed with /) for delayed job
-  def queue_name
-    ['', self.user_id, self.id].join('/')
-  end
 end

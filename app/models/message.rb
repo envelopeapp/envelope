@@ -62,9 +62,9 @@ class Message
   validates_presence_of :mailbox, :timestamp
 
   # scopes
-  default_scope order_by(:timestamp => :desc).includes(:mailbox, :labels)
-  scope :read, where(read:true)
-  scope :unread, where(read:false)
+  default_scope order_by(timestamp: :desc).includes(:mailbox, :labels)
+  scope :read, where(:flags.in => [/seen/])
+  scope :unread, where(:flags.nin => [/seen/])
 
   # attr_accessor
   attr_accessor :account_id, :to, :cc, :bcc, :body
@@ -97,12 +97,12 @@ class Message
   end
 
   def mark_as_read!
-    self.push(:flags, 'read')
+    self.push(:flags, 'seen')
     uid_store('+FLAGS.SILENT', [:Seen])
   end
 
   def mark_as_unread!
-    self.pull(:flags, 'read')
+    self.pull(:flags, 'seen')
     uid_store('-FLAGS.SILENT', [:Seen])
   end
 

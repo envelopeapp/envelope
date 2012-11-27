@@ -30,14 +30,6 @@ describe User do
     end
   end
 
-  describe '#queue_name' do
-    it 'is the SHA1 of id, name, created_at, and updated_at' do
-      tmp = [user._id, user.name, user.created_at, user.updated_at].join('/')
-      digest = Digest::SHA1.hexdigest(tmp)
-      user.queue_name.should == ['', digest].join('/')
-    end
-  end
-
   describe '#confirm' do
     it 'does not raise an exception when confirmation_token is nil' do
       lambda { user.confirm(nil) }.should_not raise_error

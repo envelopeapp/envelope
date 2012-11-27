@@ -65,10 +65,6 @@ class User
     self.first_name, self.last_name = value.split(' ', 2) unless value.nil?
   end
 
-  def queue_name
-    ['', Digest::SHA1.hexdigest([self._id, self.name, self.created_at, self.updated_at].join('/'))].join('/')
-  end
-
   # Publish a message to this user's queue using Pusher
   #
   # @param []

@@ -31,7 +31,7 @@ describe Message do
 
   describe '#mark_as_read!' do
     it 'marks a message as read' do
-      @message.pull(:flags, 'read')
+      @message.pull(:flags, 'seen')
 
       expect {
         @message.mark_as_read!
@@ -41,7 +41,7 @@ describe Message do
 
   describe '#mark_as_unread!' do
     it 'marks a message as unread' do
-      @message.push(:flags, 'read')
+      @message.push(:flags, 'seen')
 
       expect {
         @message.mark_as_unread!
