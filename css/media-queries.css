@@ -18,6 +18,14 @@
     width: 95%;
   }
   
+  #three-col .span4 .caption h1 {
+    font-size: 1.4em;
+  }
+  #three-col .span4 .caption p {
+    font-size: 0.85em;
+    margin-top: 5px;
+  }
+  
 }
  
 /* Landscape phone to portrait tablet */
@@ -28,9 +36,14 @@
   }
   
   #three-col .span4 {
-    height: 240px;
-    margin-bottom: 20px;
+    float: none;
+    height: 300px;
+    margin: 0 auto 20px auto;
   }
+    #three-col .span4 .screenshot {
+      max-width: none;
+      width: 100%;
+    }
   
 }
  
@@ -39,11 +52,19 @@
   
   .navbar-wrapper {
     margin: 0;
+    width: 100%;
   }
-  
-  .navbar .nav li a {
-    font-size: 0.85em;
-    padding: 10px;
+  .navbar .nav {
+    margin-right: 0;
+  }
+    .navbar .nav li a {
+      font-size: 0.85em;
+      padding: 10px;
+    }
+  .navbar .btn {
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-right: 5px;
   }
   
   .container-fluid {
@@ -62,15 +83,28 @@
     }
   
   #three-col .span4 {
-    height: 180px;
+    height: 200px;
+    margin-bottom: 15px;
   }
-    #three-col .span4 .caption h1 {
-      font-size: 1.4em;
-      line-height: 1.4em;
-      margin-bottom: 0;
+    #three-col .span4 .caption {
+      padding: 10px;
     }
-    #three-col .span4 .caption p {
-      display: none;
+      #three-col .span4 .caption h1 {
+        font-size: 1.2em;
+        line-height: 1.2em;
+      }
+      #three-col .span4 .caption p {
+        display: none;
+      }
+  
+  #connect h1 {
+    font-size: 1em;
+  }   
+  #copyright {
+    font-size: 0.75em;
+  }
+    #is-logo {
+      max-width: 75%;
     }
   
 }

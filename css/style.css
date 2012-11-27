@@ -6,15 +6,15 @@
 
 @font-face {
 	font-family: 'Entypo';
-	src: url('entypo/entypo.eot'); /* IE9 */
-	src: url('entypo/entypo.woff') format('woff'),
+	src: url('entypo/entypo.eot?#iefix') format('embedded-opentype'),
+	     url('entypo/entypo.woff') format('woff'),
 	     url('entypo/entypo.ttf')  format('truetype'),
 	     url('entypo/entypo.svg#entypo') format('svg');
 }
 @font-face {
 	font-family: 'EntypoSocial';
-	src: url('entypo/entypo-social.eot'); /* IE9 */
-	src: url('entypo/entypo-social.woff') format('woff'),
+	src: url('entypo/entypo-social.eot?#iefix') format('embedded-opentype'),
+	     url('entypo/entypo-social.woff') format('woff'),
 	     url('entypo/entypo-social.ttf')  format('truetype'),
 	     url('entypo/entypo-social.svg#entypo-social') format('svg');
 }
@@ -101,14 +101,14 @@ div {
     background: #fff;
     border: 1px solid #333;
     float: left;
-    height: 320px;
+    height: 360px;
     max-width: 500px;
     overflow: hidden;  
     position: relative;
   }
     #three-col .span4 .screenshot {
-      max-height: 320px;
-      max-width: 500px;
+      max-height: 360px;
+      max-width: 600px;
     
       position: absolute;
       left: 0;
@@ -124,12 +124,13 @@ div {
       bottom: 0;
     }
       #three-col .span4 .caption h1 {
-        font-size: 1.8em;
+        font-size: 1.7em;
         font-weight: 600;
-        margin: 0 0 10px 0;
+        margin: 0;
       }
       #three-col .span4 .caption p {
         margin: 0;
+        margin-top: 8px;
       }
 
 /*========================================
@@ -171,3 +172,11 @@ div {
     font-size: 0.8em;
     line-height: 1.6em;
   }
+    #copyright span {
+      display: block;
+    }
+    #is-logo {
+      margin-top: 30px;
+      max-width: 300px;
+      opacity: 0.85;
+    }
