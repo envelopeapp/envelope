@@ -6,6 +6,7 @@ services:
   - mongodb
   - elasticsearch
 before_install:
+  - sudo apt-get install libicu-dev
   - gem update bundler
   - cp config/application.example.yml config/application.yml
 script:
