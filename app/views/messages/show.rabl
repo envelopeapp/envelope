@@ -9,13 +9,29 @@ attributes :id,
            :flags,
            :read?,
            :flagged?,
-           :answered?,
-           :toers,
-           :fromers,
-           :senders,
-           :ccers,
-           :bccers,
-           :reply_toers
+           :answered?
+
+[:toers, :fromers, :senders, :ccers, :bccers, :reply_toers].each do |type|
+  node type do |message|
+    partial 'participants/show', :object => message.participants.send(type)
+  end
+end
+
+node :message_url do |message|
+  account_mailbox_message_url(message.account_id, message.mailbox_id, message.id)
+end
+
+node :new_message_url do |message|
+  new_account_mailbox_message_url(message.account_id, message.mailbox_id)
+end
+
+node :unread_message_url do |message|
+  account_mailbox_message_unread_path(message.account_id, message.mailbox_id, message.id)
+end
+
+node :toggle_message_label_url do |message|
+  account_mailbox_message_toggle_label_path(message.account_id, message.mailbox_id, message.id)
+end
 
 child :labels do
   extends 'labels/show'

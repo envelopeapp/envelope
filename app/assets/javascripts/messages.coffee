@@ -92,7 +92,7 @@ $ ->
         response(cache[term])
         return
 
-      lastXhr = $.getJSON Routes.search_contacts_path(), { term: extractLast(request.term) }, (data, status, xhr) ->
+      lastXhr = $.getJSON '/search/contacts', { term: extractLast(request.term) }, (data, status, xhr) ->
         cache[term] = data
         if xhr == lastXhr
           response(data)

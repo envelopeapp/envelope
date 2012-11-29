@@ -11,7 +11,6 @@ gem 'gemoji', :git => 'git://github.com/sethvargo/gemoji' # need to use this unt
 gem 'haml'
 gem 'html-pipeline', :git => 'git://github.com/jch/html-pipeline'
 gem 'jquery-rails'
-gem 'js-routes'
 gem 'kaminari'
 gem 'magiconf'
 gem 'mail', :require => false

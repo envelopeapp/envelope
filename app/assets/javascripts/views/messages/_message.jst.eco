@@ -1,4 +1,4 @@
-<a href="<%= Routes.account_mailbox_message_path(@message.account_id, @message.mailbox_id, @message.id) %>" class="bubble message<%= ' unread' unless @message['read?'] %>" data-message-id="<%= @message.id %>" data-mailbox-id="<%= @message.mailbox_id %>" data-account-id="<%= @message.account_id %>">
+<a href="<%= @message.message_url %>" class="bubble message<%= ' unread' unless @message['read?'] %>" data-message-id="<%= @message.id %>" data-mailbox-id="<%= @message.mailbox_id %>" data-account-id="<%= @message.account_id %>">
   <div class="bubble-metadata">
     <span class="message-date"><%= DynamicDate.format(@message.timestamp) %></span>
     <% if @message['flagged?']: %>
@@ -6,7 +6,7 @@
     <% end %>
   </div>
 
-  <img src="/assets/contact-silhouette.gif" class="contact-image" />
+  <img src="<%= @message.fromers[0]?.gravatar || '/assets/contact-silhouette.git' %>" class="contact-image" />
   <div class="bubble-header">
     <div class="bubble-header-main">
       <% for fromer in @message.fromers: %>

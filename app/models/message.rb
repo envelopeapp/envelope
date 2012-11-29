@@ -86,15 +86,6 @@ class Message
     account.id
   end
 
-  # Returns a list of all participants; used for as_json
-  #
-  # @return [Hash] all participants
-  [:toers, :fromers, :senders, :ccers, :bccers, :reply_toers].each do |participant_type|
-    define_method participant_type do
-      self.participants.send(participant_type)
-    end
-  end
-
   def mark_as_read!
     self.push(:flags, 'seen')
     uid_store('+FLAGS.SILENT', [:Seen])

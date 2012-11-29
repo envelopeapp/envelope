@@ -40,12 +40,8 @@ class MessagesController < ApplicationController
       @messages = []
     else
       @labels = current_user.labels.find(params[:label_ids])
-      @messages = current_user.messages.collect{ |m| m if @labels.all?{|l| m.labels.include?(l)} }.compact
-    end
-
-    respond_with(@messages) do |format|
-      format.html { render action:'index' }
-      format.json
+      mailbox_ids = current_user.accounts.collect{ |account| account.mailbox_ids }.flatten
+      @messages = Message.where(:mailbox_id.in => mailbox_ids).select{ |message| !(@labels & message.labels).empty? }
     end
   end
 

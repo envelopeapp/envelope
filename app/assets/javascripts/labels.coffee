@@ -15,7 +15,7 @@ $ ->
       label_ids.push(label.getAttribute('data-label-id'))
 
     $.ajax
-      url: Routes.labels_messages_path()
+      url: $this.data 'messages-url'
       dataType: 'json'
       contentType: 'json'
       data: { 'label_ids[]': label_ids }

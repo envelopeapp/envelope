@@ -29,7 +29,7 @@
   .sidebar-labels
     - current_user.labels.each do |label|
       - unless label.new_record?
-        = link_to '#', :class => 'sidebar-label', :'data-label-id' => label._id do
+        = link_to '#', :class => 'sidebar-label', :'data-label-id' => label._id, :'data-messages-url' => labels_messages_url do
           %span.label-color.label{:class => label.color}
           .label-name= label.name
     = link_to 'Manage Labels', labels_path, :class => 'btn btn-mini manage-labels-button'
