@@ -47,16 +47,20 @@
   </div>
 
   <div class="bubble-header">
-    <img src="/assets/contact-silhouette.gif" class="contact-image" />
-    <%- JST['views/messages/_participants']({ participants:@message.toers, label:'To' }) %>
-    <%- JST['views/messages/_participants']({ participants:@message.ccers, label:'Cc' }) %>
-    <%- JST['views/messages/_participants']({ participants:@message.bccers, label:'Bcc' }) %>
-    <%- JST['views/messages/_participants']({ participants:@message.fromers, label:'From' }) %>
-    <%- JST['views/messages/_participants']({ participants:@message.reply_toers, label:'Reply-To' }) %>
+    <% for toer in @message.toers: %>
+      <img src="<%= toer.gravatar %>" class="contact-image">
+    <% end %>
+    <div class="message-details">
+      <%- JST['views/messages/_participants']({ participants:@message.toers, label:'To' }) %>
+      <%- JST['views/messages/_participants']({ participants:@message.ccers, label:'Cc' }) %>
+      <%- JST['views/messages/_participants']({ participants:@message.bccers, label:'Bcc' }) %>
+      <%- JST['views/messages/_participants']({ participants:@message.fromers, label:'From' }) %>
+      <%- JST['views/messages/_participants']({ participants:@message.reply_toers, label:'Reply-To' }) %>
 
-    <div class="message-subject">
-      <div class="message-header-left">Subject:</div>
-      <div class="message-header-right"><%= @message.subject %></div>
+      <div class="message-subject">
+        <div class="message-header-left">Subject:</div>
+        <div class="message-header-right"><%= @message.subject %></div>
+      </div>
     </div>
 
     <div class="message-read-toggle">
@@ -75,7 +79,7 @@
   <hr class="bubble-divider" />
 
   <div class="bubble-body">
-    <%- @message.html_part || @message.text_part %>
+    <%- @message.sanitized_html %>
 
     <% if @message.attachments?.length > 0: %>
       <hr class="bubble-divider" />

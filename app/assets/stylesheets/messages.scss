@@ -103,6 +103,15 @@
       margin-top: -15px;
     }
 
+    .message-details {
+      margin-left: 50px;
+      overflow: hidden;
+    }
+
+    .message-participants, .message-subject {
+      white-space: nowrap;
+    }
+
     .message-header-left {
       display: inline-block;
       font-weight: bold;
@@ -114,6 +123,7 @@
       display: inline-block;
       padding-left: 5px;
       overflow: hidden;
+      max-width: 80%;
     }
 
     .participant:not(:last-child):after {
@@ -125,6 +135,11 @@
     .contact-image {
       height: 50px;
       width: 50px;
+    }
+
+    .contact-image + .contact-image {
+      margin-left: -55px;
+      margin-top: 5px;
     }
   }
 }

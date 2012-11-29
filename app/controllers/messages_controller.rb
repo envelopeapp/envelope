@@ -9,12 +9,12 @@ class MessagesController < ApplicationController
 
   def index
     @messages = @messages.page(params[:page] || 1).per(15)
-    respond_with(@messages)
   end
 
   def search
     @search = current_user.search(params[:q], page: params[:page])
     @messages = @search.results
+    render action: 'index'
   end
 
   def unified
@@ -28,11 +28,7 @@ class MessagesController < ApplicationController
     end
 
     @messages = @messages.page(params[:page] || 1).per(15)
-
-    respond_with(@messages) do |format|
-      format.html { render action:'index' }
-      format.json
-    end
+    render action: 'index'
   end
 
   def labels
@@ -47,11 +43,6 @@ class MessagesController < ApplicationController
 
   def show
     @message.mark_as_read! unless @message.read?
-
-    respond_to do |format|
-      format.html { render action:'show', layout:nil }
-      format.json
-    end
   end
 
   def new
@@ -140,14 +131,6 @@ class MessagesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to account_mailbox_messages_path(@account, @mailbox), notice: 'Flagged' }
       format.js { render json:@message }
-    end
-  end
-
-  def update
-    if @message.update_attributes(params[:message])
-      redirect_to @message, notice: 'Message was successfully updated.'
-    else
-      render action: "edit"
     end
   end
 

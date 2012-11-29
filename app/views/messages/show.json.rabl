@@ -9,7 +9,9 @@ attributes :id,
            :flags,
            :read?,
            :flagged?,
-           :answered?
+           :answered?,
+           :text_part,
+           :sanitized_html
 
 [:toers, :fromers, :senders, :ccers, :bccers, :reply_toers].each do |type|
   node type do |message|
@@ -47,16 +49,4 @@ node :preview do |message|
   else
     '<i>Preview unavailable...</i>'
   end
-end
-
-pipeline = HTML::Pipeline.new [
-  HTML::Pipeline::MarkdownFilter,
-  HTML::Pipeline::SanitizationFilter,
-  HTML::Pipeline::SyntaxHighlightFilter,
-  HTML::Pipeline::EmojiFilter,
-  HTML::Pipeline::AutolinkFilter,
-], { gfm: true, asset_root: asset_path(nil) }
-
-node :text_part do |message|
-  pipeline.call(message.text_part)[:output].to_s
 end

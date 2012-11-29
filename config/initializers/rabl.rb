@@ -3,7 +3,7 @@ Rabl.configure do |config|
   # config.cache_sources = Rails.env != 'development' # Defaults to false
   # config.cache_engine = Rabl::CacheEngine.new # Defaults to Rails cache
   # config.escape_all_output = false
-  config.json_engine = :yajl # Any multi_json engines or a Class with #encode method
+  config.json_engine = :oj # Any multi_json engines or a Class with #encode method
   # config.msgpack_engine = nil # Defaults to ::MessagePack
   config.bson_engine = Moped::BSON # Defaults to ::BSON
   # config.plist_engine = nil # Defaults to ::Plist::Emit
