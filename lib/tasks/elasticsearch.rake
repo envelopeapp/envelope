@@ -4,7 +4,7 @@ begin
   namespace :elasticsearch do
     desc 'Clear all elasticsearch indicies'
     task :clear do
-      indicies = Yajl::Parser.parse(Tire::Configuration.client.get("#{Tire::Configuration.url}/_aliases").body).keys
+      indicies = Oj::Doc.parse(Tire::Configuration.client.get("#{Tire::Configuration.url}/_aliases").body).keys
 
       indicies.each do |index|
         index = Tire::Index.new index

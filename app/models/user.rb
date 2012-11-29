@@ -90,9 +90,9 @@ class User
 
     Message.tire.search(page: options[:page] || 1, per_page: 15, load: true) do
       query do
-        string('Travis-CI') if q.present?
+        string(q) if q.present?
       end
-      # filter :term, { user_id: user_id }
+      filter :term, { user_id: user_id }
     end
   end
 

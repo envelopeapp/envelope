@@ -15,7 +15,6 @@ class MessagesController < ApplicationController
   def search
     @search = current_user.search(params[:q], page: params[:page])
     @messages = @search.results
-    respond_with(@messages, location:nil)
   end
 
   def unified
@@ -55,12 +54,7 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       format.html { render action:'show', layout:nil }
-      format.json {
-        render json:{
-          :labels => current_user.labels,
-          :message => JSON.parse(@message.to_json(:methods => [:senders, :fromers, :toers, :ccers, :bccers, :labels], :include => [:mailbox, :account]))
-        }
-      }
+      format.json
     end
   end
 

@@ -7,8 +7,9 @@ gem 'bson_ext'
 gem 'chronic'
 gem 'eco'
 gem 'foreman'
-gem 'gemoji', :require => 'emoji/railtie'
+gem 'gemoji', :git => 'git://github.com/sethvargo/gemoji' # need to use this until https://github.com/github/gemoji/pull/19 is merged
 gem 'haml'
+gem 'html-pipeline', :git => 'git://github.com/jch/html-pipeline'
 gem 'jquery-rails'
 gem 'js-routes'
 gem 'kaminari'
@@ -18,14 +19,15 @@ gem 'mongoid'
 gem 'mongoid-ancestry'
 gem 'nokogiri', :require => false
 gem 'nested_form', :git => 'git://github.com/ryanb/nested_form.git'
+gem 'oj'
 gem 'puma'
 gem 'pusher'
+gem 'rabl'
 gem 'rails', '3.2.9'
 gem 'sidekiq'
 gem 'tire'
 gem 'vcard', :require => false
 gem 'warden'
-gem 'yajl-ruby', :require => 'yajl/json_gem'
 
 # cancan needs to be last so it picks up the mongo driver
 gem 'cancan'

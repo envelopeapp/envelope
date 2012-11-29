@@ -11,7 +11,7 @@
       </a>
       <ul class="dropdown-menu pull-right label-dropdown">
         <% mailbox_labels = @message.labels.map (l) -> l.name %>
-        <% for label in @labels: %>
+        <% for label in @message.labels: %>
           <li>
             <a href="<%= Routes.account_mailbox_message_toggle_label_path(@message.account_id, @message.mailbox_id, @message.id) %>" data-label-id="<%= label.id %>" class="<%= 'checked' if label.name in mailbox_labels %>">
               <span class="label <%= label.color %>"><%= label.name %></span>
@@ -75,7 +75,7 @@
   <hr class="bubble-divider" />
 
   <div class="bubble-body">
-    <%- @message.sanitized_html %>
+    <%- @message.html_part || @message.text_part %>
 
     <% if @message.attachments?.length > 0: %>
       <hr class="bubble-divider" />

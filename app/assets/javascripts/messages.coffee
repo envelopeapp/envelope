@@ -66,7 +66,7 @@ $ ->
         url: url
         dataType: 'json'
         success: (data) ->
-          html = JST['views/messages/show']({ message:data.message, labels:data.labels })
+          html = JST['views/messages/show'](message: data)
           $messagePane.html(html)
           $messagePane.css({ marginTop:$this.position().top - 20 + 'px' })
 

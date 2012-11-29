@@ -30,6 +30,6 @@
   <div class="clear"></div>
 
   <div class="bubble-body message-preview">
-    <%= @message.text_part %>
+    <%- @message.preview %>
   </div>
 </a>

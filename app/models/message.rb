@@ -10,7 +10,6 @@ class Message
   mapping do
     indexes :_id, index: :not_analyzed
     indexes :user_id
-    indexes :mailbox
     indexes :subject, type: 'string', analyzer: 'snowball', boost: 10
     indexes :text_part, type: 'string', analyzer: 'snowball'
     indexes :participants
@@ -125,14 +124,6 @@ class Message
 
   def to_indexed_json
     to_json :methods => %w(user_id)
-  end
-
-  def as_json(options = {})
-    super(options.merge({
-      :only => [ :mailbox_id, :uid, :message_id, :subject, :timestamp, :flags, :text_part, :sanitized_html ],
-      :methods => [ :id, :account_id, :read?, :flagged?, :unanswered?, :toers, :fromers, :senders, :ccers, :bccers, :reply_toers ],
-      :include => [ :labels, :attachments ]
-    }))
   end
 
   # private methods
