@@ -14,11 +14,13 @@ $(document).ready(function() {
   }
   
   $('#three-col .span4').hover(function() {
-    $(this).animate({ 'opacity': '1' });
-    $(this).children('.caption').animate({ 'padding-bottom': '30px' });
+    $(this).animate({ 'opacity': '1' }, 400);
+    $(this).children('.caption').animate({ 'padding-bottom': '30px' }, 400);
+    $(this).find('.caption .ico').fadeIn(400);
   }, function() {
-     $(this).animate({ 'opacity': '0.9' });
-    $(this).children('.caption').animate({ 'padding-bottom': '15px' });
+    $(this).animate({ 'opacity': '0.9' }, 400);
+    $(this).children('.caption').animate({ 'padding-bottom': '15px' }, 400);
+    $(this).find('.caption .ico').fadeOut(400);
   });
   
 });

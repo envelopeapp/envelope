@@ -2,8 +2,6 @@
   FONT DEFINITIONS
   ========================================*/
 
-@import url(http://fonts.googleapis.com/css?family=Raleway);
-
 @font-face {
 	font-family: 'Entypo';
 	src: url('entypo/entypo.eot?#iefix') format('embedded-opentype'),
@@ -135,6 +133,23 @@ div {
       #three-col .span4 .caption p {
         margin: 0;
         margin-top: 8px;
+      }
+      #three-col .span4 .caption .ico {
+        background: #fff;
+        border: 1px solid #fff;
+        border-radius: 100px;
+        color: #333;
+        display: none;
+        font-family: 'EntypoSocial', sans-serif;
+        font-size: 50px;
+        line-height: 42px;
+        height: 40px;
+        text-align: center;
+        width: 40px;
+        
+        position: absolute;
+        right: 15px;
+        top: 15px;
       }
 
 /*========================================
