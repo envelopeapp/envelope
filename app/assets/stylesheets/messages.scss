@@ -159,6 +159,15 @@
   * html .ui-autocomplete {
     height: 100px;
   }
+  
+  .modal .modal-body {
+    max-height: 450px;
+  }
+  
+  .file_field {
+    line-height: 13px;
+    margin-top: 5px;
+  }
 }
 
 /*
