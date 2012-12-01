@@ -1,6 +1,7 @@
 - if logged_in?
   .topbar
-    .logo &nbsp;
+    .logo-wrapper
+      = link_to '', contacts_path, :class => 'logo'
     / .btn-group.pull-left
     /   = link_to '#', :class => 'btn dropdown-toggle', :data => { :toggle => 'dropdown' } do
     /     - if params[:controller] == 'contacts'

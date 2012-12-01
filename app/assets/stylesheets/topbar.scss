@@ -26,12 +26,18 @@
 		padding-left: 18px;
 		padding-right: 18px;
 	}
-
-  .logo {
-    background: url('logo.png') left -26px no-repeat;
+  
+  .logo-wrapper {
     float: left;
+    height: 32px;
     width: 20%;
   }
+    .logo {
+      background: url('logo.png') left 3px no-repeat;
+      display: block;
+      height: 32px;
+      width: 129px;
+    }
   
   #search-box {
     margin-right: 9px;
