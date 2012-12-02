@@ -93,6 +93,10 @@ GEM
     ffi (1.2.0)
     foreman (0.60.2)
       thor (>= 0.13.6)
+    fuubar (1.1.0)
+      rspec (~> 2.0)
+      rspec-instafail (~> 0.2.0)
+      ruby-progressbar (~> 1.0.0)
     guard (1.5.4)
       listen (>= 0.4.2)
       lumberjack (>= 1.0.2)
@@ -214,6 +218,7 @@ GEM
     rspec-core (2.12.1)
     rspec-expectations (2.12.0)
       diff-lcs (~> 1.1.3)
+    rspec-instafail (0.2.4)
     rspec-mocks (2.12.0)
     rspec-rails (2.12.0)
       actionpack (>= 3.0)
@@ -222,6 +227,7 @@ GEM
       rspec-core (~> 2.12.0)
       rspec-expectations (~> 2.12.0)
       rspec-mocks (~> 2.12.0)
+    ruby-progressbar (1.0.2)
     rubyzip (0.9.9)
     sass (3.2.3)
     sass-rails (3.2.5)
@@ -306,6 +312,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   foreman
+  fuubar
   guard
   guard-rspec
   guard-spork

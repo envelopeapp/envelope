@@ -64,6 +64,7 @@ group :test do
   gem 'capybara'
   gem 'factory_girl_rails'
   gem 'faker'
+  gem 'fuubar'
   gem 'mongoid-rspec'
   gem 'rspec-rails'
   gem 'simplecov', :require => false
