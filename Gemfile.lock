@@ -40,7 +40,7 @@ GEM
       encryptor (>= 1.1.1)
     awesome_print (1.1.0)
     bcrypt-ruby (3.0.1)
-    bootstrap_forms (2.0.7)
+    bootstrap_forms (2.0.8)
     bson (1.8.0)
       activesupport
     bson_ext (1.8.0)

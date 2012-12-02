@@ -1,6 +1,5 @@
 :css
   #message_headers {
-    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -54,7 +53,7 @@
 #message_headers
   %dl
     %dt From:
-    %dd= @message.fromers.join(', ')
+    %dd= @message.participants.fromers.join(', ')
 
     %dt Subject:
     %dd= @message.subject
@@ -63,15 +62,15 @@
     %dd= @message.timestamp.strftime("%b %e, %Y %I:%M:%S %p %Z")
 
     %dt To:
-    %dd= @message.toers.join(', ')
+    %dd= @message.participants.toers.join(', ')
 
-    - unless @message.ccers.blank?
+    - unless @message.participants.ccers.blank?
       %dt Cc:
-      %dd= @message.ccers.join(', ')
+      %dd= @message.participants.ccers.join(', ')
 
-    - unless @message.bccers.blank?
+    - unless @message.participants.bccers.blank?
       %dt Bcc:
-      %dd= @message.bccers.join(', ')
+      %dd= @message.participants.bccers.join(', ')
 
 %pre#message_body
   - unless @message.html_part.blank?

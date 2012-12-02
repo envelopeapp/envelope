@@ -47,8 +47,8 @@
   </div>
 
   <div class="bubble-header">
-    <% for toer in @message.toers: %>
-      <img src="<%= toer.gravatar %>" class="contact-image">
+    <% for fromer in @message.fromers: %>
+      <img src="<%= fromer.gravatar %>" class="contact-image">
     <% end %>
     <div class="message-details">
       <%- JST['views/messages/_participants']({ participants:@message.toers, label:'To' }) %>

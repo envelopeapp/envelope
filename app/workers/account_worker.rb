@@ -26,10 +26,6 @@ class AccountWorker
     @imap = Envelope::IMAP.new(@account)
     imap_mailboxes = @imap.mailboxes.sort!{ |a,b| a.name <=> b.name }
 
-    puts "|\n"*10
-    puts imap_mailboxes
-    puts "|\n"*10
-
     # delete old mailboxes
     @account.mailboxes.where(:location.nin => imap_mailboxes.map(&:name)).destroy_all
 
@@ -51,7 +47,7 @@ class AccountWorker
 
       mailbox.save! if mailbox.changed?
 
-      # MailboxWorker.perform_async(mailbox.id)
+      MailboxWorker.perform_async(mailbox.id)
     end
 
     MappingWorker.perform_async(@account.id)
@@ -63,10 +59,10 @@ class AccountWorker
 
   private
   def publish_start
-    #@user.publish('account-worker-start', { account: @account })
+    @user.publish('account-worker-start', { account: @account })
   end
 
   def publish_finish
-    #@user.publish('account-worker-finish', { account: @account })
+    @user.publish('account-worker-finish', { account: @account })
   end
 end

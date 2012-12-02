@@ -57,6 +57,6 @@ class MappingWorker
   end
 
   def publish_finish
-    #@user.publish('mapping-worker-finish', { account: @account })
+    @user.publish('mapping-worker-finish', { account: @account })
   end
 end

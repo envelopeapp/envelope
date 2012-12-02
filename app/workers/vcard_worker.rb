@@ -70,6 +70,6 @@ class VcardWorker
   end
 
   def publish_finish
-    #@user.publish('vcard-worker-finish', { contacts: @contacts })
+    @user.publish('vcard-worker-finish', { contacts: @contacts })
   end
 end

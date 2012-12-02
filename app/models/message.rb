@@ -79,11 +79,11 @@ class Message
   end
 
   def account
-    self.mailbox.account
+    self.mailbox.try(:account)
   end
 
   def account_id
-    account.id
+    account.try(:id)
   end
 
   def mark_as_read!

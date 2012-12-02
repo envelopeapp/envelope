@@ -28,7 +28,6 @@ class MessageWorker
 
     # Ruby's Net::IMAP.uid_fetch includes the last fetched UID (because of -1),
     # so we need to delete that message from the Hash.
-    # messages.delete(@mailbox.last_seen_uid)
     existing_uids = @mailbox.messages.collect(&:uid)
     messages.delete_if{ |k,v| existing_uids.include?(k) }
 

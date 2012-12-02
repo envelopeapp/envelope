@@ -43,6 +43,7 @@ class MessagesController < ApplicationController
 
   def show
     @message.mark_as_read! unless @message.read?
+    render layout: false
   end
 
   def new

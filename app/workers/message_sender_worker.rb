@@ -58,10 +58,10 @@ class MessageSenderWorker
 
   private
   def publish_finish
-    #@user.publish 'message-sender-worker-finish'
+    @user.publish 'message-sender-worker-finish'
   end
 
   def publish_error(exception = nil)
-    #@user.publish 'error', { error: exception.message, message: @message }
+    @user.publish 'error', { error: exception.message, message: @message }
   end
 end
