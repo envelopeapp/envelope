@@ -22,7 +22,7 @@
   ========================================*/
 
 body {
-  background: url('../img/background.png');
+  background: #fafafa;
   font-family: 'Raleway', Helvetica, Arial, sans-serif;
   font-size: 1em;
   font-weight: 400;
@@ -108,7 +108,7 @@ div {
     overflow: hidden;  
     position: relative;
   }
-    #three-col .span4 .screenshot {
+    #three-col .span4 .scr {
       max-height: 360px;
       max-width: 600px;
     
@@ -203,3 +203,15 @@ div {
       max-width: 300px;
       opacity: 0.85;
     }
+
+/*========================================
+  MISCELLANEOUS
+  ========================================*/
+
+img.lazy {
+  border: 1px solid #333;
+  margin: 15px 0;
+}
+img.lazy:last-child {
+  margin-bottom: 0;
+}
