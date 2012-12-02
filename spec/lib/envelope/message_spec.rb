@@ -69,6 +69,33 @@ describe Envelope::Message do
     its(:html_part) { should_not match /<b>From:<\/b> Seth Vargo/ }
   end
 
+  # context 'attachment' do
+  #   subject { build_message 'attachment' }
+
+  #   its(:text_part) { should == 'This will not be rendered inline. There should be one attachment.' }
+  #   its(:html_part) { should == 'foo' }
+  #   its(:sanitized_html) { should == 'foo' }
+  #   its(:attachments) { should_not be_empty }
+  # end
+
+  # context 'attachment_inline' do
+  #   subject { build_message 'attachment_inline' }
+
+  #   its(:text_part) { should == "This is a test email with a picture attachment.\n\n\nThanks,\nSeth" }
+  #   its(:html_part) { should == '<html><head><meta http-equiv=\"Content-Type\" content=\"text/html charset=us-ascii\"></head><body style=\"word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space; \">This is a test email with a picture attachment.<div><img id=\"16e42e33-9503-4d87-a41d-f28309f49814\" height=\"536\" width=\"433\" apple-width=\"yes\" apple-height=\"yes\" src=\"cid:6929718D-257D-44B6-8C48-E15942EEB463@WV.CC.CMU.EDU\"></div><div><br></div><div>Thanks,</div><div>Seth</div></body></html>' }
+  #   its(:sanitized_html) { should == '<p>This is a test email with a picture attachment.</p><p></p><p></p><p>Thanks,</p><p>Seth</p>' }
+  #   its(:attachments) { should_not be_empty }
+  # end
+
+  # context 'attachment_inline_only' do
+  #   subject { build_message 'attachment_inline_only' }
+
+  #   its(:text_part) { should be_empty }
+  #   its(:html_part) { should be_empty }
+  #   its(:sanitized_html) { should == 'foo' }
+  #   its(:attachments) { should_not be_empty }
+  # end
+
   context 'base64 encoded' do
     subject { build_message 'base64' }
 

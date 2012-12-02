@@ -50,10 +50,20 @@ class MessageWorker
       )
 
       message.attachments.each do |attachment|
-        m.attachments.create!(
-          filename: attachment[:filename],
-          body: attachment[:body]
-        )
+        begin
+          parent = Rails.root.join 'tmp', 'attachments', self.message.user_id, self.message.id
+          FileUtils.mkdir_p(parent)
+
+          path = File.join(parent, attachment.filename)
+          File.open(path, 'w+b', 0644){ |file| file.write(attachment.body.decoded) }
+
+          m.attachments.create!(
+            filename: attachment.filename,
+            path: path
+          )
+        rescue Exception => e
+          Rails.logger.error "Unable to save attachment for #{attachment.filename} on #{m.message_id} because #{e.message}"
+        end
       end
     end
   end

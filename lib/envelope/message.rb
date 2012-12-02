@@ -191,9 +191,7 @@ module Envelope
     #
     # @return [Array] the attachments
     def attachments
-      @attachments ||= message.attachments.collect do |attachment|
-        { filename: attachment.filename, body: attachment.body.to_s }
-      end
+      @attachments ||= message.attachments
     end
 
     # The full, unedited and unmodified email

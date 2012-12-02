@@ -24,9 +24,9 @@ child :emails do
 end
 
 child :phones do
-  extends 'emails/phones'
+  extends 'phones/index'
 end
 
 child :addresses do
-  extends 'emails/addresses'
+  extends 'addresses/index'
 end
