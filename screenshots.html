@@ -65,8 +65,12 @@
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
   	<script type="text/javascript" src="js/bootstrap.min.js"></script>
-  	<script type="text/javascript" src="js/scripts.js"></script>
   	<script type="text/javascript" src="js/jquery.lazyload.min.js"></script>
+  	<script type="text/javascript">
+  	  $('img.lazy').lazyload({ 
+          effect : 'fadeIn'
+      });
+  	</script>
     
   </body>
 </html>

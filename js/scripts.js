@@ -23,8 +23,4 @@ $(document).ready(function() {
     $(this).find('.caption .ico').fadeOut(400);
   });
   
-  $('img.lazy').lazyload({ 
-      effect : 'fadeIn'
-  });
-  
 });
