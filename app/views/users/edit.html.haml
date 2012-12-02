@@ -1,11 +1,11 @@
 = bootstrap_form_for @user, :html => {:class => 'form-horizontal'} do |f|
   .modal
     .modal-header
-      %h3 Signup
+      %h3 Edit Profile
     .modal-body
       = f.text_field :name, :label => 'Full Name', :help_inline => 'e.g. Jane Parker'
-      = f.password_field :password, :required => true, :label => 'Password'
-      = f.password_field :password_confirmation, :required => true, :label => 'Password Confirmation'
+      = f.password_field :password, :label => 'Password'
+      = f.password_field :password_confirmation, :label => 'Password Confirmation'
     .modal-footer
       = f.cancel
-      = f.submit 'Update Profile'
+      = f.submit 'Save'

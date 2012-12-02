@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-   layout 'full'
+  layout 'full'
 
   skip_before_filter :ensure_login, :only => [:new, :create, :confirm, :forgot_password, :reset_password, :confirmation_email]
   load_and_authorize_resource :user
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     if @user.update_attributes(params[:user])
-      redirect_to @user, notice: 'User was successfully updated.'
+      redirect_to root_path, notice: 'User was successfully updated.'
     else
       render action:'edit'
     end

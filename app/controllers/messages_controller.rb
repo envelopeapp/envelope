@@ -102,18 +102,18 @@ class MessagesController < ApplicationController
   end
 
   def create
-    unless params[:attachments].nil?
-      params[:message][:attachments] = params[:message][:attachments].collect do |attachment|
-        # Create a temporary storage path
-        parent = Rails.root.join 'tmp', 'attachments', current_user.id
-        FileUtils.mkdir_p parent
+    params[:message][:attachments] ||= []
 
-        # Move the file to the tmp path
-        path = File.join(parent, attachment.original_filename)
-        FileUtils.cp attachment.tempfile.path, path
+    params[:message][:attachments] = params[:message][:attachments].collect do |attachment|
+      # Create a temporary storage path
+      parent = Rails.root.join 'tmp', 'attachments', current_user.id
+      FileUtils.mkdir_p parent
 
-        { filename: attachment.original_filename, path: path }
-      end
+      # Move the file to the tmp path
+      path = File.join(parent, attachment.original_filename)
+      FileUtils.cp attachment.tempfile.path, path
+
+      { filename: attachment.original_filename, path: path }
     end
 
     MessageSenderWorker.perform_async(current_user.id, params[:message])
