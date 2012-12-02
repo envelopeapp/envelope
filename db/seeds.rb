@@ -57,27 +57,29 @@ CommonAccountSetting.create!(
 )
 
 # User
-user = User.create!(first_name: 'Default', last_name: 'User', username: ENV['GMAIL_USERNAME'], password: ENV['GMAIL_PASSWORD'], email_address: "#{ENV['GMAIL_USERNAME']}@gmail.com", confirmed_at: Time.now)
+if ENV['GMAIL_USERNAME']
+  user = User.create!(first_name: 'Default', last_name: 'User', username: ENV['GMAIL_USERNAME'], password: ENV['GMAIL_PASSWORD'], email_address: "#{ENV['GMAIL_USERNAME']}@gmail.com", confirmed_at: Time.now)
 
-user.accounts.create!(
-  name: 'GMail',
-  email_address: "#{ENV['GMAIL_USERNAME']}@gmail.com",
-  incoming_server: {
-    address:'imap.gmail.com',
-    port:993,
-    ssl:true,
-    authentication_attributes: {
-      username: ENV['GMAIL_USERNAME'],
-      password: ENV['GMAIL_PASSWORD'],
-    }
-  },
-  outgoing_server: {
-    address:'smtp.gmail.com',
-    port:'465',
-    ssl:true,
-    authentication_attributes: {
-      username: ENV['GMAIL_USERNAME'],
-      password: ENV['GMAIL_PASSWORD'],
-    }
-  },
-)
+  user.accounts.create!(
+    name: 'GMail',
+    email_address: "#{ENV['GMAIL_USERNAME']}@gmail.com",
+    incoming_server: {
+      address:'imap.gmail.com',
+      port:993,
+      ssl:true,
+      authentication_attributes: {
+        username: ENV['GMAIL_USERNAME'],
+        password: ENV['GMAIL_PASSWORD'],
+      }
+    },
+    outgoing_server: {
+      address:'smtp.gmail.com',
+      port:'465',
+      ssl:true,
+      authentication_attributes: {
+        username: ENV['GMAIL_USERNAME'],
+        password: ENV['GMAIL_PASSWORD'],
+      }
+    },
+  )
+end

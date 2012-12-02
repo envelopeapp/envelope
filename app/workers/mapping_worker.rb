@@ -12,13 +12,13 @@ class MappingWorker
     return if @account.nil?
 
     @account.mailboxes.each do |mailbox|
-      @account.inbox_mailbox      = mailbox unless (mailbox.flags & inbox_flags).empty?
-      @account.sent_mailbox       = mailbox unless (mailbox.flags & sent_flags).empty?
-      @account.junk_mailbox       = mailbox unless (mailbox.flags & junk_flags).empty?
-      @account.drafts_mailbox     = mailbox unless (mailbox.flags & drafts_flags).empty?
-      @account.trash_mailbox      = mailbox unless (mailbox.flags & trash_flags).empty?
-      @account.starred_mailbox    = mailbox unless (mailbox.flags & starred_flags).empty?
-      @account.important_mailbox  = mailbox unless (mailbox.flags & important_flags).empty?
+      @account.inbox_mailbox      = mailbox if !(mailbox.flags & inbox_flags).empty?      || mailbox.name.downcase =~ /^inbox/
+      @account.sent_mailbox       = mailbox if !(mailbox.flags & sent_flags).empty?       || mailbox.name.downcase =~ /^(sent|delivered)/
+      @account.junk_mailbox       = mailbox if !(mailbox.flags & junk_flags).empty?       || mailbox.name.downcase =~ /^(junk|spam)/
+      @account.drafts_mailbox     = mailbox if !(mailbox.flags & drafts_flags).empty?     || mailbox.name.downcase =~ /^draft/
+      @account.trash_mailbox      = mailbox if !(mailbox.flags & trash_flags).empty?      || mailbox.name.downcase =~ /^(trash|deleted)/
+      @account.starred_mailbox    = mailbox if !(mailbox.flags & starred_flags).empty?    || mailbox.name.downcase =~ /^starred/
+      @account.important_mailbox  = mailbox if !(mailbox.flags & important_flags).empty?  || mailbox.name.downcase =~ /^important/
     end
 
     if @account.changed?
@@ -57,6 +57,6 @@ class MappingWorker
   end
 
   def publish_finish
-    @user.publish('mapping-worker-finish', { account: @account })
+    #@user.publish('mapping-worker-finish', { account: @account })
   end
 end

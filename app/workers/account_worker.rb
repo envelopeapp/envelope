@@ -13,6 +13,7 @@
 # @author Seth Vargo
 #
 class AccountWorker
+  require 'envelope/imap'
   include Sidekiq::Worker
 
   def perform(account_id)
@@ -25,33 +26,32 @@ class AccountWorker
     @imap = Envelope::IMAP.new(@account)
     imap_mailboxes = @imap.mailboxes.sort!{ |a,b| a.name <=> b.name }
 
-    # delete old mailboxes
-    imap_mailbox_locations = imap_mailboxes.collect{ |m| m.name }
-    @account.mailboxes.where(:location.nin => imap_mailbox_locations).destroy_all
+    puts "|\n"*10
+    puts imap_mailboxes
+    puts "|\n"*10
 
-    # iterate over each mailbox and create/update it's attributes
-    mailboxes_hash = Hash[ *@account.mailboxes.collect{|m| [m.location, m]}.flatten ]
+    # delete old mailboxes
+    @account.mailboxes.where(:location.nin => imap_mailboxes.map(&:name)).destroy_all
 
     # iterate over each imap_mailbox and update our local mailbox
     imap_mailboxes.each_with_index do |imap_mailbox, index|
-      mailbox = mailboxes_hash[imap_mailbox.name] || @account.mailboxes.new
+      mailbox = @account.mailboxes.where(location: imap_mailbox.name).first || @account.mailboxes.new
 
       # set attributes
-      mailbox.name = imap_mailbox.name
+      mailbox.name = imap_mailbox.name.split(imap_mailbox.delim)[-1]    # INBOX.My Folder.Sub-Folder => Sub-Folder
       mailbox.location = imap_mailbox.name
       mailbox.flags = imap_mailbox.attr.collect{ |f| f.to_s.downcase }
 
-      mailboxes_hash[mailbox.location] = mailbox
-
       # does it have a parent?
-      location = imap_mailbox.name.split(imap_mailbox.delim)[0...-1].join(imap_mailbox.delim)
-      if parent = mailboxes_hash[location]
+      path = imap_mailbox.name.split(imap_mailbox.delim)        # INBOX.My Folder.Sub-Folder
+      parent_location = path[0...-1].join(imap_mailbox.delim)   # INBOX.My Folder
+      if parent = @account.mailboxes.where(location: parent_location).first
         mailbox.parent = parent
       end
 
       mailbox.save! if mailbox.changed?
 
-      MailboxWorker.perform_async(mailbox.id)
+      # MailboxWorker.perform_async(mailbox.id)
     end
 
     MappingWorker.perform_async(@account.id)
@@ -63,10 +63,10 @@ class AccountWorker
 
   private
   def publish_start
-    @user.publish('account-worker-start', { account: @account })
+    #@user.publish('account-worker-start', { account: @account })
   end
 
   def publish_finish
-    @user.publish('account-worker-finish', { account: @account })
+    #@user.publish('account-worker-finish', { account: @account })
   end
 end

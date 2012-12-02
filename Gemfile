@@ -14,8 +14,9 @@ gem 'magiconf'
 gem 'mail', :require => false
 gem 'mongoid'
 gem 'mongoid-ancestry'
-gem 'nokogiri', :require => false
+gem 'naturalsort', :require => 'natural_sort_kernel'
 gem 'nested_form', :git => 'git://github.com/ryanb/nested_form.git'
+gem 'nokogiri', :require => false
 gem 'oj'
 gem 'puma'
 gem 'pusher'

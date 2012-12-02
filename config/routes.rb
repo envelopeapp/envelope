@@ -57,6 +57,9 @@ Envelope::Application.routes.draw do
   get 'users/confirm/:id/:confirmation_token' => 'users#confirm', :as => :confirm_user
   get 'confirmation-email' => 'users#confirmation_email', :as => :confirmation_email
 
+  # pusher
+  match '/pusher/auth' => 'pusher#auth', :as => :pusher_auth
+
   root :to => redirect('/messages/inbox')
 
   mount Sidekiq::Web, at: '/sidekiq'

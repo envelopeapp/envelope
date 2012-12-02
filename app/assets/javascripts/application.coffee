@@ -12,6 +12,7 @@
 #= require contacts
 #= require labels
 #= require messages
+#= require notifications
 #= require sidebar
 #= require topbar
 #= require uploader
@@ -19,7 +20,7 @@
 #= require_self
 
 # jQuery overrides
-jQuery.event.props.push("dataTransfer");
+jQuery.event.props.push('dataTransfer');
 
 $ ->
   $('body').tooltip

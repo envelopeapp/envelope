@@ -58,10 +58,10 @@ class MailboxWorker
   end
 
   def publish_start
-    @user.publish('mailbox-worker-start', { mailbox: @mailbox, account: @account })
+    #@user.publish('mailbox-worker-start', { mailbox: @mailbox, account: @account })
   end
 
   def publish_finish
-    @user.publish('mailbox-worker-finish', { mailbox: @mailbox, account: @account })
+    #@user.publish('mailbox-worker-finish', { mailbox: @mailbox, account: @account })
   end
 end

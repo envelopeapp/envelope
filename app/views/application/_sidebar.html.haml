@@ -19,7 +19,7 @@
           %i.icon-white.icon-trash
           Trash
 
-  - current_user.accounts.each do |account|
+  - current_user.accounts.order_by(:name => :asc).each do |account|
     .sidebar-subtitle.arrow= account.name
     .mailboxes{:'data-account-id' => account._id}
       = nested_mailboxes(account.mailboxes.arrange)

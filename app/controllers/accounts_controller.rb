@@ -12,14 +12,6 @@ class AccountsController < ApplicationController
     @account.build_outgoing_server.build_authentication
   end
 
-  def show
-    if @account.last_synced.nil?
-      @account.sync!
-    else
-      render action:'show'
-    end
-  end
-
   def create
     @account = Account.new(params[:account])
     @account.user = current_user

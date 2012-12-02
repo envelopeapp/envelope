@@ -67,20 +67,26 @@ class User
 
   # Publish a message to this user's queue using Pusher
   #
-  # @param []
+  # @param [String] event the name of the event to publish
+  # @param [Hash] data the data to publish with the event
   def publish(event = 'default_event', data = {})
-    return
     unless Rails.env.test? || ENV['SEEDING']
       begin
         Pusher[self.channel].trigger!(event, { user: self, timestamp: Time.now }.merge(data))
       rescue Pusher::Error => e
         Rails.logger.error e
+      rescue Exception => e
+        Rails.logger.error e
       end
     end
   end
 
+  # The channel name for this user, prefixed with private-
+  # See PusherDocs for more informatoin
+  #
+  # @return [String] the channel name
   def channel
-    Digest::SHA1.hexdigest(self.id)
+    "private-#{self.id.to_s}"
   end
 
   # Search elastic search index using tire. Currently we only search messages, but

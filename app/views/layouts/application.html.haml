@@ -6,6 +6,8 @@
     = stylesheet_link_tag 'application', :media => 'screen, projection'
     = javascript_include_tag 'application'
     = javascript_include_tag 'http://js.pusher.com/1.12/pusher.min.js'
+    :javascript
+      new Notifications('#{Pusher.key}', '#{current_user.id}');
     = csrf_meta_tag
 
   %body

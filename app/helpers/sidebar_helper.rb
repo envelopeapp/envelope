@@ -12,7 +12,7 @@ module SidebarHelper
     content_tag :ul do
       mailboxes.collect do |mailbox, children|
         content_tag :li do
-          (mailbox_link(mailbox) + nested_mailboxes(children)).html_safe
+          (mailbox_link(mailbox) + nested_mailboxes(children.natural_sort)).html_safe
         end
       end.join.html_safe
     end
@@ -63,5 +63,4 @@ module SidebarHelper
 
     classes.join(' ')
   end
-
 end
