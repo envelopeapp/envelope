@@ -8,7 +8,6 @@ gem 'chronic'
 gem 'eco'
 gem 'foreman'
 gem 'haml'
-gem 'jquery-rails'
 gem 'kaminari'
 gem 'magiconf'
 gem 'mail', :require => false
@@ -38,6 +37,8 @@ end
 
 group :assets do
   gem 'coffee-rails', '~> 3.2.2'
+  gem 'fancybox2-rails'
+  gem 'jquery-rails'
   gem 'sass-rails', '~> 3.2.5'
   gem 'uglifier', '>= 1.3.0'
 end

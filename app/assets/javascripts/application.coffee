@@ -2,6 +2,7 @@
 #= require jquery-ui
 #= require jquery_ujs
 
+#= require fancybox
 #= require jquery_nested_form
 
 #= require_tree ./lib

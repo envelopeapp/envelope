@@ -20,7 +20,9 @@ class Contact
   embeds_many :addresses
 
   # nested attributes
-  accepts_nested_attributes_for :emails, :phones, :addresses
+  accepts_nested_attributes_for :emails, reject_if: lambda { |a| a['email_address'].blank? }
+  accepts_nested_attributes_for :phones, reject_if: lambda { |a| a['phone_number'].blank? }
+  accepts_nested_attributes_for :addresses, reject_if: lambda { |a| a['line_1'].blank? }
 
   # validations
   validates_presence_of :first_name

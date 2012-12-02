@@ -1,6 +1,6 @@
 <div class="contact bubble" data-contact-id="<%= @contact._id %>">
   <div class="contact-image-container">
-    <img src="/assets/contact-silhouette.gif" class="contact-image" />
+    <img src="<%= @contact.gravatar %>" class="contact-image" />
   </div>
   <div class="bubble-actions btn-group">
     <a href="/contacts/<%= @contact._id %>/edit" class="btn">

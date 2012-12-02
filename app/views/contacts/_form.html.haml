@@ -14,22 +14,19 @@
       /= f.text_field :birthday
 
       = f.fields_for :emails do |ef|
-        .line
-          = ef.select :label, ['Work', 'Home']
-          = ef.text_field :email_address
-      .add
-        = f.link_to_add '+Email', :emails
+        = ef.text_field :email_address
+        = ef.select :label, %w(Work Home), :label => false, :include_blank => true
+      = f.link_to_add :emails, :class => 'btn pull-right', :style => 'margin-top: -47px;' do
+        %i.icon.icon-plus
+        Email
 
-      .field
-        .form-header
-          = f.label :phones
-        .form-body
-          = f.fields_for :phones do |pf|
-            .line
-              = pf.select :label, ["Mobile", "Work", "Home"]
-              = pf.text_field :phone_number
-        .add
-          = f.link_to_add '+Phone', :phones
+
+      = f.fields_for :phones do |pf|
+        = pf.text_field :phone_number
+        = pf.select :label, %w(Mobile Work Home), :label => false, :include_blank => true
+      = f.link_to_add :phones, :class => 'btn pull-right', :style => 'margin-top: -47px;' do
+        %i.icon.icon-plus
+        Phone
 
     .modal-footer
       = f.cancel

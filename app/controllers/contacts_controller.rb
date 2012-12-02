@@ -6,13 +6,6 @@ class ContactsController < ApplicationController
     @contact.phones.build
   end
 
-  def show
-    respond_to do |format|
-      format.html
-      format.json { render json:@contact.to_json(:include => [:emails, :phones, :addresses]) }
-    end
-  end
-
   def search
     @contacts = current_user.contacts.search(params[:term])
 
