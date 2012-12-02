@@ -29,7 +29,7 @@
       = f.text_field :bcc, :class => 'span5 contact-search'
       = f.text_field :subject, :class => 'span5'
       = f.text_area :body, :class => 'span5', :rows => 8
-      = f.file_field :attachments, :multiple => true, :class => 'span5'
+      = f.file_field :attachments, :multiple => true, :label => 'Attach', :class => 'span5 file_field'
     .modal-footer
       = link_to 'Cancel', unified_mailbox_messages_path(:inbox), :class => 'btn'
       = f.submit 'Send Message'

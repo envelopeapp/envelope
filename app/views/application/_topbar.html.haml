@@ -1,6 +1,7 @@
 - if logged_in?
   .topbar
-    .logo &nbsp;
+    .logo-wrapper
+      = link_to '', messages_path, :class => 'logo'
     / .btn-group.pull-left
     /   = link_to '#', :class => 'btn dropdown-toggle', :data => { :toggle => 'dropdown' } do
     /     - if params[:controller] == 'contacts'
@@ -19,7 +20,7 @@
 
     .btn-group.pull-left
       = link_to contacts_path, :id => 'wide-btn', :class => 'remote-modal btn', :rel => 'tooltip', :title => 'Contacts', :'data-placement' => 'bottom', :'data-toggle' => 'modal' do
-        %i{:class => 'icon icon-list-alt'}
+        %i{:class => 'icon icon-th-list'}
     .btn-toolbar
       - if current_user.accounts.empty?
         .btn-group
@@ -46,7 +47,7 @@
             Edit Profile
         %li
           = link_to accounts_path do
-            %i.icon.icon-list
+            %i.icon.icon-cog
             Manage Accounts
         %li.divider
         %li

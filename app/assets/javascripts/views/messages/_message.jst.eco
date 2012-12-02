@@ -6,8 +6,8 @@
     <% end %>
   </div>
 
-  <img src="<%= @message.fromers[0]?.gravatar || '/assets/contact-silhouette.git' %>" class="contact-image" />
   <div class="bubble-header">
+    <img src="<%= @message.fromers[0]?.gravatar || '/assets/contact-silhouette.git' %>" class="contact-image" />
     <div class="bubble-header-main">
       <% for fromer in @message.fromers: %>
         <span class="fromer"><%= fromer.name || fromer.email_address %></span>

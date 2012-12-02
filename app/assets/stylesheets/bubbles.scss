@@ -70,24 +70,27 @@
   .contact-image {
     border-radius: 5px;
     float: left;
+    margin-right: 8px;
   }
 
   .bubble-header {
     color: #666;
     float: left;
-    margin: -2px 0 0 8px;
-    width: 80%;
+    margin: -2px 0 0 0;
     font-size: 12px;
     line-height: 16px;
-
-    .bubble-header-main {
-      color: #333;
-      font-weight: bold;
-    }
-
+    width: 100%;
+    
+    .bubble-header-main,
     .bubble-header-alt {
       color: #333;
+      overflow: hidden;
+      text-overflow: ellipsis;
       white-space: nowrap;
+    }
+
+    .bubble-header-main {
+      font-weight: bold;
     }
   }
 
