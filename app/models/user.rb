@@ -121,7 +121,7 @@ class User
   # with the new password.
   def reset_password!
     generate_token!(:reset_password_token)
-    UserMail.delay.reset_password(self._id)
+    UserMailer.delay.reset_password(self._id)
   end
 
   # Generates a unique token for this user

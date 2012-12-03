@@ -24,8 +24,8 @@ class UsersController < ApplicationController
 
   def forgot_password
     if params[:login].present?
-      @user.reset_password! if @user = User.find_by_username(params[:login])
-      redirect_to forgot_password_path, notice:'If that account existed, we sent a new password to your email inbox.'
+      @user.reset_password! if @user = User.where(username: params[:login]).first
+      redirect_to forgot_password_path, notice: 'If that account existed, we sent a new password to your email inbox.'
     end
   end
 

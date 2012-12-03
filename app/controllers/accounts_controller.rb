@@ -17,7 +17,7 @@ class AccountsController < ApplicationController
     @account.user = current_user
 
     if @account.save
-      redirect_to @account, notice: "The #{@account.name} was successfully created! We are importing your email. This can take up to 5 minutes."
+      redirect_to unified_mailbox_messages_path('inbox'), notice: "The #{@account.name} was successfully created! We are importing your email. This can take up to 5 minutes."
     else
       render action: "new"
     end
