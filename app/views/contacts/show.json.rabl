@@ -12,7 +12,7 @@ attributes :id,
            :notes
 
 node :contact_url do |contact|
-  contact_url(contact)
+  Rails.application.routes.url_helpers.contact_url(contact)
 end
 
 node :gravatar do |contact|

@@ -25,7 +25,7 @@ gem 'rabl'
 gem 'rails', '3.2.9'
 gem 'sidekiq'
 gem 'tire'
-gem 'vcard', :require => false
+gem 'vpim', :require => false
 gem 'warden'
 
 # cancan needs to be last so it picks up the mongo driver

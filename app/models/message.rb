@@ -117,6 +117,10 @@ class Message
     to_json :methods => %w(user_id)
   end
 
+  # def serializable_hash(options = {})
+  #   Rabl::Renderer.json(self, 'messages/show')
+  # end
+
   # private methods
   private
   def uid_store(keys, fields)

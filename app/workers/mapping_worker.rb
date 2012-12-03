@@ -8,8 +8,8 @@ class MappingWorker
 
   def perform(account_id)
     @account = Account.find_by(id: account_id)
-    @user = @account.user
     return if @account.nil?
+    @user = @account.user
 
     @account.mailboxes.each do |mailbox|
       @account.inbox_mailbox      = mailbox if !(mailbox.flags & inbox_flags).empty?      || mailbox.name.downcase =~ /^inbox/

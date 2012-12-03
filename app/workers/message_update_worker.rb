@@ -12,6 +12,8 @@ class MessageUpdateWorker
     @user = @account.user
     @imap = Envelope::IMAP.new(@account)
 
+    publish_start
+
     # RFC-4549 recommends the following commands:
     #   tag1 UID FETCH <last_seen_uid+1>:* <descriptors>
     #   tag2 UID FETCH 1:<last_seen_uid> FLAGS
@@ -39,5 +41,15 @@ class MessageUpdateWorker
         message.update_attributes(flags: messages[message.uid].flags)
       end
     end
+
+    publish_finish
+  end
+
+  def publish_start
+    @user.publish 'message-update-worker-start', { mailbox: @mailbox }
+  end
+
+  def publish_finish
+    @user.publish 'message-update-worker-finish', { mailbox: @mailbox }
   end
 end

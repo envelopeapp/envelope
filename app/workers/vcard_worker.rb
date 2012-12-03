@@ -1,4 +1,4 @@
-require 'vcard'
+require 'vpim'
 
 #
 # Import contacts from vcards
@@ -11,7 +11,7 @@ class VcardWorker
   def perform(user_id, path)
     @user = User.find(user_id)
     @file = File.open(path, 'r')
-    @vcards = Vpim::Vcard.decode(@file)
+    @vcards = ::Vpim::Vcard.decode(@file)
     @file.close
     @contacts = []
 

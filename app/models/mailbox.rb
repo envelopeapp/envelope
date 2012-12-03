@@ -39,6 +39,10 @@ class Mailbox
     (%w(noselect) & self.flags).empty?
   end
 
+  def serializable_hash(options = {})
+    Rabl.render(self, 'mailboxes/show', view_path: 'app/views', format: :hash)
+  end
+
   # Return the UID of the last message received by this client
   #
   # @return [Integer] the last UID
