@@ -27,7 +27,7 @@ class Message
   # fields
   field :uid, type: Integer
   field :message_id, type: String
-  field :subject, type: String
+  field :subject, type: String, default: '(No Subject)'
   field :timestamp, type: DateTime
   field :flags, type: Array, default: []
   field :full_text_part, type: String

@@ -20,8 +20,7 @@ Envelope::Application.routes.draw do
     resources :mailboxes do
       resources :messages do
         get 'page/:page' => 'messages#index', :on => :collection, :as => :page
-
-        resources :attachments
+        get 'attachments/:id/*filename' => 'attachments#show', :as => :attachment
 
         put 'unread' => 'messages#unread', :as => :unread
         put 'flag' => 'messages#flag', :as => :flag

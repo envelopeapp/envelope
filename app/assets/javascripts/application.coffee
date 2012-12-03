@@ -23,6 +23,11 @@
 # jQuery overrides
 jQuery.event.props.push('dataTransfer');
 
+# Fancybox
+$ ->
+  $('.fancybox').fancybox
+    live: 'true'
+
 $ ->
   $('body').tooltip
     selector: '[rel=tooltip]'

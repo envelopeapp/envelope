@@ -166,8 +166,13 @@
     }
 
     .bubble-body {
-      margin-top: 10px;
       font-size: 13px;
+      margin-top: 10px;
+      overflow: scroll;
+
+      p {
+        margin-bottom: 10px;
+      }
     }
   }
 }

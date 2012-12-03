@@ -40,13 +40,42 @@ child :labels do
 end
 
 child :attachments do
-  extends 'attachments/show'
+  attributes :id, :filename, :path
+
+  node :attachment_url do |attachment|
+    message = attachment.message
+    account_mailbox_message_attachment_path(message.account_id, message.mailbox_id, message.id, attachment.id, attachment.filename)
+  end
 end
 
 node :preview do |message|
   if message.text_part
     truncate(message.text_part.gsub("\n", ' ').strip, length: 300)
   else
-    '<i>Preview unavailable...</i>'
+    '<i>This message has no content</i>'
+  end
+end
+
+TextPipeline = HTML::Pipeline.new [
+  HTML::Pipeline::MarkdownFilter,
+  HTML::Pipeline::SanitizationFilter,
+  HTML::Pipeline::AutolinkFilter,
+  HTML::Pipeline::MentionFilter,
+  HTML::Pipeline::EmojiFilter,
+  HTML::Pipeline::SyntaxHighlightFilter
+], gfm: true, asset_root: asset_path(''), base_url: 'http://twitter.com/'
+
+HTMLPipeline = HTML::Pipeline.new [
+  HTML::Pipeline::SanitizationFilter
+]
+node :content do |message|
+  if message.text_part
+    TextPipeline.call(message.text_part)[:output]
+  else
+    if message.html_part
+      HTMLPipeline.call(message.html_part)[:output]
+    else
+      '<i>This message has no content...</i>'
+    end
   end
 end

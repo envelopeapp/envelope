@@ -20,13 +20,13 @@ node :gravatar do |contact|
 end
 
 child :emails do
-  extends 'emails/index'
+  attributes :id, :label, :email_address
 end
 
 child :phones do
-  extends 'phones/index'
+  attributes :id, :label, :phone_number
 end
 
 child :addresses do
-  extends 'addresses/index'
+  attributes :id, :label, :line_1, :line_2, :city, :state, :country, :zip_code
 end

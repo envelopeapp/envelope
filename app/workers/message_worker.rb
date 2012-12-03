@@ -32,7 +32,7 @@ class MessageWorker
     messages.delete_if{ |k,v| existing_uids.include?(k) }
 
     messages.values.each do |message|
-      m = @mailbox.messages.create!(
+      saved_message = @mailbox.messages.create!(
         mailbox_id: @mailbox.id,
         uid: message.uid,
         message_id: message.message_id,
@@ -51,18 +51,19 @@ class MessageWorker
 
       message.attachments.each do |attachment|
         begin
-          parent = Rails.root.join 'tmp', 'attachments', self.message.user_id, self.message.id
+          parent = Rails.root.join 'tmp', 'attachments', @user.id, saved_message.id
           FileUtils.mkdir_p(parent)
 
           path = File.join(parent, attachment.filename)
           File.open(path, 'w+b', 0644){ |file| file.write(attachment.body.decoded) }
 
-          m.attachments.create!(
+          saved_message.attachments.create!(
             filename: attachment.filename,
             path: path
           )
         rescue Exception => e
-          Rails.logger.error "Unable to save attachment for #{attachment.filename} on #{m.message_id} because #{e.message}"
+          Rails.logger.error "Unable to save attachment for #{attachment.filename} on #{message.message_id} because #{e.message}"
+          Rails.logger.error "  #{e.backtrace.join("\n  ")}"
         end
       end
     end

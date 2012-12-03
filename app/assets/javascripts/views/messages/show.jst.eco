@@ -79,12 +79,12 @@
   <hr class="bubble-divider" />
 
   <div class="bubble-body">
-    <%- @message.sanitized_html %>
+    <%- @message.content %>
 
     <% if @message.attachments?.length > 0: %>
       <hr class="bubble-divider" />
       <% for attachment in @message.attachments: %>
-        <a href="<%= attachment.attachment_url %>" target="_TOP" class="btn btn-mini"><%= attachment.filename %></a>
+        <a href="<%= attachment.attachment_url %>" rel="attachments_<%= @message.id %>" title="<%= attachment.filename %>" target="_TOP" class="fancybox btn btn-small"><%= attachment.filename %></a>
       <% end %>
     <% end %>
   </div>
