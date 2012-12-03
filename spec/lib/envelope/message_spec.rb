@@ -32,7 +32,8 @@ describe Envelope::Message do
     its(:attachments?) { should be_false }
     its(:attachments) { should be_empty }
     its(:raw_source) { should be_a String }
-    its(:to_s) { should == '#<Envelope::Message to=["sethvargo@gmail.com"] from=["venmo@venmo.com"] cc=[] bcc=[] reply_to=["andrew.willig@gmail.com"] subject="Andrew Willig paid you $5.00 for Papa John\'s Pizza" text_part="Andrew Willig paid you $5.00 for Papa John\'s Pizza ...">' }
+    its(:to_s) { should == '#<Envelope::Message to=["sethvargo@gmail.com"] from=["venmo@venmo.com"] subject="Andrew Willig paid you $5.00 for Papa John\'s Pizza">' }
+    its(:inspect) { should == '#<Envelope::Message to=["sethvargo@gmail.com"] from=["venmo@venmo.com"] cc=[] bcc=[] reply_to=["andrew.willig@gmail.com"] subject="Andrew Willig paid you $5.00 for Papa John\'s Pizza" text_part="Andrew Willig paid you $5.00 for Papa John\'s Pizza ...">' }
     its(:to_yaml) { should match '--- !ruby/object:Envelope::Message' }
 
     context 'with flags' do
@@ -69,32 +70,50 @@ describe Envelope::Message do
     its(:html_part) { should_not match /<b>From:<\/b> Seth Vargo/ }
   end
 
-  # context 'attachment' do
-  #   subject { build_message 'attachment' }
+  context 'attachment' do
+    subject { build_message 'attachment' }
 
-  #   its(:text_part) { should == 'This will not be rendered inline. There should be one attachment.' }
-  #   its(:html_part) { should == 'foo' }
-  #   its(:sanitized_html) { should == 'foo' }
-  #   its(:attachments) { should_not be_empty }
-  # end
+    its(:text_part) { should == 'This will not be rendered inline. There should be one attachment.' }
+    its(:html_part) { should be_nil }
+    its(:sanitized_html) { should be_nil }
+    its(:attachments) { should_not be_empty }
+  end
 
-  # context 'attachment_inline' do
-  #   subject { build_message 'attachment_inline' }
+  context 'attachment_inline' do
+    subject { build_message 'attachment_inline' }
 
-  #   its(:text_part) { should == "This is a test email with a picture attachment.\n\n\nThanks,\nSeth" }
-  #   its(:html_part) { should == '<html><head><meta http-equiv=\"Content-Type\" content=\"text/html charset=us-ascii\"></head><body style=\"word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space; \">This is a test email with a picture attachment.<div><img id=\"16e42e33-9503-4d87-a41d-f28309f49814\" height=\"536\" width=\"433\" apple-width=\"yes\" apple-height=\"yes\" src=\"cid:6929718D-257D-44B6-8C48-E15942EEB463@WV.CC.CMU.EDU\"></div><div><br></div><div>Thanks,</div><div>Seth</div></body></html>' }
-  #   its(:sanitized_html) { should == '<p>This is a test email with a picture attachment.</p><p></p><p></p><p>Thanks,</p><p>Seth</p>' }
-  #   its(:attachments) { should_not be_empty }
-  # end
+    its(:text_part) { should == "This is a test email with a picture attachment.\n\n\nThanks,\nSeth" }
+    its(:html_part) { should == '<html><head><meta http-equiv="Content-Type" content="text/html charset=us-ascii"></head><body style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space; ">This is a test email with a picture attachment.<div><img id="16e42e33-9503-4d87-a41d-f28309f49814" height="536" width="433" apple-width="yes" apple-height="yes" src="cid:6929718D-257D-44B6-8C48-E15942EEB463@WV.CC.CMU.EDU"></div><div><br></div><div>Thanks,</div><div>Seth</div></body></html>' }
+    its(:sanitized_html) { should == '<p>This is a test email with a picture attachment.</p><p></p><p></p><p>Thanks,</p><p>Seth</p>' }
+    its(:attachments) { should_not be_empty }
+  end
 
-  # context 'attachment_inline_only' do
-  #   subject { build_message 'attachment_inline_only' }
+  context 'attachment_inline_only' do
+    subject { build_message 'attachment_inline_only' }
 
-  #   its(:text_part) { should be_empty }
-  #   its(:html_part) { should be_empty }
-  #   its(:sanitized_html) { should == 'foo' }
-  #   its(:attachments) { should_not be_empty }
-  # end
+    its(:text_part) { should be_nil }
+    its(:html_part) { should be_nil }
+    its(:sanitized_html) { should be_nil }
+    its(:attachments) { should_not be_empty }
+
+    # We need to specifically check this because we are "guessing" that the message
+    # has an attachment when the content is only binary data.
+    context 'attachment content' do
+      let(:attachment) { subject.attachments.first }
+
+      it 'has the correct filename' do
+        attachment.filename.should == 'Screen Shot 2012-12-02 at 11.43.43 AM.png'
+      end
+
+      it 'has the correct content_type' do
+        attachment.content_type.should match /^image\/png/
+      end
+
+      it 'has the binary content' do
+        attachment.body.decoded.encoding.should == Encoding::BINARY
+      end
+    end
+  end
 
   context 'base64 encoded' do
     subject { build_message 'base64' }
@@ -174,9 +193,9 @@ EOH
   context 'no_html' do
     subject { build_message 'no_html' }
 
-    its(:text_part) { should match /\ADear Customer,\nYour Planio trial period has expired/ }
-    its(:html_part) { should match /\ADear Customer,\n\nYour Planio trial period has expired./ }
-    its(:sanitized_html) { should match /\A<p>Dear Customer,<br><br>Your Planio trial period has expired/ }
+    its(:text_part) { should match /\ADear Customer,\n\nYour Planio trial period has expired/ }
+    its(:html_part) { should be_nil }
+    its(:sanitized_html) { should be_nil }
   end
 
   context 'original_message' do

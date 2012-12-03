@@ -12,8 +12,8 @@ Spork.prefork do
   require 'factory_girl'
   require 'rspec/rails'
   require 'rspec/mocks'
-  require 'webmock/rspec'
   require 'sidekiq/testing'
+  require 'webmock/rspec'
 
   # Support files
   Dir[Rails.root.join('spec/support/**/*.rb')].each{ |f| require f }

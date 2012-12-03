@@ -31,39 +31,52 @@ module Envelope
     # i.e. the last part of the message received, without the
     # rest of the conversation thread
     def text_part
-      return nil if full_text_part.nil?
-      @text_part ||= MessageTools.remove_appended_messages(full_text_part)
+      @text_part ||= begin
+        return nil if full_text_part.nil?
+        Envelope::MessageTools.remove_appended_messages(full_text_part)
+      end
     end
 
     # Returns the full text part of the email, including
     # the previously included content like replies and forwards
     def full_text_part
-      part = (message.text_part && message.text_part.body) || MessageTools.html_to_text(full_html_part)
-      return nil if part.nil?
-      @full_text_part ||= MessageTools.normalize(part)
+      @full_text_part ||= begin
+        part ||= (message.text_part && message.text_part.body)
+        part ||= (message.content_type =~ /text\/plain/ && message.body.decoded)
+        part ||= Envelope::MessageTools.html_to_text(full_html_part)
+        return nil if part.nil?
+        Envelope::MessageTools.normalize(part)
+      end
     end
 
     # Returns only the relevant html part of the conversation,
     # i.e. the last part of the message received, without the
     # rest of the conversation thread
     def html_part
-      return nil if full_html_part.nil?
-      @html_part ||= MessageTools.remove_appended_messages(full_html_part)
+      @html_part ||= begin
+        return nil if full_html_part.nil?
+        Envelope::MessageTools.remove_appended_messages(full_html_part)
+      end
     end
 
     # Returns the full html part of the email, including
     # the previously included content like replies and forwards
     def full_html_part
-      part = (message.html_part && message.html_part.body) || message.body
-      return nil if part.nil?
-      @full_html_part ||= MessageTools.normalize(part)
+      @full_html_part ||= begin
+        part ||= (message.html_part && message.html_part.body)
+        part ||= (message.content_type =~ /text\/html/ && message.body.decoded)
+        return nil if part.nil?
+        Envelope::MessageTools.normalize(part)
+      end
     end
 
     # Returns the fully-sanitized HTML, removing any classes, styles,
     # fonts, etc.
     def sanitized_html
-      return nil if html_part.nil?
-      @sanitized_html ||= MessageTools.sanitize(html_part)
+      @sanitized_html ||= begin
+        return nil if html_part.nil?
+        Envelope::MessageTools.sanitize(html_part)
+      end
     end
 
     # The flags on this message
@@ -147,7 +160,7 @@ module Envelope
     #
     # @return [String] the subject
     def subject
-      @subject ||= MessageTools.normalize(message.subject || '')
+      @subject ||= Envelope::MessageTools.normalize(message.subject || '')
     end
 
     # Accessor methods for each of the participant types
@@ -156,8 +169,8 @@ module Envelope
         addresses = [message[participant_type] || []].flatten
 
         addresses.collect do |address|
-          email_address = MessageTools.normalize(address.field.addresses.first) unless address.field.addresses.first.nil?
-          name = MessageTools.normalize(address.field.display_names.first) unless address.field.display_names.first.nil?
+          email_address = Envelope::MessageTools.normalize(address.field.addresses.first) unless address.field.addresses.first.nil?
+          name = Envelope::MessageTools.normalize(address.field.display_names.first) unless address.field.display_names.first.nil?
 
           OpenStruct.new({ name: name, email_address: email_address })
         end
@@ -191,21 +204,35 @@ module Envelope
     #
     # @return [Array] the attachments
     def attachments
-      @attachments ||= message.attachments
+      @attachments ||= begin
+        return message.attachments unless message.attachments.empty?
+        if full_text_part.nil? && full_html_part.nil?
+          [ message ]
+        else
+          []
+        end
+      end
     end
 
     # The full, unedited and unmodified email
     #
     # @return [String] the unmodified email
     def raw_source
-      @raw_source ||= MessageTools.normalize(message.raw_source)
+      @raw_source ||= Envelope::MessageTools.normalize(message.raw_source)
     end
 
     # Pretty print the Message
     #
     # @return [String] the string representation of this message
     def to_s
-      "#<Envelope::Message to=#{formatted_to} from=#{formatted_from} cc=#{formatted_cc} bcc=#{formatted_bcc} reply_to=#{formatted_reply_to} subject=\"#{subject}\" text_part=\"#{text_part.gsub(/\s+/, ' ')[0..50]}...\">"
+      "#<Envelope::Message to=#{formatted_to} from=#{formatted_from} subject=\"#{subject}\">"
+    end
+
+    # Inspected output for the Message
+    #
+    # @return [String] the string representation of the message
+    def inspect
+      "#<Envelope::Message to=#{formatted_to} from=#{formatted_from} cc=#{formatted_cc} bcc=#{formatted_bcc} reply_to=#{formatted_reply_to} subject=\"#{subject}\" text_part=\"#{preview = (text_part || html_part); (preview && preview.gsub(/\s+/, ' ') || 'No preview available')[0..50]}...\">"
     end
 
     # YAML dump of the object
